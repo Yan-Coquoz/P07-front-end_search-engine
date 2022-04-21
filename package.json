@@ -1,0 +1,23 @@
+{
+  "name": "p11-front-end-search-engine",
+  "description": "Création d'un algoritme de tri pour une barre de recherche",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yan-Coquoz/P11-front-end-search-engine.git"
+  },
+  "author": "Yan Coquoz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yan-Coquoz/P11-front-end-search-engine/issues"
+  },
+  "devDependencies": {
+    "eslint": "^8.13.0",
+    "eslint-config-prettier": "^8.5.0",
+    "prettier": "^2.6.2"
+  },
+  "homepage": "https://github.com/Yan-Coquoz/P11-front-end-search-engine/public/#index.html"
+}
