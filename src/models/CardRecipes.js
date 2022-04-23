@@ -18,19 +18,30 @@ export class CardRecipes {
     const time = document.createElement("span");
     const icon = document.createElement("span");
     const descBloc = document.createElement("div");
-    const ingredient = document.createElement("div");
+    const ingredientBox = document.createElement("ul");
     const desc = document.createElement("p");
 
     upperContainer.classList.add("article__upper-container");
     lowerContainer.classList.add("article__lower-container");
 
-    console.log(this.ingredients.length); // un tableau d'Objet
-    for (const key in this.ingredients) {
-      console.log(Object.hasOwnProperty.call(this.ingredients, key));
-      if (Object.hasOwnProperty.call(this.ingredients, key)) {
-        const element = this.ingredients[key];
-        console.log(element);
+    for (const props in this.ingredients) {
+      const baseObject = this.ingredients[props];
+      const ingredient = baseObject.ingredient;
+      const li = document.createElement("li");
+      let quantity, unit;
+      if (baseObject.quantite || baseObject.quantity) {
+        quantity = baseObject.quantity
+          ? baseObject.quantity
+          : baseObject.quantite;
       }
+      if (baseObject.unit) {
+        unit = baseObject.unit;
+      }
+      const contentProps = ` ${ingredient} : ${quantity ? quantity : ""} ${
+        unit ? unit : ""
+      }`;
+      li.textContent = contentProps;
+      ingredientBox.appendChild(li);
     }
 
     title.textContent = this.name;
@@ -40,7 +51,7 @@ export class CardRecipes {
     timeBloc.appendChild(time);
     timeBloc.appendChild(icon);
     title.appendChild(timeBloc);
-    descBloc.appendChild(ingredient);
+    descBloc.appendChild(ingredientBox);
     descBloc.appendChild(desc);
     lowerContainer.appendChild(title);
     lowerContainer.appendChild(descBloc);
