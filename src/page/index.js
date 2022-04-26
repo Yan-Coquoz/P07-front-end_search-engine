@@ -6,7 +6,10 @@ class MainApp {
   constructor() {
     this.articleCardContainer = document.querySelector("#card_container");
   }
-
+  /**
+   * Affichage de la barre de recherche
+   * @return {HTMLElement}
+   */
   displaySearchBar() {
     const container = document.querySelector("#searching_bar");
     const form = document.createElement("form");
@@ -14,17 +17,22 @@ class MainApp {
     form.appendChild(searchContaint);
     container.appendChild(form);
   }
-
+  /**
+   * Affichage des tags de recherche
+   * @return {HTMLElement}
+   */
   displaySearchByTag() {
     const container = document.querySelector("#searching_bar");
     const form = document.createElement("form");
     const tagElement = new SearchByTag().SearchByTagRenderDom();
-    // form.classList.add();
 
     form.appendChild(tagElement);
     container.appendChild(form);
   }
-
+  /**
+   * Affichage des cartes de recettes
+   * @return {HTMLElement}
+   */
   displayCardRecipes() {
     recipes.forEach((element) => {
       this.articleCardContainer.appendChild(
@@ -32,7 +40,10 @@ class MainApp {
       );
     });
   }
-
+  /**
+   * Appel des différentes methodes d'affichage du DOM
+   * @return {HTMLElement}
+   */
   init() {
     this.displaySearchBar();
     this.displaySearchByTag();

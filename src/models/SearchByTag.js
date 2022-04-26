@@ -1,27 +1,26 @@
 export class SearchByTag {
+  /**
+   * @returns {HTMLElement}
+   */
   SearchByTagRenderDom() {
     const container = document.querySelector("#searching_bar");
     const div = document.createElement("div");
     div.innerHTML = `<!-- ingredient -->
                     <div class="sort__blue py-2">
-                        <select name="ingredient" class="form-select bg-primary text-light" id="ingredient">
-                            <option value="">Ingrédients</option>
-                        </select>
+                        <input name="ingredient" class="form-control bg-primary text-light" id="ingredient" placeholder="Ingrédients">
+
                     </div>
                     <!-- appareils -->
                     <div class="sort__green  py-2">
-                        <select name="appareils" class="form-select bg-success text-light" id="appareils">
-                            <option value="">Appareils</option>
-                        </select>
+                        <input name="appareils" class="form-control bg-success text-light" id="appareils" placeholder="appareils">
+
                     </div>
                     <!-- ustensiles -->
                     <div class="sort__red  py-2">
-                        <select name="ustensiles" class="form-select bg-danger text-light " id="ustensiles">
-                            <option value="">Ustensiles</option>
-                        </select>
+                        <input name="ustensiles" class="form-control bg-danger text-light " id="ustensiles" placeholder="ustensiles">
                     </div>`;
 
-    div.classList.add("sort", "col-12", "col-sm-4");
+    div.classList.add("sort", "col-12", "col-sm-4", "form-group");
     return container.appendChild(div);
   }
 }

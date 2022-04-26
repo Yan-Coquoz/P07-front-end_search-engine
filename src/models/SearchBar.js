@@ -2,6 +2,9 @@ export class SearchBar {
   constructor() {
     this.icon = "../../public/assets/search.svg";
   }
+  /**
+   * @returns {HTMLElement}
+   */
   searchBarRenderDom() {
     const form = document.querySelector("#searching_bar");
     const div = document.createElement("div");

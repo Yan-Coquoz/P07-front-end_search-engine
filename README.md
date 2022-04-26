@@ -1,6 +1,6 @@
 # Création d'alogrithmes de recherche
 
-Lancement du projet `./public/index.html`
+Lancement du projet `./index.html`
 
 ## Pour le projet
 
@@ -8,3 +8,4 @@ Lancement du projet `./public/index.html`
 - Utilisation des design patterns.
 - Mise en place Eslint et Prettier.
 - Mise en place de Bootstrap (optionnel)🤯.
+- JSDoc

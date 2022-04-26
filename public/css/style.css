@@ -12,7 +12,11 @@ body {
 .card-body {
   background: var(--BgArticle);
 }
+form {
+  margin: 1rem 0;
+}
 /* SearchBar */
+
 .input-group {
   border-radius: 5px;
   overflow: hidden;
@@ -23,9 +27,12 @@ body {
   top: 7px;
   z-index: 10;
 }
-
+#ingredient::placeholder,
+#appareils::placeholder,
+#ustensiles::placeholder {
+  color: white;
+}
 /* card */
-
 .card-title {
   font-size: 18px;
   font-weight: bold;
