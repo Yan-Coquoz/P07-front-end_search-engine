@@ -29,7 +29,7 @@ export class CardRecipes {
     article.style.width = "18rem";
 
     upperContainerImg.classList.add("card-img-top");
-    upperContainerImg.setAttribute("src", "../../docs/assets/imgRecette.svg");
+    upperContainerImg.setAttribute("src", "../../public/assets/imgRecette.svg");
     upperContainerImg.setAttribute("alt", "Photo de la recette ");
 
     lowerContainer.classList.add("card-body");

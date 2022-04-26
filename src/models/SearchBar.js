@@ -1,6 +1,6 @@
 export class SearchBar {
   constructor() {
-    this.icon = "../../docs/assets/search.svg";
+    this.icon = "../../public/assets/search.svg";
   }
   searchBarRenderDom() {
     const form = document.querySelector("#searching_bar");
