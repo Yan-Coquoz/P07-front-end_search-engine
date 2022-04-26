@@ -20,7 +20,7 @@ export class CardRecipes {
     const timeBloc = document.createElement("div");
     const title = document.createElement("h2");
     const time = document.createElement("span");
-    const icon = document.createElement("span");
+    const icon = document.createElement("img");
     const descBloc = document.createElement("div");
     const ingredientBox = document.createElement("ul");
     const desc = document.createElement("p");
@@ -29,7 +29,7 @@ export class CardRecipes {
     article.style.width = "18rem";
 
     upperContainerImg.classList.add("card-img-top");
-    upperContainerImg.setAttribute("src", "../../public/assets/imgRecette.svg");
+    upperContainerImg.setAttribute("src", "../../docs/assets/imgRecette.svg");
     upperContainerImg.setAttribute("alt", "Photo de la recette ");
 
     lowerContainer.classList.add("card-body");
@@ -55,8 +55,10 @@ export class CardRecipes {
       li.textContent = contentProps;
       ingredientBox.appendChild(li);
     }
+
     title.classList.add("card-title");
     title.textContent = this.name;
+
     time.textContent = this.time;
     desc.textContent = this.description;
 
