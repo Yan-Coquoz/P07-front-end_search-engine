@@ -1,6 +1,6 @@
 export class SearchBar {
   constructor() {
-    this.icon = "../../public/assets/search.svg";
+    this.icon = "./public/assets/search.svg";
   }
   /**
    * @returns {HTMLElement}
