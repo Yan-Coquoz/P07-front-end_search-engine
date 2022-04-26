@@ -9,9 +9,13 @@ export class CardRecipes {
     this.appliance = recipe.appliance;
     this.ustensils = recipe.ustensils;
   }
+  /**
+   * Affichage de la carte d'une recette
+   * @returns {HTMLElement}
+   */
   CardRenderDom() {
     const article = document.createElement("article");
-    const upperContainer = document.createElement("div");
+    const upperContainerImg = document.createElement("img");
     const lowerContainer = document.createElement("div");
     const timeBloc = document.createElement("div");
     const title = document.createElement("h2");
@@ -21,9 +25,16 @@ export class CardRecipes {
     const ingredientBox = document.createElement("ul");
     const desc = document.createElement("p");
 
-    upperContainer.classList.add("article__upper-container");
-    lowerContainer.classList.add("article__lower-container");
+    article.classList.add("card", "g-4");
+    article.style.width = "18rem";
 
+    upperContainerImg.classList.add("card-img-top");
+    upperContainerImg.setAttribute("src", "../../public/assets/imgRecette.svg");
+    upperContainerImg.setAttribute("alt", "Photo de la recette ");
+
+    lowerContainer.classList.add("card-body");
+
+    // rendu des ingredients
     for (const props in this.ingredients) {
       const baseObject = this.ingredients[props];
       const ingredient = baseObject.ingredient;
@@ -40,10 +51,11 @@ export class CardRecipes {
       const contentProps = ` ${ingredient} : ${quantity ? quantity : ""} ${
         unit ? unit : ""
       }`;
+
       li.textContent = contentProps;
       ingredientBox.appendChild(li);
     }
-
+    title.classList.add("card-title");
     title.textContent = this.name;
     time.textContent = this.time;
     desc.textContent = this.description;
@@ -55,8 +67,9 @@ export class CardRecipes {
     descBloc.appendChild(desc);
     lowerContainer.appendChild(title);
     lowerContainer.appendChild(descBloc);
-    article.appendChild(upperContainer);
+    article.appendChild(upperContainerImg);
     article.appendChild(lowerContainer);
+
     return article;
   }
 }

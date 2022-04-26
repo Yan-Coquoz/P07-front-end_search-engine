@@ -8,3 +8,17 @@
 body {
   font-family: "Lato";
 }
+#search-bar,
+.card-body {
+  background: var(--BgArticle);
+}
+/* SearchBar */
+.input-group {
+  border-radius: 5px;
+  overflow: hidden;
+}
+.input-group img {
+  position: absolute;
+  right: 10px;
+  top: 7px;
+}

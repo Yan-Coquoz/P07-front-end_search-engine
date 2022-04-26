@@ -18,40 +18,56 @@
 <body>
     <header class="container py-4">
         <h1 class="row">
-            <div class="col-4 h-25 m-auto">
-                <img src="./assets/icons.svg" alt="logo" class="w-100">
-            </div>
+
+            <img src="./assets/icons.svg" alt="logo" class="col-4 h-25 m-auto">
+
         </h1>
     </header>
     <main>
-        <form class="search">
-            <div class="searching__bar">
-                <label for="search-bar"></label>
-                <input type="text" id="search-bar" name="search-bar">
-            </div>
-        </form>
+        <div class="container">
+            <div class="row gy-4" id="searching_bar">
+                <!-- <form class="search col-12">
+                    <div class="searching__bar">
+                        <label for="search-bar"></label>
+                        <input type="text" class="form-control" id="search-bar" name="search-bar"
+                            placeholder="Rechercher une recette">
+                    </div>
+                </form> -->
 
-        <form class="sort">
-            <div class="sort__blue">
-                <select name="ingredient" id="ingredient">
-                    <option value="">Ingrédients</option>
-                </select>
+                <form class="sort col-12  ">
+                    <!-- ingredient -->
+                    <div class="sort__blue  col-md-3 py-2">
+                        <select name="ingredient" class="form-select bg-primary text-light" id="ingredient">
+                            <option value="">Ingrédients</option>
+                        </select>
+                    </div>
+                    <!-- appareils -->
+                    <div class="sort__green col-md-3 py-2">
+                        <select name="appareils" class="form-select bg-success text-light" id="appareils">
+                            <option value="">Appareils</option>
+                        </select>
+                    </div>
+                    <!-- ustensiles -->
+                    <div class="sort__red col-md-3 py-2">
+                        <select name="ustensiles" class="form-select bg-danger text-light " id="ustensiles">
+                            <option value="">Ustensiles</option>
+                        </select>
+                    </div>
+                </form>
             </div>
-            <div class="sort__green">
-                <select name="appareils" id="appareils">
-                    <option value="">Appareils</option>
-                </select>
-            </div>
-            <div class="sort__red">
-                <select name="ustensiles" id="ustensiles">
-                    <option value="">Ustensiles</option>
-                </select>
-            </div>
-        </form>
 
-        <section class="card_container">
+        </div>
 
+
+
+
+        <section class="container">
+            <div class="row ">
+                <div class="col-md-8 col-lg-4" id="card_container"></div>
+            </div>
         </section>
+
+
     </main>
     <script type="module" src="../src/page/index.js"></script>
 

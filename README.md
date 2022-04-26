@@ -4,4 +4,5 @@
 
 - Utilisation des classes.
 - Utilisation des design patterns.
-- Mise en place Eslint et Prettier
+- Mise en place Eslint et Prettier.
+- Mise en place de Bootstrap (optionnel).
