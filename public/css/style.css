@@ -39,7 +39,7 @@ form {
 .sort__green img,
 .sort__red img {
   position: absolute;
-  top: 22px;
+  top: 16px;
 }
 /* Card */
 #card_container {
@@ -49,7 +49,7 @@ form {
   gap: 1rem;
   width: 100%;
 }
-@media all and(min-width:768px) {
+@media all and (min-width: 768px) {
   #card_container {
     justify-content: center;
     align-items: center;

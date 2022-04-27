@@ -70,7 +70,7 @@ export class CardRecipes {
     ingredientBox.classList.add("col-5", "mb-0");
     desc.classList.add("col-7", "m-0");
 
-    icon.setAttribute("src", "../../public/assets/clock.svg");
+    icon.setAttribute("src", "./public/assets/clock.svg");
     icon.setAttribute("alt", "icone d'horloge");
     icon.classList.add("p-0");
 
