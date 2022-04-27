@@ -42,43 +42,20 @@ form {
   top: 16px;
 }
 /* Card */
-#card_container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
-  width: 100%;
-}
-@media all and (min-width: 768px) {
-  #card_container {
-    justify-content: center;
-    align-items: center;
-  }
+.card {
+  height: 380px;
+  width: 22rem;
 }
 .card-title {
   font-size: 18px;
-  font-weight: bold;
-  position: relative;
-  width: 100%;
 }
-.card-title > div {
-  display: inline;
-  position: absolute;
-  right: 0;
-  padding: 0.2rem 0;
+.desc_bloc {
+  height: 130px;
+  gap: 0.2rem;
 }
-
 ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
   font-size: 12px;
 }
 p {
   font-size: 12px;
-  height: calc(380px / 2);
-  word-wrap: break-word;
-  overflow: hidden;
-  /* white-space: nowrap; */
-  text-overflow: ellipsis;
 }
