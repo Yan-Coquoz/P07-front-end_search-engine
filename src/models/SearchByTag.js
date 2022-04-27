@@ -1,3 +1,4 @@
+import { searchIngredient } from "../utils/filter.js";
 export class SearchByTag {
   constructor() {
     this.icon = "./public/assets/dropdown.svg";
@@ -12,19 +13,21 @@ export class SearchByTag {
     div.innerHTML = `<!-- ingredient -->
                     <li class="sort__blue list-inline-item input-group ">
                         <input name="ingredient" class="form-control bg-primary " id="ingredient" placeholder="Ingrédients">
-                        <img src="${this.icon}" alt="icone tête de flèche" class="">
-
-                    </li>
+                        <img src="${this.icon}" alt="icone chevron">
+                        </li>
+                        <div class="dropdown bg-primary shadow rounded p-2 ">jj</div>
                     <!-- appareils -->
                     <li class="sort__green list-inline-item input-group my-2 my-sm-0">
                         <input name="appareils" class="form-control bg-success " id="appareil" placeholder="Appareils">
-                        <img src="${this.icon}" alt="icone tête de flèche">
-                    </li>
+                        <img src="${this.icon}" alt="icone chevron">
+                        </li>
+                        <div class="dropdown bg-success shadow rounded p-2 ">gg</div>
                     <!-- ustensiles -->
                     <li class="sort__red list-inline-item input-group ">
                         <input name="ustensiles" class="form-control bg-danger pe-3" id="ustensile" placeholder="Ustensiles">
-                        <img src="${this.icon}" alt="icone tête de flèche">
-                    </li>`;
+                        <img src="${this.icon}" alt="icone chevron">
+                    </li>
+                    <div class="dropdown bg-danger shadow rounded p-2 ">ff</div>`;
 
     div.querySelectorAll("input").forEach((inputElement) => {
       inputElement.addEventListener("input", this.selected);
@@ -49,7 +52,10 @@ export class SearchByTag {
   selected(evt) {
     switch (evt.target.id) {
       case "ingredient":
-        console.log("ingredient", evt.target.value);
+        const ingredient = evt.target.value;
+        if (ingredient.length >= 3) {
+          searchIngredient(ingredient);
+        }
         break;
       case "appareil":
         console.log("appareil", evt.target.value);

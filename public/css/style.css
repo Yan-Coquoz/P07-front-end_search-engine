@@ -35,11 +35,28 @@ form {
 #ustensile::placeholder {
   color: white;
 }
+ul {
+  position: relative;
+}
 .sort__blue img,
 .sort__green img,
 .sort__red img {
   position: absolute;
-  top: 16px;
+  top: 5px;
+}
+.sort__blue img:active,
+.sort__green img:active,
+.sort__red img:active {
+  transition: 0.5s;
+  transform: rotate(180deg);
+}
+/* dropdown */
+.dropdown {
+  display: none;
+  position: absolute;
+  bottom: -18px;
+  color: #e7e7e7;
+  z-index: 5;
 }
 /* Card */
 .card {

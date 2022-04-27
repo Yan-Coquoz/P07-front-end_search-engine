@@ -31,7 +31,7 @@ export class CardRecipes {
 
     upperContainerImg.classList.add("card-img-top");
     lowerContainer.classList.add("card-body");
-
+    //TODO isolé la boucle
     // rendu des ingredients
     for (const props in this.ingredients) {
       const baseObject = this.ingredients[props];
@@ -60,6 +60,7 @@ export class CardRecipes {
       li.insertAdjacentElement("afterbegin", strong);
       ingredientBox.appendChild(li);
     }
+
     icon.setAttribute("src", "./public/assets/clock.svg");
     icon.setAttribute("alt", "icone d'horloge");
 
@@ -84,11 +85,9 @@ export class CardRecipes {
     title.textContent = this.name;
     time.textContent = ` ${this.time} min`;
 
+    // TODO isolé la condition
     if (this.description.length >= 165) {
-      console.log("je suis au dessus de 172");
-
       const text = this.description.slice(0, 150) + "...";
-      console.log(text.length);
       desc.textContent = text;
     } else {
       desc.textContent = this.description;
