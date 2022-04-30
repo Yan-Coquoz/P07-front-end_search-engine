@@ -28,6 +28,13 @@ form {
 }
 /* Input Tag */
 #ingredient,
+#appareil,
+#ustensile {
+  outline-offset: none;
+  border: none;
+}
+
+#ingredient,
 #ingredient::placeholder,
 #appareil,
 #appareil::placeholder,
@@ -38,7 +45,7 @@ form {
 ul {
   position: relative;
 }
-.sort__blue img,
+/* .sort__blue img,
 .sort__green img,
 .sort__red img {
   position: absolute;
@@ -49,14 +56,21 @@ ul {
 .sort__red img:active {
   transition: 0.5s;
   transform: rotate(180deg);
-}
+} */
+
 /* dropdown */
-.dropdown {
+/* .dropdown {
   display: none;
   position: absolute;
   bottom: -18px;
   color: #e7e7e7;
   z-index: 5;
+} */
+.dropdown-toggle::after {
+  border: none;
+  content: url("../assets/dropdown.svg");
+  position: relative;
+  top: 5px;
 }
 /* Card */
 .card {

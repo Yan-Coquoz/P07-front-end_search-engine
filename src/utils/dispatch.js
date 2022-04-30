@@ -1,10 +1,19 @@
-import { searchAppareil, searchIngredient, searchUstensile } from "./filter.js";
+import {
+  searchAppareil,
+  searchIngredient,
+  searchUstensile,
+  searchAllAppareil,
+  searchAllIngredient,
+  searchAllUstensile,
+} from "./filter.js";
 
 /**
+ * distribut l'event
  * @param {KeyboardEvent} evt
  */
 export function selected(evt) {
   const element = evt.target.id;
+  document.removeEventListener("input", this.selected);
 
   if (evt.target.value.length >= 3) {
     switch (element) {
@@ -22,5 +31,26 @@ export function selected(evt) {
         break;
     }
   }
-  document.removeEventListener("input", this.selected);
+}
+/**
+ * distribut l'évent
+ * @param {MouseEvent} evt
+ */
+export function callTags(evt) {
+  const btnColor = evt.target.id;
+  document.removeEventListener("click", callTags);
+
+  switch (btnColor) {
+    case "btn-blue":
+      searchAllIngredient();
+      break;
+
+    case "btn-green":
+      searchAllAppareil();
+      break;
+
+    case "btn-red":
+      searchAllUstensile();
+      break;
+  }
 }

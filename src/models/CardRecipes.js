@@ -74,7 +74,6 @@ export class CardRecipes {
       "overflow-hidden",
       "my-2"
     );
-
     ingredientBox.classList.add("col-5", "mb-0", "list-inline", "w-50");
     desc.classList.add("col-5", "m-0");
     icon.classList.add("p-0");

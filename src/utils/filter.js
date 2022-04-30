@@ -1,5 +1,7 @@
 import { recipes } from "../data/recipes.js";
 import { reloadCard } from "./reloadCard.js";
+
+// Recherche par tags (input)
 /**
  * Recherche par ingrédients
  * @param {string} element
@@ -58,6 +60,7 @@ export function searchUstensile(element) {
     ? ErrorInTagInput()
     : reloadCard(recipesUstensiles);
 }
+
 /**
  * Créer un message d'erreur en cas de non concordance
  */
@@ -74,4 +77,49 @@ function ErrorInTagInput() {
   setTimeout(() => {
     span.remove();
   }, 3000);
+}
+
+// Dropdown Tags
+
+export function searchAllIngredient() {
+  const allIngredients = [];
+  recipes.forEach((props) => {
+    props.ingredients.forEach((i) => {
+      allIngredients.push(i.ingredient);
+    });
+  });
+  const ingredients = arrayCleaner(allIngredients);
+  // TODO  une fonction qui placera les données du tableau dans le dropdown
+  console.log(ingredients);
+}
+
+export function searchAllAppareil() {
+  const allAppareils = [];
+  recipes.forEach((app) => {
+    allAppareils.push(app.appliance);
+  });
+  const appareils = arrayCleaner(allAppareils);
+  // TODO  une fonction qui placera les données du tableau dans le dropdown
+  console.log(appareils);
+}
+
+export function searchAllUstensile() {
+  const allUstensiles = [];
+  recipes.forEach((ust) => {
+    ust.ustensils.forEach((u) => {
+      allUstensiles.push(u);
+    });
+  });
+  const ustensiles = arrayCleaner(allUstensiles);
+  // TODO  une fonction qui placera les données du tableau dans le dropdown
+  console.log(ustensiles);
+}
+
+/**
+ * Nettoye le tableau en entrée de ses valeurs en double
+ * @param {array} arrays
+ * @returns
+ */
+function arrayCleaner(arrays) {
+  return [...new Set(arrays)];
 }
