@@ -7,5 +7,5 @@ Lancement du projet `./index.html`
 - Utilisation des classes.
 - Utilisation des design patterns.
 - Mise en place Eslint et Prettier.
-- Mise en place de Bootstrap (optionnel)🤯.
+- Mise en place de Bootstrap (optionnel).
 - JSDoc

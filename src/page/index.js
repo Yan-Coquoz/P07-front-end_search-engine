@@ -2,7 +2,7 @@ import { recipes } from "../data/recipes.js";
 import { CardRecipes } from "../models/CardRecipes.js";
 import { SearchBar } from "../models/SearchBar.js";
 import { SearchByTag } from "../models/SearchByTag.js";
-class MainApp {
+export class MainApp {
   constructor() {
     this.articleCardContainer = document.querySelector("#card_container");
   }

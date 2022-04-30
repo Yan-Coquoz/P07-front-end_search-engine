@@ -1,8 +1,8 @@
-import { searchIngredient } from "../utils/filter.js";
+import { selected } from "../utils/dispatch.js";
+
 export class SearchByTag {
   constructor() {
     this.icon = "./public/assets/dropdown.svg";
-    this.selected = this.selected.bind(this);
   }
   /**
    * @returns {HTMLElement}
@@ -30,7 +30,7 @@ export class SearchByTag {
                     <div class="dropdown bg-danger shadow rounded p-2 ">ff</div>`;
 
     div.querySelectorAll("input").forEach((inputElement) => {
-      inputElement.addEventListener("input", this.selected);
+      inputElement.addEventListener("input", selected);
     });
 
     div.classList.add(
@@ -45,25 +45,5 @@ export class SearchByTag {
       "rounded"
     );
     return container.appendChild(div);
-  }
-  /**
-   * @param {KeyboardEvent} evt
-   */
-  selected(evt) {
-    switch (evt.target.id) {
-      case "ingredient":
-        const ingredient = evt.target.value;
-        if (ingredient.length >= 3) {
-          searchIngredient(ingredient);
-        }
-        break;
-      case "appareil":
-        console.log("appareil", evt.target.value);
-        break;
-      case "ustensile":
-        console.log("ustensile", evt.target.value);
-        break;
-    }
-    document.removeEventListener("input", this.selected);
   }
 }
