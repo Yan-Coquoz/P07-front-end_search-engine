@@ -17,8 +17,8 @@ export class SearchByTag {
         <button type="button" id="btn-blue" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
          
         </button>                 
-        <ul class="dropdown-menu bg-primary p-2 text-light" id="ul-blue">
-          <li class="dropdown-item text-light">Tout les ingredients</li>
+        <ul class="dropdown-menu bg-primary p-2 text-light col-12" id="ul-blue">
+          <!-- <li class="dropdown-item text-light">Tout les ingredients</li> -->
         </ul>
       </li>
 

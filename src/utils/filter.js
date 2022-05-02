@@ -1,5 +1,6 @@
 import { recipes } from "../data/recipes.js";
-import { reloadCard } from "./reloadCard.js";
+import { reloadCard } from "./reloadDOM.js";
+import { dispatchTagDOM } from "./dispatch.js";
 
 // Recherche par tags (input)
 /**
@@ -66,17 +67,17 @@ export function searchUstensile(element) {
  */
 function ErrorInTagInput() {
   const parent = document.querySelector("#searching_bar");
-
-  const span = document.createElement("span");
-  const errorText = "Rien ne correspond à votre recherche";
-  span.textContent = errorText;
-  span.classList.add("text-danger", "fw-bold", "w-100", "offset-1", "py-2");
-
-  parent.appendChild(span);
-
-  setTimeout(() => {
-    span.remove();
-  }, 3000);
+  if (!document.getElementById("error_span")) {
+    const span = document.createElement("span");
+    const errorText = "Rien ne correspond à votre recherche";
+    span.textContent = errorText;
+    span.classList.add("text-danger", "fw-bold", "w-100", "offset-1", "py-2");
+    span.id = "error_span";
+    parent.appendChild(span);
+    setTimeout(() => {
+      span.remove();
+    }, 3000);
+  }
 }
 
 // Dropdown Tags
@@ -89,8 +90,7 @@ export function searchAllIngredient() {
     });
   });
   const ingredients = arrayCleaner(allIngredients);
-  // TODO  une fonction qui placera les données du tableau dans le dropdown
-  console.log(ingredients);
+  dispatchTagDOM("ingredient", ingredients);
 }
 
 export function searchAllAppareil() {
@@ -99,8 +99,7 @@ export function searchAllAppareil() {
     allAppareils.push(app.appliance);
   });
   const appareils = arrayCleaner(allAppareils);
-  // TODO  une fonction qui placera les données du tableau dans le dropdown
-  console.log(appareils);
+  dispatchTagDOM("appareil", appareils);
 }
 
 export function searchAllUstensile() {
@@ -111,8 +110,7 @@ export function searchAllUstensile() {
     });
   });
   const ustensiles = arrayCleaner(allUstensiles);
-  // TODO  une fonction qui placera les données du tableau dans le dropdown
-  console.log(ustensiles);
+  dispatchTagDOM("ustensile", ustensiles);
 }
 
 /**

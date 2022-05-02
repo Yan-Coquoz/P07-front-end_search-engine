@@ -15,3 +15,19 @@ export function reloadCard(newArrays) {
     });
   }
 }
+
+/**
+ * retourne tout les tags
+ * @param {array} tab un tableau de string
+ * @returns {HTMLElement}
+ */
+export function dropdownTagIngredient(color, tab) {
+  const ul = document.querySelector(`#ul-${color}`);
+
+  for (const element of tab) {
+    const li = document.createElement("li");
+    li.classList.add("dropdown-item", "text-light");
+    li.textContent = element;
+    ul.appendChild(li);
+  }
+}

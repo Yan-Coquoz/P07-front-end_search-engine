@@ -45,27 +45,23 @@ form {
 ul {
   position: relative;
 }
-/* .sort__blue img,
-.sort__green img,
-.sort__red img {
-  position: absolute;
-  top: 5px;
-}
-.sort__blue img:active,
-.sort__green img:active,
-.sort__red img:active {
-  transition: 0.5s;
-  transform: rotate(180deg);
-} */
 
 /* dropdown */
-/* .dropdown {
-  display: none;
-  position: absolute;
-  bottom: -18px;
-  color: #e7e7e7;
-  z-index: 5;
-} */
+.dropdown-menu.show {
+  width: 70vw;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.dropdown-item {
+  width: calc(300% / 11 - 2rem);
+  white-space: normal;
+}
+.dropdown-item:hover {
+  color: black !important;
+}
+
 .dropdown-toggle::after {
   border: none;
   content: url("../assets/dropdown.svg");

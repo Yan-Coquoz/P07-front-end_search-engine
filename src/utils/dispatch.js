@@ -6,6 +6,7 @@ import {
   searchAllIngredient,
   searchAllUstensile,
 } from "./filter.js";
+import { dropdownTagIngredient } from "./reloadDOM.js";
 
 /**
  * distribut l'event
@@ -32,6 +33,7 @@ export function selected(evt) {
     }
   }
 }
+
 /**
  * distribut l'évent
  * @param {MouseEvent} evt
@@ -51,6 +53,25 @@ export function callTags(evt) {
 
     case "btn-red":
       searchAllUstensile();
+      break;
+  }
+}
+
+/**
+ * Renvoi les nouveaux tableau pour les tags
+ * @param {string} type
+ * @param {array} arr
+ */
+export function dispatchTagDOM(type, arr) {
+  switch (type) {
+    case "ingredient":
+      dropdownTagIngredient("blue", arr);
+      break;
+    case "ustensile":
+      dropdownTagIngredient("red", arr);
+      break;
+    case "appareil":
+      dropdownTagIngredient("green", arr);
       break;
   }
 }
