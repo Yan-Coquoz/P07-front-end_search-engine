@@ -24,40 +24,56 @@ export function reloadCard(arr) {
  */
 export function dropdownTagItem(color, tab) {
   const ul = document.querySelector(`#ul-${color}`);
-  for (const element of tab) {
-    const li = document.createElement("li");
-    li.classList.add("dropdown-item", "text-light");
-    li.textContent = element;
-    ul.appendChild(li);
+  /*
+   * empêche la creation supplémentaire d'une liste au cas ou elle soit déjà présente.
+   */
+  if (!document.querySelector(`#ul-${color} li.dropdown-item`)) {
+    for (const element of tab) {
+      const li = document.createElement("li");
+      li.classList.add("dropdown-item", "text-light");
+      li.textContent = element;
+      ul.appendChild(li);
+    }
   }
 }
 
 export function suggestion(color, arr) {
-  // TODO deplacé la fonction ou la condition de >=3
-  const input = document.querySelector("#ingredient");
-  const list = document.querySelector(`.datalistBlue`);
+  const input = document.querySelector(`input.${color}`);
+  const list = document.querySelector(`.datalist_${color}`);
   const allSuggests = [];
   let datas = [];
 
   // je recup la valeurs des objets
-  if (color == "blue") {
+  if (color === "blue") {
     arr.forEach((item) => {
       for (const key in item) {
         const element = item[key];
         allSuggests.push(element.ingredient.toLowerCase());
       }
     });
+  } else if (color === "green") {
+    arr.forEach((item) => {
+      allSuggests.push(item.appliance.toLowerCase());
+    });
+  } else if (color === "red") {
+    arr.forEach((ust) => {
+      for (let item of ust.ustensils) {
+        allSuggests.push(item.toLowerCase());
+      }
+    });
   }
 
   datas = arrayCleaner(allSuggests);
-  console.log("input value ", input.value);
+  console.log(datas);
   datas.forEach((item) => {
-    const option = document.createElement("option");
-    option.setAttribute("value", `${item}`);
-    list.appendChild(option);
+    if (!document.querySelector(`[value="${item}"]`)) {
+      const option = document.createElement("option");
+      option.setAttribute("value", `${item}`);
+      list.appendChild(option);
+    }
   });
+  // TODO supprimer les balises options
   if (input.value.length < 3) {
-    console.log("vide");
     document.querySelectorAll("option").forEach((ele) => {
       ele.remove();
     });

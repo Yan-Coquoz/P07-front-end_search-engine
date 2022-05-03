@@ -16,7 +16,6 @@ export function searchIngredient(element) {
     const results = obj.ingredients.filter((ele) => {
       if (ele.ingredient.toLowerCase().includes(element.toLowerCase())) {
         recipesIngredients.push(obj);
-
         return ele.ingredient.toLowerCase().includes(element.toLowerCase());
       }
     });
@@ -27,7 +26,6 @@ export function searchIngredient(element) {
     ErrorInTagInput();
   } else {
     suggestion("blue", getSuggests);
-
     reloadCard(recipesIngredients);
   }
 }
@@ -42,11 +40,8 @@ export function searchAppareil(element) {
     return app.appliance.toLowerCase().includes(element.toLowerCase());
   });
 
-  if (appareils.length === 0) {
-    ErrorInTagInput();
-  } else {
-    console.log(appareils);
-  }
+  appareils.length === 0 ? ErrorInTagInput() : reloadCard(appareils);
+  suggestion("green", appareils);
 }
 
 /**
@@ -66,6 +61,7 @@ export function searchUstensile(element) {
   recipesUstensiles.length === 0
     ? ErrorInTagInput()
     : reloadCard(recipesUstensiles);
+  suggestion("red", recipesUstensiles);
 }
 
 // Dropdown Tags

@@ -16,7 +16,7 @@ export function dispatchSelected(evt) {
   const element = evt.target.id;
   document.removeEventListener("input", dispatchSelected);
 
-  if (evt.target.value.length >= 2) {
+  if (evt.target.value.length >= 3) {
     switch (element) {
       case "ingredient":
         const ingredient = evt.target.value;
