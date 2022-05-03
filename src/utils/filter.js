@@ -1,5 +1,5 @@
 import { recipes } from "../data/recipes.js";
-import { reloadCard } from "./reloadDOM.js";
+import { reloadCard, suggestion } from "./reloadDOM.js";
 import { dispatchTagDOM } from "./dispatch.js";
 
 // Recherche par tags (input)
@@ -10,18 +10,24 @@ import { dispatchTagDOM } from "./dispatch.js";
  */
 export function searchIngredient(element) {
   const recipesIngredients = [];
+  const getSuggests = [];
 
   recipes.map((obj) => {
-    obj.ingredients.filter((ele) => {
+    const results = obj.ingredients.filter((ele) => {
       if (ele.ingredient.toLowerCase().includes(element.toLowerCase())) {
         recipesIngredients.push(obj);
+
+        return ele.ingredient.toLowerCase().includes(element.toLowerCase());
       }
     });
+    if (results.length >= 1) getSuggests.push(results);
   });
 
   if (recipesIngredients.length === 0) {
     ErrorInTagInput();
   } else {
+    suggestion("blue", getSuggests);
+
     reloadCard(recipesIngredients);
   }
 }
@@ -62,26 +68,10 @@ export function searchUstensile(element) {
     : reloadCard(recipesUstensiles);
 }
 
-/**
- * Créer un message d'erreur en cas de non concordance
- */
-function ErrorInTagInput() {
-  const parent = document.querySelector("#searching_bar");
-  if (!document.getElementById("error_span")) {
-    const span = document.createElement("span");
-    const errorText = "Rien ne correspond à votre recherche";
-    span.textContent = errorText;
-    span.classList.add("text-danger", "fw-bold", "w-100", "offset-1", "py-2");
-    span.id = "error_span";
-    parent.appendChild(span);
-    setTimeout(() => {
-      span.remove();
-    }, 3000);
-  }
-}
-
 // Dropdown Tags
-
+/**
+ * recherches tout les ingredients pour le dropdown
+ */
 export function searchAllIngredient() {
   const allIngredients = [];
   recipes.forEach((props) => {
@@ -92,7 +82,9 @@ export function searchAllIngredient() {
   const ingredients = arrayCleaner(allIngredients);
   dispatchTagDOM("ingredient", ingredients);
 }
-
+/**
+ * recherches tout les appareils pour le dropdown
+ */
 export function searchAllAppareil() {
   const allAppareils = [];
   recipes.forEach((app) => {
@@ -101,7 +93,9 @@ export function searchAllAppareil() {
   const appareils = arrayCleaner(allAppareils);
   dispatchTagDOM("appareil", appareils);
 }
-
+/**
+ * recherches tout les ustensiles pour le dropdown
+ */
 export function searchAllUstensile() {
   const allUstensiles = [];
   recipes.forEach((ust) => {
@@ -118,6 +112,30 @@ export function searchAllUstensile() {
  * @param {array} arrays
  * @returns
  */
-function arrayCleaner(arrays) {
+export function arrayCleaner(arrays) {
   return [...new Set(arrays)];
+}
+
+/**
+ * Créer un message d'erreur en cas de non concordance
+ */
+function ErrorInTagInput() {
+  const parent = document.querySelector("#searching_bar");
+  if (!document.getElementById("error_span")) {
+    const span = document.createElement("span");
+    const errorText = "Rien ne correspond à votre recherche";
+    span.textContent = errorText;
+    span.classList.add(
+      "text-danger",
+      "fw-bold",
+      "w-100",
+      "text-center",
+      "py-2"
+    );
+    span.id = "error_span";
+    parent.appendChild(span);
+    setTimeout(() => {
+      span.remove();
+    }, 3000);
+  }
 }

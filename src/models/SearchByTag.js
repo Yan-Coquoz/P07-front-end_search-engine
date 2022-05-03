@@ -1,4 +1,4 @@
-import { selected, callTags } from "../utils/dispatch.js";
+import { dispatchSelected, dispatchCallTag } from "../utils/dispatch.js";
 
 export class SearchByTag {
   /**
@@ -11,14 +11,15 @@ export class SearchByTag {
       <li class="sort__blue list-inline-item btn-group w-100">                    
         <button type="button" class="btn btn-primary ">
           <div class="input-group ">
-            <input name="ingredient" class="form-control bg-primary" id="ingredient" placeholder="Ingrédients">
+            <input name="ingredient" class="form-control bg-primary" id="ingredient" list="datalistOptions" placeholder="Ingrédients">
           </div>
         </button>
         <button type="button" id="btn-blue" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
          
-        </button>                 
+        </button>
+        <datalist class="datalistBlue" id="datalistOptions"></datalist>                 
         <ul class="dropdown-menu bg-primary p-2 text-light col-12" id="ul-blue">
-          <!-- <li class="dropdown-item text-light">Tout les ingredients</li> -->
+         
         </ul>
       </li>
 
@@ -33,7 +34,7 @@ export class SearchByTag {
          
         </button>                 
         <ul class="dropdown-menu bg-success p-2 text-light" id="ul-green">
-          <li class="dropdown-item text-light">Tout les appareils</li>
+          
         </ul>
       </li>
                 
@@ -48,15 +49,15 @@ export class SearchByTag {
          
         </button>                 
         <ul class="dropdown-menu bg-danger p-2 text-light" id="ul-red">
-          <li class="dropdown-item text-light">Tout les ustensiles</li>
+          
         </ul>
       </li>`;
 
     div.querySelectorAll("input").forEach((inputElement) => {
-      inputElement.addEventListener("input", selected);
+      inputElement.addEventListener("input", dispatchSelected);
     });
     div.querySelectorAll("button.dropdown-toggle").forEach((btnElement) => {
-      btnElement.addEventListener("click", callTags);
+      btnElement.addEventListener("click", dispatchCallTag);
     });
 
     div.classList.add(

@@ -6,20 +6,21 @@ import {
   searchAllIngredient,
   searchAllUstensile,
 } from "./filter.js";
-import { dropdownTagIngredient } from "./reloadDOM.js";
+import { dropdownTagItem } from "./reloadDOM.js";
 
 /**
  * distribut l'event
  * @param {KeyboardEvent} evt
  */
-export function selected(evt) {
+export function dispatchSelected(evt) {
   const element = evt.target.id;
-  document.removeEventListener("input", this.selected);
+  document.removeEventListener("input", dispatchSelected);
 
-  if (evt.target.value.length >= 3) {
+  if (evt.target.value.length >= 2) {
     switch (element) {
       case "ingredient":
         const ingredient = evt.target.value;
+
         searchIngredient(ingredient);
         break;
       case "appareil":
@@ -35,12 +36,12 @@ export function selected(evt) {
 }
 
 /**
- * distribut l'évent
+ * distribut l'évent selon le type de l'input
  * @param {MouseEvent} evt
  */
-export function callTags(evt) {
+export function dispatchCallTag(evt) {
   const btnColor = evt.target.id;
-  document.removeEventListener("click", callTags);
+  document.removeEventListener("click", dispatchCallTag);
 
   switch (btnColor) {
     case "btn-blue":
@@ -65,13 +66,13 @@ export function callTags(evt) {
 export function dispatchTagDOM(type, arr) {
   switch (type) {
     case "ingredient":
-      dropdownTagIngredient("blue", arr);
+      dropdownTagItem("blue", arr);
       break;
     case "ustensile":
-      dropdownTagIngredient("red", arr);
+      dropdownTagItem("red", arr);
       break;
     case "appareil":
-      dropdownTagIngredient("green", arr);
+      dropdownTagItem("green", arr);
       break;
   }
 }

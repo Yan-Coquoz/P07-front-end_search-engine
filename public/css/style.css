@@ -15,6 +15,7 @@ body {
 form {
   margin: 1rem 0;
 }
+
 /* SearchBar */
 .input-group {
   border-radius: 5px;
@@ -27,6 +28,9 @@ form {
   z-index: 10;
 }
 /* Input Tag */
+ul {
+  position: relative;
+}
 #ingredient,
 #appareil,
 #ustensile {
@@ -41,9 +45,6 @@ form {
 #ustensile,
 #ustensile::placeholder {
   color: white;
-}
-ul {
-  position: relative;
 }
 
 /* dropdown */
@@ -68,6 +69,7 @@ ul {
   position: relative;
   top: 5px;
 }
+
 /* Card */
 .card {
   height: 380px;
