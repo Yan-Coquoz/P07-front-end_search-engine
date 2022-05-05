@@ -1,5 +1,5 @@
 import { recipes } from "../data/recipes.js";
-import { reloadCard, suggestion } from "./reloadDOM.js";
+import { reloadCard, suggestion } from "./reloadTagDOM.js";
 import { dispatchTagDOM } from "./dispatch.js";
 
 // Recherche par tags (input)
@@ -72,23 +72,25 @@ export function searchAllIngredient() {
   const allIngredients = [];
   recipes.forEach((props) => {
     props.ingredients.forEach((i) => {
-      allIngredients.push(i.ingredient);
+      allIngredients.push(i.ingredient.toLowerCase());
     });
   });
   const ingredients = arrayCleaner(allIngredients);
   dispatchTagDOM("ingredient", ingredients);
 }
+
 /**
  * recherches tout les appareils pour le dropdown
  */
 export function searchAllAppareil() {
   const allAppareils = [];
   recipes.forEach((app) => {
-    allAppareils.push(app.appliance);
+    allAppareils.push(app.appliance.toLowerCase());
   });
   const appareils = arrayCleaner(allAppareils);
   dispatchTagDOM("appareil", appareils);
 }
+
 /**
  * recherches tout les ustensiles pour le dropdown
  */
@@ -96,7 +98,7 @@ export function searchAllUstensile() {
   const allUstensiles = [];
   recipes.forEach((ust) => {
     ust.ustensils.forEach((u) => {
-      allUstensiles.push(u);
+      allUstensiles.push(u.toLowerCase());
     });
   });
   const ustensiles = arrayCleaner(allUstensiles);

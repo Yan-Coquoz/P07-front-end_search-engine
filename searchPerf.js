@@ -1,3 +1,35 @@
+import { recipes } from "./src/data/recipes.js";
+// 1 for in
+for (let ele in recipes) {
+  console.log(recipes[ele].name);
+}
+// 2 forEach
+recipes.forEach((element) => {
+  return element.name;
+});
+// 3 map
+recipes.map((element) => {
+  return element.name;
+});
+// 4 for
+for (let j = 0; j < recipes.length; j++) {
+  console.log(recipes[j].name);
+}
+
+// 5 while
+let ind = 0;
+while (ind < recipes.length) {
+  console.log(recipes[ind].name);
+  ind++;
+}
+// 6 filter
+recipes.filter((ele) => {
+  return ele.time < 20;
+});
+// résultats jsben.ch => for / while / foreach / filter / map / for in
+// résultats jsbench.js => foreach / filter / map / for / while / for in
+
+// Doublons
 const arr = [
   "Hello 1 ",
   " Hello 2 ",
@@ -15,7 +47,7 @@ const filteredArray = arr.filter(function (ele, pos) {
 //2eme methode
 const uniqueArr = [...new Set(arr)];
 
-//3eme methode
+//3eme methode, fonction fléchée
 const filteredarray = arr.filter((ele, pos) => arr.indexOf(ele) == pos);
 
 // resutlat de perf JSben.ch = 1 / 3 / 2
@@ -44,7 +76,7 @@ arr2.forEach((ele) => {
 });
 // methode 4
 let i = 0;
-while (i > arr2.length) {
+while (i < arr2.length) {
   arr2.indexOf(i);
   i++;
 }

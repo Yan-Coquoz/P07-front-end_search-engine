@@ -13,6 +13,7 @@ export class MainApp {
   displaySearchBar() {
     const container = document.querySelector("#searching_bar");
     const form = document.createElement("form");
+
     const searchContaint = new SearchBar().searchBarRenderDom();
     form.appendChild(searchContaint);
     container.appendChild(form);
@@ -24,9 +25,15 @@ export class MainApp {
   displaySearchByTag() {
     const container = document.querySelector("#searching_bar");
     const form = document.createElement("form");
+    const divTag = document.createElement("div");
+    const ul = document.createElement("ul");
     const tagElement = new SearchByTag().SearchByTagRenderDom();
+    divTag.classList.add("div_tag");
+    ul.classList.add("ul_tag", "d-flex");
 
     form.appendChild(tagElement);
+    divTag.appendChild(ul);
+    container.appendChild(divTag);
     container.appendChild(form);
   }
   /**

@@ -74,6 +74,7 @@ export class SearchByTag {
       "py-sm-3",
       "rounded"
     );
+
     return container.appendChild(div);
   }
 }

@@ -15,6 +15,17 @@ body {
 form {
   margin: 1rem 0;
 }
+li {
+  list-style: none;
+}
+ul {
+  font-size: 12px;
+  position: relative;
+  padding: 0;
+}
+p {
+  font-size: 12px;
+}
 
 /* SearchBar */
 .input-group {
@@ -27,10 +38,20 @@ form {
   top: 7px;
   z-index: 10;
 }
-/* Input Tag */
-ul {
-  position: relative;
+/* Tag */
+.ul_tag--li {
+  padding: 0.5rem;
+  border-radius: 5px;
 }
+.ul_tag--li img {
+  padding-left: 0.5rem;
+}
+.ul_tag--li:hover {
+  transition: 0.3s;
+  transform: scale(1.1);
+}
+
+/* Input Tag */
 #ingredient,
 #appareil,
 #ustensile {
@@ -69,6 +90,11 @@ ul {
   position: relative;
   top: 5px;
 }
+.dropdown-toggle::after:active,
+.dropdown-toggle::after:focus {
+  content: url("../assets/dropdown.svg");
+  transform: 3s rotate(180deg);
+}
 
 /* Card */
 .card {
@@ -81,10 +107,4 @@ ul {
 .desc_bloc {
   height: 130px;
   gap: 0.2rem;
-}
-ul {
-  font-size: 12px;
-}
-p {
-  font-size: 12px;
 }

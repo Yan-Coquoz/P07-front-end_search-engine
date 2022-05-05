@@ -6,37 +6,35 @@ import {
   searchAllIngredient,
   searchAllUstensile,
 } from "./filter.js";
-import { dropdownTagItem } from "./reloadDOM.js";
+import { dropdownTagItem, addSelectTag } from "./reloadTagDOM.js";
 
 /**
- * distribut l'event
+ * distribut l'event selon l'input (champs / tag)
  * @param {KeyboardEvent} evt
  */
 export function dispatchSelected(evt) {
   const element = evt.target.id;
+
   document.removeEventListener("input", dispatchSelected);
 
-  if (evt.target.value.length >= 3) {
-    switch (element) {
-      case "ingredient":
-        const ingredient = evt.target.value;
-
-        searchIngredient(ingredient);
-        break;
-      case "appareil":
-        const appareil = evt.target.value;
-        searchAppareil(appareil);
-        break;
-      case "ustensile":
-        const ustensile = evt.target.value;
-        searchUstensile(ustensile);
-        break;
-    }
+  switch (element) {
+    case "ingredient":
+      const ingredient = evt.target.value;
+      searchIngredient(ingredient);
+      break;
+    case "appareil":
+      const appareil = evt.target.value;
+      searchAppareil(appareil);
+      break;
+    case "ustensile":
+      const ustensile = evt.target.value;
+      searchUstensile(ustensile);
+      break;
   }
 }
 
 /**
- * distribut l'évent selon le type de l'input
+ * distribut l'évent selon le type de l'input (modale)
  * @param {MouseEvent} evt
  */
 export function dispatchCallTag(evt) {
@@ -75,4 +73,16 @@ export function dispatchTagDOM(type, arr) {
       dropdownTagItem("green", arr);
       break;
   }
+}
+
+/**
+ * Permet de reccuperer l'item séléctionner dans son dropdown
+ * @param {MouseEvent} evt
+ */
+export function dispatchGetElementInList(evt) {
+  const parent = evt.target.parentElement.attributes[1].nodeValue;
+  const value = evt.target.innerText;
+
+  addSelectTag(parent, value);
+  document.removeEventListener("click", dispatchGetElementInList);
 }
