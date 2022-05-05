@@ -1,10 +1,9 @@
 import { recipes } from "../data/recipes.js";
-import { reloadCard, suggestion } from "./reloadTagDOM.js";
+import { reloadCard, suggestionDOM } from "./reloadTagDOM.js";
 import { dispatchTagDOM } from "./dispatch.js";
 
-// Recherche par tags (input)
 /**
- * Recherche par ingrédients
+ * Recherche par ingrédients (input tag)
  * @param {string} element
  * @returns {arrayOfObject}
  */
@@ -25,13 +24,13 @@ export function searchIngredient(element) {
   if (recipesIngredients.length === 0) {
     ErrorInTagInput();
   } else {
-    suggestion("blue", getSuggests);
+    filteredSuggestion("blue", getSuggests);
     reloadCard(recipesIngredients);
   }
 }
 
 /**
- * Recherche par appareils
+ * Recherche par appareils (input tag)
  * @param {string} element
  * @returns {arrayOfObject}
  */
@@ -41,11 +40,11 @@ export function searchAppareil(element) {
   });
 
   appareils.length === 0 ? ErrorInTagInput() : reloadCard(appareils);
-  suggestion("green", appareils);
+  filteredSuggestion("green", appareils);
 }
 
 /**
- * Recherche par ustensiles
+ * Recherche par ustensiles (input tag)
  * @param {string} element
  * @returns {arrayOfObject}
  */
@@ -61,7 +60,7 @@ export function searchUstensile(element) {
   recipesUstensiles.length === 0
     ? ErrorInTagInput()
     : reloadCard(recipesUstensiles);
-  suggestion("red", recipesUstensiles);
+  filteredSuggestion("red", recipesUstensiles);
 }
 
 // Dropdown Tags
@@ -103,6 +102,35 @@ export function searchAllUstensile() {
   });
   const ustensiles = arrayCleaner(allUstensiles);
   dispatchTagDOM("ustensile", ustensiles);
+}
+
+/**
+ * Selon la couleur et le tag selectionné, créer un nouveau tableau (suggestion tag)
+ * @param {string} color
+ * @param {array} arr tableau selon ce qui est entrée dans le champs
+ */
+export function filteredSuggestion(color, arr) {
+  const suggests = [];
+
+  if (color === "blue") {
+    arr.forEach((item) => {
+      for (const key in item) {
+        const element = item[key];
+        suggests.push(element.ingredient.toLowerCase());
+      }
+    });
+  } else if (color === "green") {
+    arr.forEach((item) => {
+      suggests.push(item.appliance.toLowerCase());
+    });
+  } else if (color === "red") {
+    arr.forEach((ust) => {
+      for (let item of ust.ustensils) {
+        suggests.push(item.toLowerCase());
+      }
+    });
+  }
+  suggestionDOM(color, arrayCleaner(suggests));
 }
 
 /**

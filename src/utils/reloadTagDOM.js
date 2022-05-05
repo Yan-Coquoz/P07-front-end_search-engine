@@ -1,10 +1,5 @@
 import { CardRecipes } from "../models/CardRecipes.js";
-import {
-  arrayCleaner,
-  searchAppareil,
-  searchIngredient,
-  searchUstensile,
-} from "./filter.js";
+import { searchAppareil, searchIngredient, searchUstensile } from "./filter.js";
 import { dispatchGetElementInList } from "./dispatch.js";
 
 /**
@@ -47,40 +42,15 @@ export function dropdownTagItem(color, tab) {
 }
 
 /**
- * Propse des suggestions lors du remplissage du champs des tags
+ * Propose des suggestions lors du remplissage du champs des tags
  * @param {string} color
- * @param {array} arr
+ * @param {array} arr tableau selon ce qui est entrée dans le champs
  */
-export function suggestion(color, arr) {
-  // TODO S.O.C.
+export function suggestionDOM(color, arr) {
   const input = document.querySelector(`input.${color}`);
   const list = document.querySelector(`.datalist_${color}`);
-  const allSuggests = [];
-  let datas = [];
 
-  // je recup la valeurs des objets
-  if (color === "blue") {
-    arr.forEach((item) => {
-      for (const key in item) {
-        const element = item[key];
-        allSuggests.push(element.ingredient.toLowerCase());
-      }
-    });
-  } else if (color === "green") {
-    arr.forEach((item) => {
-      allSuggests.push(item.appliance.toLowerCase());
-    });
-  } else if (color === "red") {
-    arr.forEach((ust) => {
-      for (let item of ust.ustensils) {
-        allSuggests.push(item.toLowerCase());
-      }
-    });
-  }
-
-  datas = arrayCleaner(allSuggests);
-
-  datas.forEach((item) => {
+  arr.forEach((item) => {
     if (!document.querySelector(`[value="${item}"]`)) {
       const option = document.createElement("option");
       option.setAttribute("value", `${item}`);
@@ -95,28 +65,31 @@ export function suggestion(color, arr) {
   }
 }
 
+/**
+ * Création du tag
+ * @param {string} color la couleur du type de tag
+ * @param {string} element le nom de l'élément selectionné
+ */
 export function addSelectTag(color, element) {
-  const couleur = color.slice(3);
-
   const ul = document.querySelector(`.ul_tag`);
   const li = document.createElement("li");
   const img = document.createElement("img");
 
   img.setAttribute("src", "../../public/assets/close.svg");
   img.setAttribute("alt", "close");
-  li.classList.add("ul_tag--li");
+  li.classList.add("ul_tag--li", "mx-1");
 
-  switch (couleur) {
+  switch (color) {
     case "blue":
-      li.classList.add("bg-primary", "mx-1");
+      li.classList.add("bg-primary");
       searchIngredient(element);
       break;
     case "green":
-      li.classList.add("bg-success", "mx-1");
+      li.classList.add("bg-success");
       searchAppareil(element);
       break;
     case "red":
-      li.classList.add("bg-danger", "mx-1");
+      li.classList.add("bg-danger");
       searchUstensile(element);
       break;
   }

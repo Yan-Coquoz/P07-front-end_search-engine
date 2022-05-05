@@ -76,13 +76,13 @@ export function dispatchTagDOM(type, arr) {
 }
 
 /**
- * Permet de reccuperer l'item séléctionner dans son dropdown
+ * Permet de reccuperer l'item et la couleur du tag séléctionner dans son dropdown
  * @param {MouseEvent} evt
  */
 export function dispatchGetElementInList(evt) {
-  const parent = evt.target.parentElement.attributes[1].nodeValue;
+  const couleur = evt.target.parentElement.attributes[1].nodeValue.slice(3);
   const value = evt.target.innerText;
-
-  addSelectTag(parent, value);
+  // TODO faire une fonction qui met a jour le dropdown et met à jour les recettes
+  addSelectTag(couleur, value);
   document.removeEventListener("click", dispatchGetElementInList);
 }

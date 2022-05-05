@@ -6,6 +6,7 @@ export class MainApp {
   constructor() {
     this.articleCardContainer = document.querySelector("#card_container");
   }
+
   /**
    * Affichage de la barre de recherche
    * @return {HTMLElement}
@@ -36,6 +37,7 @@ export class MainApp {
     container.appendChild(divTag);
     container.appendChild(form);
   }
+
   /**
    * Affichage des cartes de recettes
    * @return {HTMLElement}
@@ -47,6 +49,7 @@ export class MainApp {
       );
     });
   }
+
   /**
    * Appel des différentes methodes d'affichage du DOM
    * @return {HTMLElement}
