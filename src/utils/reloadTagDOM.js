@@ -19,7 +19,7 @@ export function reloadCard(arr) {
 }
 
 /**
- * retourne tout les tags (modale)
+ * retourne tout les tags (dropdown)
  * @param {array} tab un tableau de string
  * @returns {HTMLElement}
  */

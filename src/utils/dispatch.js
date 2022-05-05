@@ -5,6 +5,7 @@ import {
   searchAllAppareil,
   searchAllIngredient,
   searchAllUstensile,
+  cleanDropdown,
 } from "./filter.js";
 import { dropdownTagItem, addSelectTag } from "./reloadTagDOM.js";
 
@@ -34,42 +35,47 @@ export function dispatchSelected(evt) {
 }
 
 /**
- * distribut l'évent selon le type de l'input (modale)
+ * distribut l'évent selon le typeOrColor de l'input (modale)
  * @param {MouseEvent} evt
  */
 export function dispatchCallTag(evt) {
-  const btnColor = evt.target.id;
+  const btnColor = evt.target.id.slice(4);
   document.removeEventListener("click", dispatchCallTag);
 
   switch (btnColor) {
-    case "btn-blue":
+    case "blue":
       searchAllIngredient();
-      break;
 
-    case "btn-green":
+      break;
+    case "green":
       searchAllAppareil();
+
       break;
 
-    case "btn-red":
+    case "red":
       searchAllUstensile();
+
       break;
   }
 }
 
 /**
  * Renvoi les nouveaux tableau pour les tags
- * @param {string} type
+ * @param {string} typeOrColor le typeOrColor de selecteur ou sa couleur
  * @param {array} arr
  */
-export function dispatchTagDOM(type, arr) {
-  switch (type) {
+export function dispatchTagDOM(typeOrColor, arr) {
+  switch (typeOrColor) {
     case "ingredient":
+    case "blue":
       dropdownTagItem("blue", arr);
       break;
     case "ustensile":
+    case "red":
       dropdownTagItem("red", arr);
       break;
     case "appareil":
+    case "green":
       dropdownTagItem("green", arr);
       break;
   }
@@ -82,7 +88,8 @@ export function dispatchTagDOM(type, arr) {
 export function dispatchGetElementInList(evt) {
   const couleur = evt.target.parentElement.attributes[1].nodeValue.slice(3);
   const value = evt.target.innerText;
-  // TODO faire une fonction qui met a jour le dropdown et met à jour les recettes
   addSelectTag(couleur, value);
+
+  cleanDropdown(couleur, value);
   document.removeEventListener("click", dispatchGetElementInList);
 }

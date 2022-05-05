@@ -134,12 +134,14 @@ export function filteredSuggestion(color, arr) {
 }
 
 /**
- * Nettoye le tableau en entrée de ses valeurs en double
+ * Nettoye le tableau de ses doublons
  * @param {array} arrays
- * @returns
+ * @returns {array}
  */
 export function arrayCleaner(arrays) {
-  return [...new Set(arrays)];
+  return arrays.filter(function (item, next) {
+    return arrays.indexOf(item) == next;
+  });
 }
 
 /**
@@ -164,4 +166,18 @@ function ErrorInTagInput() {
       span.remove();
     }, 3000);
   }
+}
+
+// NOTE faire une fonction qui met a jour le dropdown et met à jour les recettes
+// NOTE A la selection du tag, Je met a jour le tableau rendu du dropdown ainsi que les nouvelles recettes possible
+
+// TODO Ajouter une fonction qui nettoie le dropdown
+/**
+ * Recuppere les recettes selon les tags demandé
+ * @param {string} color
+ * @param {string} value
+ * @return {arrayOfObject} tableau des recettes restantes
+ */
+export function cleanDropdown(color, value) {
+  // TODO faire de boucles selon la valeur recherchée pour en resortir un tableau de nouvelle recetttes puis les envoyé dans dispatchTagDom()
 }

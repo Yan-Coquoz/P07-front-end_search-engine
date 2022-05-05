@@ -1,7 +1,11 @@
 import { recipes } from "./src/data/recipes.js";
+// 6 filter
+recipes.filter((ele) => {
+  return ele.name;
+});
 // 1 for in
 for (let ele in recipes) {
-  console.log(recipes[ele].name);
+  const value = recipes[ele].name;
 }
 // 2 forEach
 recipes.forEach((element) => {
@@ -11,21 +15,17 @@ recipes.forEach((element) => {
 recipes.map((element) => {
   return element.name;
 });
+
 // 4 for
 for (let j = 0; j < recipes.length; j++) {
-  console.log(recipes[j].name);
+  const v = recipes[j].name;
 }
-
 // 5 while
 let ind = 0;
 while (ind < recipes.length) {
-  console.log(recipes[ind].name);
+  const val = recipes[ind].name;
   ind++;
 }
-// 6 filter
-recipes.filter((ele) => {
-  return ele.time < 20;
-});
 // résultats jsben.ch => for / while / foreach / filter / map / for in
 // résultats jsbench.js => foreach / filter / map / for / while / for in
 
@@ -40,15 +40,15 @@ const arr = [
 ];
 // supprime les doublons
 // 1ere methode
-const filteredArray = arr.filter(function (ele, pos) {
-  return arr.indexOf(ele) == pos;
+const filteredArray = arr.filter(function (item, next) {
+  return arr.indexOf(item) == next;
 });
 
 //2eme methode
 const uniqueArr = [...new Set(arr)];
 
 //3eme methode, fonction fléchée
-const filteredarray = arr.filter((ele, pos) => arr.indexOf(ele) == pos);
+const filteredarray = arr.filter((item, next) => arr.indexOf(item) == next);
 
 // resutlat de perf JSben.ch = 1 / 3 / 2
 
@@ -87,3 +87,22 @@ for (let element of arr2) {
 // resultat de perf  JSben.ch= 4 / 1 / 2 / 5 / 3
 // resultat de perf perf.link = 4 / 1 / 2 / 3 / 5
 // resultat de perf jsBench.me = 4 / 1 / 2 / 3 / 5
+
+// tri à bulle
+function bubbleSort(items) {
+  const tab = items.length;
+  for (let i = 0; i < tab; i++) {
+    for (let j = 0; j < tab - i - 1; j++) {
+      if (items[j] > items[j + 1]) {
+        let tmp = items[j];
+        items[j] = items[j + 1];
+        items[j + 1] = tmp;
+      }
+    }
+  }
+}
+
+const arri = [5, 4, 3, 2, 1, 9, 11, 6];
+bubbleSort(arri);
+
+console.table(arri);
