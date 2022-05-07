@@ -67,7 +67,10 @@ p {
 #ustensile::placeholder {
   color: white;
 }
-
+#ingredient::selection {
+  background: var(--BgArticle);
+  color: var(--sortBlue);
+}
 /* dropdown */
 .dropdown-menu.show {
   width: 70vw;

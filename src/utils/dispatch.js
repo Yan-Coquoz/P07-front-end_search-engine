@@ -5,8 +5,8 @@ import {
   searchAllAppareil,
   searchAllIngredient,
   searchAllUstensile,
-  cleanDropdown,
 } from "./filter.js";
+import { cleanDropdown } from "./misc.js";
 import { dropdownTagItem, addSelectTag } from "./reloadTagDOM.js";
 
 /**
@@ -15,8 +15,6 @@ import { dropdownTagItem, addSelectTag } from "./reloadTagDOM.js";
  */
 export function dispatchSelected(evt) {
   const element = evt.target.id;
-
-  document.removeEventListener("input", dispatchSelected);
 
   switch (element) {
     case "ingredient":
@@ -32,6 +30,7 @@ export function dispatchSelected(evt) {
       searchUstensile(ustensile);
       break;
   }
+  document.removeEventListener("input", dispatchSelected);
 }
 
 /**
@@ -45,16 +44,12 @@ export function dispatchCallTag(evt) {
   switch (btnColor) {
     case "blue":
       searchAllIngredient();
-
       break;
     case "green":
       searchAllAppareil();
-
       break;
-
     case "red":
       searchAllUstensile();
-
       break;
   }
 }
@@ -89,7 +84,6 @@ export function dispatchGetElementInList(evt) {
   const couleur = evt.target.parentElement.attributes[1].nodeValue.slice(3);
   const value = evt.target.innerText;
   addSelectTag(couleur, value);
-
-  cleanDropdown(couleur, value);
+  cleanDropdown();
   document.removeEventListener("click", dispatchGetElementInList);
 }

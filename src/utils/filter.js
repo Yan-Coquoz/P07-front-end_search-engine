@@ -1,10 +1,11 @@
 import { recipes } from "../data/recipes.js";
+import { arrayCleaner, ErrorInTagInput } from "./misc.js";
 import { reloadCard, suggestionDOM } from "./reloadTagDOM.js";
 import { dispatchTagDOM } from "./dispatch.js";
 
 /**
  * Recherche par ingrédients (input tag)
- * @param {string} element
+ * @param {string} element caractères venant de l'input
  * @returns {arrayOfObject}
  */
 export function searchIngredient(element) {
@@ -25,13 +26,13 @@ export function searchIngredient(element) {
     ErrorInTagInput();
   } else {
     filteredSuggestion("blue", getSuggests);
-    reloadCard(recipesIngredients);
+    reloadCard(arrayCleaner(recipesIngredients));
   }
 }
 
 /**
  * Recherche par appareils (input tag)
- * @param {string} element
+ * @param {string} element caractères venant de l'input
  * @returns {arrayOfObject}
  */
 export function searchAppareil(element) {
@@ -39,13 +40,15 @@ export function searchAppareil(element) {
     return app.appliance.toLowerCase().includes(element.toLowerCase());
   });
 
-  appareils.length === 0 ? ErrorInTagInput() : reloadCard(appareils);
-  filteredSuggestion("green", appareils);
+  appareils.length === 0
+    ? ErrorInTagInput()
+    : filteredSuggestion("green", appareils);
+  reloadCard(arrayCleaner(appareils));
 }
 
 /**
  * Recherche par ustensiles (input tag)
- * @param {string} element
+ * @param {string} element caractères venant de l'input
  * @returns {arrayOfObject}
  */
 export function searchUstensile(element) {
@@ -59,8 +62,8 @@ export function searchUstensile(element) {
   });
   recipesUstensiles.length === 0
     ? ErrorInTagInput()
-    : reloadCard(recipesUstensiles);
-  filteredSuggestion("red", recipesUstensiles);
+    : filteredSuggestion("red", recipesUstensiles);
+  reloadCard(arrayCleaner(recipesUstensiles));
 }
 
 // Dropdown Tags
@@ -74,6 +77,9 @@ export function searchAllIngredient() {
       allIngredients.push(i.ingredient.toLowerCase());
     });
   });
+  /**
+   * @constant {arrayOfString} ingredients
+   */
   const ingredients = arrayCleaner(allIngredients);
   dispatchTagDOM("ingredient", ingredients);
 }
@@ -86,6 +92,9 @@ export function searchAllAppareil() {
   recipes.forEach((app) => {
     allAppareils.push(app.appliance.toLowerCase());
   });
+  /**
+   * @constant {arrayOfString} appareils
+   */
   const appareils = arrayCleaner(allAppareils);
   dispatchTagDOM("appareil", appareils);
 }
@@ -100,6 +109,9 @@ export function searchAllUstensile() {
       allUstensiles.push(u.toLowerCase());
     });
   });
+  /**
+   * @constant {arrayOfString} ustensiles
+   */
   const ustensiles = arrayCleaner(allUstensiles);
   dispatchTagDOM("ustensile", ustensiles);
 }
@@ -107,7 +119,7 @@ export function searchAllUstensile() {
 /**
  * Selon la couleur et le tag selectionné, créer un nouveau tableau (suggestion tag)
  * @param {string} color
- * @param {array} arr tableau selon ce qui est entrée dans le champs
+ * @param {arrayOfObject} arr des tableaux d'ingredients ou appareils ou ustensiles
  */
 export function filteredSuggestion(color, arr) {
   const suggests = [];
@@ -131,53 +143,4 @@ export function filteredSuggestion(color, arr) {
     });
   }
   suggestionDOM(color, arrayCleaner(suggests));
-}
-
-/**
- * Nettoye le tableau de ses doublons
- * @param {array} arrays
- * @returns {array}
- */
-export function arrayCleaner(arrays) {
-  return arrays.filter(function (item, next) {
-    return arrays.indexOf(item) == next;
-  });
-}
-
-/**
- * Créer un message d'erreur en cas de non concordance
- */
-function ErrorInTagInput() {
-  const parent = document.querySelector("#searching_bar");
-  if (!document.getElementById("error_span")) {
-    const span = document.createElement("span");
-    const errorText = "Rien ne correspond à votre recherche";
-    span.textContent = errorText;
-    span.classList.add(
-      "text-danger",
-      "fw-bold",
-      "w-100",
-      "text-center",
-      "py-2"
-    );
-    span.id = "error_span";
-    parent.appendChild(span);
-    setTimeout(() => {
-      span.remove();
-    }, 3000);
-  }
-}
-
-// NOTE faire une fonction qui met a jour le dropdown et met à jour les recettes
-// NOTE A la selection du tag, Je met a jour le tableau rendu du dropdown ainsi que les nouvelles recettes possible
-
-// TODO Ajouter une fonction qui nettoie le dropdown
-/**
- * Recuppere les recettes selon les tags demandé
- * @param {string} color
- * @param {string} value
- * @return {arrayOfObject} tableau des recettes restantes
- */
-export function cleanDropdown(color, value) {
-  // TODO faire de boucles selon la valeur recherchée pour en resortir un tableau de nouvelle recetttes puis les envoyé dans dispatchTagDom()
 }

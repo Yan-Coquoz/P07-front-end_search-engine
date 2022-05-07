@@ -3,7 +3,7 @@ import { searchAppareil, searchIngredient, searchUstensile } from "./filter.js";
 import { dispatchGetElementInList } from "./dispatch.js";
 
 /**
- * Nouveau rendu selon le type de recherche
+ * Nouveau rendu des recettes selon le type de recherche
  * @param {array} arr
  */
 export function reloadCard(arr) {
@@ -11,6 +11,7 @@ export function reloadCard(arr) {
   document.querySelectorAll("article.card").forEach((element) => {
     element.remove();
   });
+
   if (arr.length > 0) {
     arr.forEach((newArray) => {
       containerArticles.appendChild(new CardRecipes(newArray).CardRenderDom());
@@ -96,7 +97,9 @@ export function addSelectTag(color, element) {
 
   li.style.color = "white";
   li.textContent = element;
+
   // TODO empecher la duplication de la création du tag
+
   li.appendChild(img);
   ul.appendChild(li);
 
