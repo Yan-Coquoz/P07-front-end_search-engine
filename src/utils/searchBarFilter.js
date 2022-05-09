@@ -20,3 +20,13 @@ export function findByTitle(item) {
 
   console.log(titles);
 }
+
+export function findByDesc(item) {
+  const descs = [];
+  for (let index = 0; index < recipes.length; index++) {
+    if (recipes[index].description.toLocaleLowerCase().includes(item)) {
+      descs.push(recipes[index]);
+    }
+  }
+  console.log(descs);
+}
