@@ -1,24 +1,27 @@
 import { recipes } from "../data/recipes.js";
+import { arrayCleaner } from "./misc.js";
+import { reloadCard } from "./reloadTagDOM.js";
 
 // 1) recherche à partir de 3 caractères
 // 2) recherche dansle titre de la recette
 // 3) recherche dans les ingredients
 // 4) recherche dans les descriptions
 
+const tempArr = [];
 /**
  * Récupère les Objets dont le titre correspond à l'input
  * @param {string} item valeur de retour de l'input
  */
 export function findByTitle(item) {
   const titles = [];
+  tempArr.length = 0;
 
   for (let index = 0; index < recipes.length; index++) {
     if (recipes[index].name.toLocaleLowerCase().includes(item)) {
       titles.push(recipes[index]);
     }
   }
-
-  // console.log(titles);
+  getOneArray(titles);
 }
 
 export function findByDesc(item) {
@@ -28,7 +31,8 @@ export function findByDesc(item) {
       descs.push(recipes[index]);
     }
   }
-  // console.log(descs);
+
+  getOneArray(descs);
 }
 
 export function findByIngredient(item) {
@@ -41,5 +45,15 @@ export function findByIngredient(item) {
       }
     }
   }
-  console.log(ingredientArrays);
+
+  getOneArray(ingredientArrays);
+}
+
+/**
+ * remplie un nouveau tableau avec les éléments rechercher du tableau principale
+ * @param {array} array
+ */
+function getOneArray(array) {
+  tempArr.push(...array);
+  reloadCard(arrayCleaner(tempArr));
 }

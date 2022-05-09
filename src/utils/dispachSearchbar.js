@@ -11,7 +11,7 @@ export function dispatchSearchBar(evt) {
     findByDesc(entry.toLowerCase());
     findByIngredient(entry.toLowerCase());
   } else {
-    console.log("ne correspond pas");
+    console.log("Input vide ou ne correspond pas");
   }
   document.removeEventListener("input", dispatchSearchBar);
 }

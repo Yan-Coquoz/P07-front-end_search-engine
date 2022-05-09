@@ -8,7 +8,7 @@ import { dispatchGetElementInList } from "./dispatch.js";
 
 /**
  * Nouveau rendu des recettes selon le type de recherche
- * @param {array} arr
+ * @param {array} arr nouveau tableau
  */
 export function reloadCard(arr) {
   const containerArticles = document.querySelector("#card_container ");
