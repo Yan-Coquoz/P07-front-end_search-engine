@@ -1,5 +1,9 @@
 import { CardRecipes } from "../models/CardRecipes.js";
-import { searchAppareil, searchIngredient, searchUstensile } from "./filter.js";
+import {
+  searchAppareil,
+  searchIngredient,
+  searchUstensile,
+} from "./tagFilter.js";
 import { dispatchGetElementInList } from "./dispatch.js";
 
 /**
@@ -106,4 +110,27 @@ export function addSelectTag(color, element) {
   img.addEventListener("click", () => {
     li.remove();
   });
+}
+/**
+ * Créer un message d'erreur en cas de non concordance
+ */
+export function ErrorInTagInput() {
+  const parent = document.querySelector("#searching_bar");
+  if (!document.getElementById("error_span")) {
+    const span = document.createElement("span");
+    const errorText = "Rien ne correspond à votre recherche";
+    span.textContent = errorText;
+    span.classList.add(
+      "text-danger",
+      "fw-bold",
+      "w-100",
+      "text-center",
+      "py-2"
+    );
+    span.id = "error_span";
+    parent.appendChild(span);
+    setTimeout(() => {
+      span.remove();
+    }, 3000);
+  }
 }

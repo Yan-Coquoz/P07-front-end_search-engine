@@ -1,6 +1,6 @@
 import { recipes } from "../data/recipes.js";
-import { arrayCleaner, ErrorInTagInput } from "./misc.js";
-import { reloadCard, suggestionDOM } from "./reloadTagDOM.js";
+import { arrayCleaner } from "./misc.js";
+import { reloadCard, suggestionDOM, ErrorInTagInput } from "./reloadTagDOM.js";
 import { dispatchTagDOM } from "./dispatch.js";
 
 /**

@@ -5,7 +5,7 @@ import {
   searchAllAppareil,
   searchAllIngredient,
   searchAllUstensile,
-} from "./filter.js";
+} from "./tagFilter.js";
 import { cleanDropdown } from "./misc.js";
 import { dropdownTagItem, addSelectTag } from "./reloadTagDOM.js";
 

@@ -8,7 +8,9 @@ export class CardRecipes {
     this.description = recipe.description;
     this.appliance = recipe.appliance;
     this.ustensils = recipe.ustensils;
+    this.ingredientBox = document.createElement("ul");
   }
+
   /**
    * Affichage de la carte d'une recette
    * @returns {HTMLElement}
@@ -23,7 +25,6 @@ export class CardRecipes {
     const time = document.createElement("span");
     const icon = document.createElement("img");
     const descBloc = document.createElement("div");
-    const ingredientBox = document.createElement("ul");
     const desc = document.createElement("p");
 
     upperContainerImg.setAttribute("src", "./public/assets/imgRecette.svg");
@@ -31,8 +32,57 @@ export class CardRecipes {
 
     upperContainerImg.classList.add("card-img-top");
     lowerContainer.classList.add("card-body");
-    //TODO isolé la boucle
+
     // rendu des ingredients
+    this.ingredientDOM();
+
+    icon.setAttribute("src", "./public/assets/clock.svg");
+    icon.setAttribute("alt", "icone d'horloge");
+
+    //classe Bootstrap
+    article.classList.add("card", "g-4", "overflow-hidden");
+    descBloc.classList.add(
+      "desc_bloc",
+      "d-flex",
+      "flex-row",
+      "justify-content-between",
+      "overflow-hidden",
+      "my-2"
+    );
+    this.ingredientBox.classList.add("col-5", "mb-0", "list-inline", "w-50");
+    desc.classList.add("col-5", "m-0");
+    icon.classList.add("p-0");
+    titleBox.classList.add("d-flex", "justify-content-between", "fw-bold");
+    timeBloc.classList.add("w-50", "text-end");
+    title.classList.add("card-title", "fw-bold");
+
+    title.textContent = this.name;
+    time.textContent = ` ${this.time} min`;
+
+    desc.textContent = this.checkDescLength();
+
+    timeBloc.appendChild(icon);
+    timeBloc.appendChild(time);
+
+    titleBox.appendChild(title);
+    titleBox.appendChild(timeBloc);
+
+    descBloc.appendChild(this.ingredientBox);
+    descBloc.appendChild(desc);
+
+    lowerContainer.appendChild(titleBox);
+    lowerContainer.appendChild(descBloc);
+
+    article.appendChild(upperContainerImg);
+    article.appendChild(lowerContainer);
+
+    return article;
+  }
+
+  /**
+   * gestion du tableau des ingrédients pour le DOM
+   */
+  ingredientDOM() {
     for (const props in this.ingredients) {
       const baseObject = this.ingredients[props];
       const ingredient = baseObject.ingredient;
@@ -49,6 +99,7 @@ export class CardRecipes {
       if (baseObject.unit) {
         unit = baseObject.unit;
       }
+
       strong.classList.add("list_ingredient");
       strong.textContent = `${ingredient} `;
       quantityString = `: ${quantity}`;
@@ -58,55 +109,19 @@ export class CardRecipes {
 
       li.textContent = contentProps;
       li.insertAdjacentElement("afterbegin", strong);
-      ingredientBox.appendChild(li);
+      this.ingredientBox.appendChild(li);
     }
+  }
 
-    icon.setAttribute("src", "./public/assets/clock.svg");
-    icon.setAttribute("alt", "icone d'horloge");
-
-    //classe Bootstrap
-    article.classList.add("card", "g-4", "overflow-hidden");
-    descBloc.classList.add(
-      "desc_bloc",
-      "d-flex",
-      "flex-row",
-      "justify-content-between",
-      "overflow-hidden",
-      "my-2"
-    );
-    ingredientBox.classList.add("col-5", "mb-0", "list-inline", "w-50");
-    desc.classList.add("col-5", "m-0");
-    icon.classList.add("p-0");
-    titleBox.classList.add("d-flex", "justify-content-between", "fw-bold");
-    timeBloc.classList.add("w-50", "text-end");
-    title.classList.add("card-title", "fw-bold");
-
-    title.textContent = this.name;
-    time.textContent = ` ${this.time} min`;
-
-    // TODO isolé la condition
+  /**
+   * Tronque la description selon sa taille
+   * @returns {string} la description de la recette
+   */
+  checkDescLength() {
     if (this.description.length >= 165) {
-      const text = this.description.slice(0, 150) + "...";
-      desc.textContent = text;
+      return this.description.slice(0, 150) + "...";
     } else {
-      desc.textContent = this.description;
+      return this.description;
     }
-
-    timeBloc.appendChild(icon);
-    timeBloc.appendChild(time);
-
-    titleBox.appendChild(title);
-    titleBox.appendChild(timeBloc);
-
-    descBloc.appendChild(ingredientBox);
-    descBloc.appendChild(desc);
-
-    lowerContainer.appendChild(titleBox);
-    lowerContainer.appendChild(descBloc);
-
-    article.appendChild(upperContainerImg);
-    article.appendChild(lowerContainer);
-
-    return article;
   }
 }
