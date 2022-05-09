@@ -18,7 +18,7 @@ export function findByTitle(item) {
     }
   }
 
-  console.log(titles);
+  // console.log(titles);
 }
 
 export function findByDesc(item) {
@@ -28,5 +28,18 @@ export function findByDesc(item) {
       descs.push(recipes[index]);
     }
   }
-  console.log(descs);
+  // console.log(descs);
+}
+
+export function findByIngredient(item) {
+  const ingredientArrays = [];
+  for (let index = 0; index < recipes.length; index++) {
+    const elements = recipes[index].ingredients;
+    for (let j = 0; j < elements.length; j++) {
+      if (elements[j].ingredient.toLocaleLowerCase().includes(item)) {
+        ingredientArrays.push(recipes[index]);
+      }
+    }
+  }
+  console.log(ingredientArrays);
 }
