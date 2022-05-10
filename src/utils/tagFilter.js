@@ -1,18 +1,20 @@
 import { recipes } from "../data/recipes.js";
-import { arrayCleaner } from "./misc.js";
-import { reloadCard, suggestionDOM, ErrorInTagInput } from "./reloadTagDOM.js";
-import { dispatchTagDOM } from "./dispatch.js";
+import { arrayCleaner, getRecipes } from "./misc.js";
+import { reloadCard, suggestionDOM, ErrorInTagInput } from "./reloadDOM.js";
+import { dispatchTagDOM } from "./dispatchTag.js";
 
+let allRecipes = [];
 /**
  * Recherche par ingrédients (input tag)
  * @param {string} element caractères venant de l'input
  * @returns {arrayOfObject}
  */
 export function searchIngredient(element) {
+  allRecipes = getRecipes().at(0) !== undefined ? getRecipes() : recipes;
   const recipesIngredients = [];
   const getSuggests = [];
 
-  recipes.map((obj) => {
+  allRecipes.map((obj) => {
     const results = obj.ingredients.filter((ele) => {
       if (ele.ingredient.toLowerCase().includes(element.toLowerCase())) {
         recipesIngredients.push(obj);
@@ -36,7 +38,8 @@ export function searchIngredient(element) {
  * @returns {arrayOfObject}
  */
 export function searchAppareil(element) {
-  const appareils = recipes.filter((app) => {
+  allRecipes = getRecipes().lenght > 0 ? getRecipes() : recipes;
+  const appareils = allRecipes.filter((app) => {
     return app.appliance.toLowerCase().includes(element.toLowerCase());
   });
 
@@ -52,8 +55,9 @@ export function searchAppareil(element) {
  * @returns {arrayOfObject}
  */
 export function searchUstensile(element) {
+  allRecipes = getRecipes().lenght > 0 ? getRecipes() : recipes;
   const recipesUstensiles = [];
-  recipes.map((obj) => {
+  allRecipes.map((obj) => {
     return obj.ustensils.filter((item) => {
       if (item.toLowerCase().includes(element.toLowerCase())) {
         recipesUstensiles.push(obj);
@@ -71,8 +75,10 @@ export function searchUstensile(element) {
  * recherches tout les ingredients pour le dropdown
  */
 export function searchAllIngredient() {
+  allRecipes = getRecipes().at(0) === undefined ? recipes : getRecipes();
   const allIngredients = [];
-  recipes.forEach((props) => {
+
+  allRecipes.forEach((props) => {
     props.ingredients.forEach((i) => {
       allIngredients.push(i.ingredient.toLowerCase());
     });
@@ -88,10 +94,13 @@ export function searchAllIngredient() {
  * recherches tout les appareils pour le dropdown
  */
 export function searchAllAppareil() {
+  allRecipes = getRecipes().at(0) === undefined ? recipes : getRecipes();
   const allAppareils = [];
-  recipes.forEach((app) => {
+
+  allRecipes.forEach((app) => {
     allAppareils.push(app.appliance.toLowerCase());
   });
+
   /**
    * @constant {arrayOfString} appareils
    */
@@ -103,8 +112,11 @@ export function searchAllAppareil() {
  * recherches tout les ustensiles pour le dropdown
  */
 export function searchAllUstensile() {
+  allRecipes.length = 0;
+  allRecipes = getRecipes().at(0) !== undefined ? getRecipes() : recipes;
   const allUstensiles = [];
-  recipes.forEach((ust) => {
+
+  allRecipes.forEach((ust) => {
     ust.ustensils.forEach((u) => {
       allUstensiles.push(u.toLowerCase());
     });

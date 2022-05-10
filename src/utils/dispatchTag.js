@@ -7,13 +7,15 @@ import {
   searchAllUstensile,
 } from "./tagFilter.js";
 import { cleanDropdown } from "./misc.js";
-import { dropdownTagItem, addSelectTag } from "./reloadTagDOM.js";
+import { dropdownTagItem, addSelectTag } from "./reloadDOM.js";
 
 /**
  * distribut l'event selon l'input (champs / tag)
  * @param {KeyboardEvent} evt
  */
 export function dispatchSelected(evt) {
+  evt.preventDefault();
+  evt.stopPropagation();
   const element = evt.target.id;
 
   switch (element) {
@@ -38,6 +40,8 @@ export function dispatchSelected(evt) {
  * @param {MouseEvent} evt
  */
 export function dispatchCallTag(evt) {
+  evt.preventDefault();
+
   const btnColor = evt.target.id.slice(4);
   document.removeEventListener("click", dispatchCallTag);
 
@@ -81,6 +85,8 @@ export function dispatchTagDOM(typeOrColor, arr) {
  * @param {MouseEvent} evt
  */
 export function dispatchGetElementInList(evt) {
+  evt.preventDefault();
+  evt.stopPropagation();
   const couleur = evt.target.parentElement.attributes[1].nodeValue.slice(3);
   const value = evt.target.innerText;
   addSelectTag(couleur, value);

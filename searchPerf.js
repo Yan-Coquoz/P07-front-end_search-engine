@@ -91,8 +91,8 @@ for (let element of arr2) {
 // tri à bulle
 function bubbleSort(items) {
   const tab = items.length;
-  for (let i = 0; i < tab; i++) {
-    for (let j = 0; j < tab - i - 1; j++) {
+  for (let ind_ = 0; ind_ < tab; ind_++) {
+    for (let j = 0; j < tab - ind_ - 1; j++) {
       if (items[j] > items[j + 1]) {
         let tmp = items[j];
         items[j] = items[j + 1];

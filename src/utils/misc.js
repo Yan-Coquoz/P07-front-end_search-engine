@@ -1,5 +1,5 @@
 /**
- * supprime tous les élément du dropdown
+ * supprime tous les éléments du dropdown
  */
 export function cleanDropdown() {
   document.querySelectorAll("li.dropdown-item").forEach((item) => {
@@ -20,4 +20,20 @@ export function arrayCleaner(arrays) {
   return arrays.filter(function (item, next) {
     return arrays.indexOf(item) == next;
   });
+}
+
+const arrayTransitions = [];
+/**
+ * @param {array} arr
+ */
+export function setRecipe(arr) {
+  arrayTransitions.push(...arr);
+}
+
+/**
+ * @returns un tableau d'objet
+ */
+export function getRecipes() {
+  const arr = arrayTransitions;
+  return arrayCleaner(arr);
 }

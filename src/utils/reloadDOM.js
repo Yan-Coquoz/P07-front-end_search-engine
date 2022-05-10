@@ -4,7 +4,7 @@ import {
   searchIngredient,
   searchUstensile,
 } from "./tagFilter.js";
-import { dispatchGetElementInList } from "./dispatch.js";
+import { dispatchGetElementInList } from "./dispatchTag.js";
 
 /**
  * Nouveau rendu des recettes selon le type de recherche
@@ -31,7 +31,7 @@ export function reloadCard(arr) {
 export function dropdownTagItem(color, tab) {
   const ul = document.querySelector(`#ul-${color}`);
   /*
-   * empêche la création supplémentaire d'une liste au cas ou elle soit déjà présente.
+   * Empêche la création supplémentaire d'une liste au cas ou elle soit déjà présente.
    */
   if (!document.querySelector(`#ul-${color} li.dropdown-item`)) {
     for (const element of tab.sort()) {
@@ -111,6 +111,7 @@ export function addSelectTag(color, element) {
     li.remove();
   });
 }
+
 /**
  * Créer un message d'erreur en cas de non concordance
  */

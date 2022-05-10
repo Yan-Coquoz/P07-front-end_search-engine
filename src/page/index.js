@@ -25,7 +25,7 @@ export class MainApp {
    */
   displaySearchByTag() {
     const container = document.querySelector("#searching_bar");
-    const form = document.createElement("form");
+    const form = document.createElement("from");
     const divTag = document.createElement("div");
     const ul = document.createElement("ul");
     const tagElement = new SearchByTag().SearchByTagRenderDom();

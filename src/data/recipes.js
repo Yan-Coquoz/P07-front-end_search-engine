@@ -1774,4 +1774,46 @@ export const recipes = [
     appliance: "Four",
     ustensils: ["rouleau à patisserie", "fouet"],
   },
+  {
+    id: 51,
+    name: "Sushi Maki",
+    servings: 2,
+    ingredients: [
+      {
+        ingredient: "vinaigre de riz",
+        quantity: 2,
+        unit: "c. à soupe",
+      },
+      {
+        ingredient: "feuille d'algues Nori",
+        quantity: 2,
+      },
+      {
+        ingredient: "poulet",
+        quantity: 100,
+        unit: "grammes",
+      },
+      {
+        ingredient: "riz long grain",
+        quantity: 80,
+        unit: "grammes",
+      },
+      {
+        ingredient: "Sucre en poudre",
+        quantity: 2,
+        unit: "c. à café",
+      },
+      {
+        ingredient: "feuilles de salade verte",
+      },
+      {
+        ingredient: "avocat",
+        quantity: 0.5,
+      },
+    ],
+    time: 60,
+    description: `Préparation du riz : Faites cuire le riz environ 15 minutes pour le rendre collant. Pendant la cuisson du riz, mettez le vinaigre de riz dans un bol et faîtes-y dissoudre le sucre en poudre. Si vous aimez, vous pouvez aussi ajouter un peu de gingembre dans la préparation.Égouttez le riz et laissez-le refroidir un peu. Puis ajoutez la préparation à base de vinaigre et mélangez. Le tout doit être très collant. Ensuite, découpez les avocats et le poulet en lamelles. Pour l'assemblage, disposez une feuille d'algue Nori sur le plan de travail. Étalez le riz et tassez-le sur la feuille d'algue à l'aide d'une cuillère à soupe. Attention, il faut laisser environ 2 centimètres d'algue sans riz sur le coin supérieur de la longueur de l'algue Nori. Ajoutez de la salade en bas de l'algue, ainsi que les lamelles d'avocat. Enfin, ajoutez le poulet à côté de l'avocat. Pour rouler la feuille d'algue, il faut serrer le plus possible le rouleau en faisant attention de ne pas le déchirer. Laissez les rouleaux reposer 2 heures environ au frigo, puis sortez-les. Prenez un couteau qui coupe bien et couper les rouleaux tous les 2 cms environ. Voilà, vos Sushi Maki sont prêts !! A déguster avec la sauce soja et du wasabi !`,
+    appliance: "Cuiseur de riz",
+    ustensils: ["Couteau"],
+  },
 ];

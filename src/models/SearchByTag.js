@@ -1,4 +1,4 @@
-import { dispatchSelected, dispatchCallTag } from "../utils/dispatch.js";
+import { dispatchSelected, dispatchCallTag } from "../utils/dispatchTag.js";
 
 export class SearchByTag {
   /**

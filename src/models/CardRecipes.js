@@ -28,7 +28,7 @@ export class CardRecipes {
     const desc = document.createElement("p");
 
     upperContainerImg.setAttribute("src", "./public/assets/imgRecette.svg");
-    upperContainerImg.setAttribute("alt", "Photo de la recette ");
+    upperContainerImg.setAttribute("alt", `Photo de la recette`);
 
     upperContainerImg.classList.add("card-img-top");
     lowerContainer.classList.add("card-body");
@@ -41,6 +41,7 @@ export class CardRecipes {
 
     //classe Bootstrap
     article.classList.add("card", "g-4", "overflow-hidden");
+    article.id = `${this.id}`;
     descBloc.classList.add(
       "desc_bloc",
       "d-flex",
