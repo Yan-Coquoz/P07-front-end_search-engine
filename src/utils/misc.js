@@ -1,5 +1,3 @@
-import { recipes } from "../data/recipes.js";
-
 /**
  * supprime tous les éléments du dropdown
  */
@@ -24,10 +22,19 @@ export function arrayCleaner(arrays) {
   });
 }
 
+/**
+ * check le status de l'input
+ * @returns {number}
+ */
+export function isSearchbarEmpty() {
+  const input = document.querySelector("#search-bar");
+  return input.value.length;
+}
+
 // traitement du nouveau tableau de recette selon ce qui est recherché
 const arrayTransitions = [];
 /**
- * setter
+ * setter, arrivé d'un tableau crée par la searchbar
  * @param {array} arr
  */
 export function setRecipe(arr) {
@@ -35,7 +42,7 @@ export function setRecipe(arr) {
 }
 
 /**
- * getter
+ * getter, retourne le nouveau tableau de recettes
  * @returns un tableau d'objet
  */
 export function getRecipes() {

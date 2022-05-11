@@ -1,9 +1,7 @@
 import { recipes } from "../data/recipes.js";
-import { arrayCleaner, getRecipes } from "./misc.js";
+import { arrayCleaner, getRecipes, isSearchbarEmpty } from "./misc.js";
 import { reloadCard, suggestionDOM, ErrorInTagInput } from "./reloadDOM.js";
 import { dispatchTagDOM } from "./dispatchTag.js";
-
-let allRecipes = [];
 
 /**
  * Recherche par ingrédients (input tag)
@@ -11,11 +9,11 @@ let allRecipes = [];
  * @returns {arrayOfObject}
  */
 export function searchIngredient(element) {
-  console.log(getRecipes().length);
-  allRecipes = getRecipes().length === 0 ? recipes : getRecipes();
+  const allRecipes = isSearchbarEmpty() === 0 ? recipes : getRecipes();
+
   const recipesIngredients = [];
   const getSuggests = [];
-
+  console.log(allRecipes.length);
   allRecipes.map((obj) => {
     const results = obj.ingredients.filter((ele) => {
       if (ele.ingredient.toLowerCase().includes(element.toLowerCase())) {
@@ -40,7 +38,8 @@ export function searchIngredient(element) {
  * @returns {arrayOfObject}
  */
 export function searchAppareil(element) {
-  allRecipes = getRecipes();
+  const allRecipes = isSearchbarEmpty() === 0 ? recipes : getRecipes();
+
   const appareils = allRecipes.filter((app) => {
     return app.appliance.toLowerCase().includes(element.toLowerCase());
   });
@@ -57,7 +56,8 @@ export function searchAppareil(element) {
  * @returns {arrayOfObject}
  */
 export function searchUstensile(element) {
-  allRecipes = getRecipes();
+  const allRecipes = isSearchbarEmpty() === 0 ? recipes : getRecipes();
+
   const recipesUstensiles = [];
   allRecipes.map((obj) => {
     return obj.ustensils.filter((item) => {
@@ -78,7 +78,7 @@ export function searchUstensile(element) {
  */
 export function searchAllIngredient() {
   allRecipes = [];
-  allRecipes = getRecipes().length === 0 ? recipes : getRecipes();
+  allRecipes = isSearchbarEmpty() === 0 ? recipes : getRecipes();
   const allIngredients = [];
 
   allRecipes.forEach((props) => {
