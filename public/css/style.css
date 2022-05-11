@@ -74,14 +74,15 @@ p {
 /* dropdown */
 
 .dropdown-menu.show {
-  width: 70vw;
+  width: 75vw;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin-bottom: 2rem !important;
 }
 
 .dropdown-item {
-  width: calc(300% / 11 - 2rem);
+  width: calc(275% / 14 - 0.5rem);
   white-space: normal;
 }
 .dropdown-item:hover {

@@ -135,3 +135,14 @@ export function ErrorInTagInput() {
     }, 3000);
   }
 }
+
+export function ErrorInSearchBar() {
+  const div = document.querySelector(".carte");
+  const span = document.createElement("span");
+  span.textContent = "Il n'y a pas de recherche correspondante !";
+  span.classList.add("text-danger", "fw-bold");
+  div.insertAdjacentElement("afterbegin", span);
+  setTimeout(() => {
+    span.remove();
+  }, 3000);
+}

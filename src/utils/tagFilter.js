@@ -4,13 +4,15 @@ import { reloadCard, suggestionDOM, ErrorInTagInput } from "./reloadDOM.js";
 import { dispatchTagDOM } from "./dispatchTag.js";
 
 let allRecipes = [];
+
 /**
  * Recherche par ingrédients (input tag)
  * @param {string} element caractères venant de l'input
  * @returns {arrayOfObject}
  */
 export function searchIngredient(element) {
-  allRecipes = getRecipes().at(0) !== undefined ? getRecipes() : recipes;
+  console.log(getRecipes().length);
+  allRecipes = getRecipes().length === 0 ? recipes : getRecipes();
   const recipesIngredients = [];
   const getSuggests = [];
 
@@ -38,7 +40,7 @@ export function searchIngredient(element) {
  * @returns {arrayOfObject}
  */
 export function searchAppareil(element) {
-  allRecipes = getRecipes().lenght > 0 ? getRecipes() : recipes;
+  allRecipes = getRecipes();
   const appareils = allRecipes.filter((app) => {
     return app.appliance.toLowerCase().includes(element.toLowerCase());
   });
@@ -55,7 +57,7 @@ export function searchAppareil(element) {
  * @returns {arrayOfObject}
  */
 export function searchUstensile(element) {
-  allRecipes = getRecipes().lenght > 0 ? getRecipes() : recipes;
+  allRecipes = getRecipes();
   const recipesUstensiles = [];
   allRecipes.map((obj) => {
     return obj.ustensils.filter((item) => {
@@ -75,7 +77,8 @@ export function searchUstensile(element) {
  * recherches tout les ingredients pour le dropdown
  */
 export function searchAllIngredient() {
-  allRecipes = getRecipes().at(0) === undefined ? recipes : getRecipes();
+  allRecipes = [];
+  allRecipes = getRecipes().length === 0 ? recipes : getRecipes();
   const allIngredients = [];
 
   allRecipes.forEach((props) => {
@@ -94,7 +97,7 @@ export function searchAllIngredient() {
  * recherches tout les appareils pour le dropdown
  */
 export function searchAllAppareil() {
-  allRecipes = getRecipes().at(0) === undefined ? recipes : getRecipes();
+  allRecipes = getRecipes();
   const allAppareils = [];
 
   allRecipes.forEach((app) => {
@@ -113,7 +116,7 @@ export function searchAllAppareil() {
  */
 export function searchAllUstensile() {
   allRecipes.length = 0;
-  allRecipes = getRecipes().at(0) !== undefined ? getRecipes() : recipes;
+  allRecipes = getRecipes();
   const allUstensiles = [];
 
   allRecipes.forEach((ust) => {

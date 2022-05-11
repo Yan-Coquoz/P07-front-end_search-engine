@@ -1,5 +1,5 @@
 import { findByTitle } from "./searchBarFilter.js";
-import { reloadCard } from "./reloadDOM.js";
+import { reloadCard, ErrorInSearchBar } from "./reloadDOM.js";
 import { setRecipe, arrayCleaner } from "./misc.js";
 
 export function dispatchSearchBar(evt) {
@@ -13,8 +13,7 @@ export function dispatchSearchBar(evt) {
     if (regexTest.test(entry)) {
       findByTitle(entry);
     } else {
-      // TODO les valeurs ne correspondent pas,fonction: afficher un message d'erreur
-      console.log("Hors conditions");
+      ErrorInSearchBar();
     }
   }
 }

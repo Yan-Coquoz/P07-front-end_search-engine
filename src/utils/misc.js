@@ -1,3 +1,5 @@
+import { recipes } from "../data/recipes.js";
+
 /**
  * supprime tous les éléments du dropdown
  */
@@ -22,8 +24,10 @@ export function arrayCleaner(arrays) {
   });
 }
 
+// traitement du nouveau tableau de recette selon ce qui est recherché
 const arrayTransitions = [];
 /**
+ * setter
  * @param {array} arr
  */
 export function setRecipe(arr) {
@@ -31,9 +35,9 @@ export function setRecipe(arr) {
 }
 
 /**
+ * getter
  * @returns un tableau d'objet
  */
 export function getRecipes() {
-  const arr = arrayTransitions;
-  return arrayCleaner(arr);
+  return arrayCleaner(arrayTransitions);
 }

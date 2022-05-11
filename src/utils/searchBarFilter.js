@@ -1,5 +1,6 @@
 import { recipes } from "../data/recipes.js";
 import { dispatchArraySearchRecipe } from "./dispachSearchbar.js";
+import { ErrorInSearchBar } from "./reloadDOM.js";
 
 const tempArr = [];
 
@@ -15,7 +16,6 @@ export function findByTitle(item) {
       tempArr.push(recipes[index]);
     }
   }
-
   findByIngredient(item);
 }
 
@@ -32,7 +32,6 @@ export function findByIngredient(item) {
       }
     }
   }
-
   findByDesc(item);
 }
 
@@ -46,6 +45,9 @@ export function findByDesc(item) {
       tempArr.push(recipes[index]);
     }
   }
-
-  dispatchArraySearchRecipe(tempArr);
+  if (tempArr.length !== 0) {
+    dispatchArraySearchRecipe(tempArr);
+  } else {
+    ErrorInSearchBar();
+  }
 }
