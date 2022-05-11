@@ -1,5 +1,10 @@
 import { recipes } from "../data/recipes.js";
-import { arrayCleaner, getRecipes, isSearchbarEmpty } from "./misc.js";
+import {
+  arrayCleaner,
+  getRecipes,
+  isSearchbarEmpty,
+  isInputTagEmpty,
+} from "./misc.js";
 import { reloadCard, suggestionDOM, ErrorInTagInput } from "./reloadDOM.js";
 import { dispatchTagDOM } from "./dispatchTag.js";
 
@@ -9,11 +14,12 @@ import { dispatchTagDOM } from "./dispatchTag.js";
  * @returns {arrayOfObject}
  */
 export function searchIngredient(element) {
-  const allRecipes = isSearchbarEmpty() === 0 ? recipes : getRecipes();
+  const allRecipes =
+    isSearchbarEmpty() + isInputTagEmpty() === 0 ? recipes : getRecipes();
 
   const recipesIngredients = [];
   const getSuggests = [];
-  console.log(allRecipes.length);
+
   allRecipes.map((obj) => {
     const results = obj.ingredients.filter((ele) => {
       if (ele.ingredient.toLowerCase().includes(element.toLowerCase())) {
@@ -77,8 +83,8 @@ export function searchUstensile(element) {
  * recherches tout les ingredients pour le dropdown
  */
 export function searchAllIngredient() {
-  allRecipes = [];
-  allRecipes = isSearchbarEmpty() === 0 ? recipes : getRecipes();
+  const allRecipes =
+    isSearchbarEmpty() + isInputTagEmpty() === 0 ? recipes : getRecipes();
   const allIngredients = [];
 
   allRecipes.forEach((props) => {
@@ -97,7 +103,9 @@ export function searchAllIngredient() {
  * recherches tout les appareils pour le dropdown
  */
 export function searchAllAppareil() {
-  allRecipes = getRecipes();
+  const allRecipes =
+    isSearchbarEmpty() + isInputTagEmpty() === 0 ? recipes : getRecipes();
+
   const allAppareils = [];
 
   allRecipes.forEach((app) => {
@@ -115,8 +123,8 @@ export function searchAllAppareil() {
  * recherches tout les ustensiles pour le dropdown
  */
 export function searchAllUstensile() {
-  allRecipes.length = 0;
-  allRecipes = getRecipes();
+  const allRecipes =
+    isSearchbarEmpty() + isInputTagEmpty() === 0 ? recipes : getRecipes();
   const allUstensiles = [];
 
   allRecipes.forEach((ust) => {

@@ -4,7 +4,7 @@ export class SearchBar {
    * @returns {HTMLElement}
    */
   searchBarRenderDom() {
-    const form = document.querySelector("#searching_bar");
+    const container = document.querySelector("#searching_bar");
     const div = document.createElement("div");
     const icon = "./public/assets/search.svg";
 
@@ -23,6 +23,6 @@ export class SearchBar {
       .querySelector("#search-bar")
       .addEventListener("input", dispatchSearchBar);
 
-    return form.appendChild(div);
+    return container.appendChild(div);
   }
 }

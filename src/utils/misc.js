@@ -23,12 +23,24 @@ export function arrayCleaner(arrays) {
 }
 
 /**
- * check le status de l'input
+ * check le status de l'input (searchbar)
  * @returns {number}
  */
 export function isSearchbarEmpty() {
-  const input = document.querySelector("#search-bar");
-  return input.value.length;
+  const input = document.querySelector("#search-bar").value.length;
+  console.log("searchbar :", input);
+  return input;
+}
+/**
+ * Retourne la longueur des carateres dans les inputs (tag)
+ * @returns {number}
+ */
+export function isInputTagEmpty() {
+  const inputBlue = document.querySelector(".blue").value.length;
+  const inputGreen = document.querySelector(".green").value.length;
+  const inputRed = document.querySelector(".red").value.length;
+  console.log(`bleu : ${inputBlue},vert : ${inputGreen}, rouge : ${inputRed}`);
+  return inputBlue + inputGreen + inputRed;
 }
 
 // traitement du nouveau tableau de recette selon ce qui est recherché

@@ -14,8 +14,16 @@ export class MainApp {
   displaySearchBar() {
     const container = document.querySelector("#searching_bar");
     const form = document.createElement("form");
+    form.classList.add("searchbar-form");
 
     const searchContaint = new SearchBar().searchBarRenderDom();
+
+    form.addEventListener("keydown", (evt) => {
+      if (evt.key === "Enter") {
+        evt.preventDefault();
+      }
+    });
+
     form.appendChild(searchContaint);
     container.appendChild(form);
   }

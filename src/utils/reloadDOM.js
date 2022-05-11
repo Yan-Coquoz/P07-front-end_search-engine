@@ -1,10 +1,6 @@
 import { CardRecipes } from "../models/CardRecipes.js";
-import {
-  searchAppareil,
-  searchIngredient,
-  searchUstensile,
-} from "./tagFilter.js";
-import { dispatchGetElementInList } from "./dispatchTag.js";
+
+import { dispatchGetElementInList, dispatchTagElement } from "./dispatchTag.js";
 
 /**
  * Nouveau rendu des recettes selon le type de recherche
@@ -84,25 +80,10 @@ export function addSelectTag(color, element) {
   img.setAttribute("alt", "close");
   li.classList.add("ul_tag--li", "mx-1");
 
-  switch (color) {
-    case "blue":
-      li.classList.add("bg-primary");
-      searchIngredient(element);
-      break;
-    case "green":
-      li.classList.add("bg-success");
-      searchAppareil(element);
-      break;
-    case "red":
-      li.classList.add("bg-danger");
-      searchUstensile(element);
-      break;
-  }
+  li.classList.add(dispatchTagElement(color, element));
 
   li.style.color = "white";
   li.textContent = element;
-
-  // TODO empecher la duplication de la création du tag
 
   li.appendChild(img);
   ul.appendChild(li);
@@ -139,9 +120,11 @@ export function ErrorInTagInput() {
 export function ErrorInSearchBar() {
   const div = document.querySelector(".carte");
   const span = document.createElement("span");
-  span.textContent = "Il n'y a pas de recherche correspondante !";
-  span.classList.add("text-danger", "fw-bold");
-  div.insertAdjacentElement("afterbegin", span);
+  if (!document.querySelector(".error_seachbar")) {
+    span.textContent = "Il n'y a pas de recherche correspondante !";
+    span.classList.add("text-danger", "fw-bold", "error_seachbar");
+    div.insertAdjacentElement("afterbegin", span);
+  }
   setTimeout(() => {
     span.remove();
   }, 3000);

@@ -6,7 +6,8 @@ import {
   searchAllIngredient,
   searchAllUstensile,
 } from "./tagFilter.js";
-import { cleanDropdown } from "./misc.js";
+import { findByTitle } from "./searchBarFilter.js";
+
 import { dropdownTagItem, addSelectTag } from "./reloadDOM.js";
 
 /**
@@ -81,6 +82,27 @@ export function dispatchTagDOM(typeOrColor, arr) {
 }
 
 /**
+ * Renvois la couleur selon le type pour l'input (tag) et dispatch l'element pour un nouveau tableau
+ * @param {string} color le type d'input
+ * @param {string} item recherché
+ * @returns {string} la classe de bootstrap pour la couleur
+ */
+export function dispatchTagElement(color, item) {
+  switch (color) {
+    case "blue":
+      // TODO revoir cette partie pour éliminer le tag et refaire un nouveau tableau
+      searchIngredient(item);
+      return "bg-primary";
+    case "green":
+      searchAppareil(item);
+      return "bg-success";
+    case "red":
+      searchUstensile(item);
+      return "bg-danger";
+  }
+}
+
+/**
  * Permet de reccuperer l'item et la couleur du tag séléctionner dans son dropdown
  * @param {MouseEvent} evt
  */
@@ -90,6 +112,6 @@ export function dispatchGetElementInList(evt) {
   const couleur = evt.target.parentElement.attributes[1].nodeValue.slice(3);
   const value = evt.target.innerText;
   addSelectTag(couleur, value);
-  cleanDropdown();
+
   document.removeEventListener("click", dispatchGetElementInList);
 }
