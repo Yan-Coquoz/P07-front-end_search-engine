@@ -76,7 +76,7 @@ export function addSelectTag(color, element) {
   const li = document.createElement("li");
   const img = document.createElement("img");
 
-  img.setAttribute("src", "../../public/assets/close.svg");
+  img.setAttribute("src", "./public/assets/close.svg");
   img.setAttribute("alt", "close");
   li.classList.add("ul_tag--li", "mx-1");
 

@@ -6,12 +6,11 @@ import {
   searchAllIngredient,
   searchAllUstensile,
 } from "./tagFilter.js";
-import { findByTitle } from "./searchBarFilter.js";
 
 import { dropdownTagItem, addSelectTag } from "./reloadDOM.js";
 
 /**
- * distribut l'event selon l'input (champs / tag)
+ * Distribut l'event selon l'input (champs / tag)
  * @param {KeyboardEvent} evt
  */
 export function dispatchSelected(evt) {
@@ -37,7 +36,7 @@ export function dispatchSelected(evt) {
 }
 
 /**
- * distribut l'évent selon le typeOrColor de l'input (modale)
+ * Distribut l'évent selon la modale
  * @param {MouseEvent} evt
  */
 export function dispatchCallTag(evt) {
@@ -49,6 +48,7 @@ export function dispatchCallTag(evt) {
   switch (btnColor) {
     case "blue":
       searchAllIngredient();
+
       break;
     case "green":
       searchAllAppareil();

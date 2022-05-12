@@ -28,7 +28,7 @@ export function arrayCleaner(arrays) {
  */
 export function isSearchbarEmpty() {
   const input = document.querySelector("#search-bar").value.length;
-  console.log("searchbar :", input);
+
   return input;
 }
 /**
@@ -39,7 +39,7 @@ export function isInputTagEmpty() {
   const inputBlue = document.querySelector(".blue").value.length;
   const inputGreen = document.querySelector(".green").value.length;
   const inputRed = document.querySelector(".red").value.length;
-  console.log(`bleu : ${inputBlue},vert : ${inputGreen}, rouge : ${inputRed}`);
+
   return inputBlue + inputGreen + inputRed;
 }
 
@@ -50,6 +50,7 @@ const arrayTransitions = [];
  * @param {array} arr
  */
 export function setRecipe(arr) {
+  arrayTransitions.length = 0;
   arrayTransitions.push(...arr);
 }
 

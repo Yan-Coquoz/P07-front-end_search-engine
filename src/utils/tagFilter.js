@@ -4,6 +4,8 @@ import {
   getRecipes,
   isSearchbarEmpty,
   isInputTagEmpty,
+  setRecipe,
+  cleanDropdown,
 } from "./misc.js";
 import { reloadCard, suggestionDOM, ErrorInTagInput } from "./reloadDOM.js";
 import { dispatchTagDOM } from "./dispatchTag.js";
@@ -14,8 +16,7 @@ import { dispatchTagDOM } from "./dispatchTag.js";
  * @returns {arrayOfObject}
  */
 export function searchIngredient(element) {
-  const allRecipes =
-    isSearchbarEmpty() + isInputTagEmpty() === 0 ? recipes : getRecipes();
+  const allRecipes = isSearchbarEmpty() === 0 ? recipes : getRecipes();
 
   const recipesIngredients = [];
   const getSuggests = [];
@@ -35,6 +36,7 @@ export function searchIngredient(element) {
   } else {
     filteredSuggestion("blue", getSuggests);
     reloadCard(arrayCleaner(recipesIngredients));
+    setRecipe(recipesIngredients);
   }
 }
 
@@ -46,14 +48,15 @@ export function searchIngredient(element) {
 export function searchAppareil(element) {
   const allRecipes = isSearchbarEmpty() === 0 ? recipes : getRecipes();
 
-  const appareils = allRecipes.filter((app) => {
+  const recipesAppareils = allRecipes.filter((app) => {
     return app.appliance.toLowerCase().includes(element.toLowerCase());
   });
 
-  appareils.length === 0
+  recipesAppareils.length === 0
     ? ErrorInTagInput()
-    : filteredSuggestion("green", appareils);
-  reloadCard(arrayCleaner(appareils));
+    : filteredSuggestion("green", recipesAppareils);
+  reloadCard(arrayCleaner(recipesAppareils));
+  setRecipe(recipesAppareils);
 }
 
 /**
@@ -63,7 +66,6 @@ export function searchAppareil(element) {
  */
 export function searchUstensile(element) {
   const allRecipes = isSearchbarEmpty() === 0 ? recipes : getRecipes();
-
   const recipesUstensiles = [];
   allRecipes.map((obj) => {
     return obj.ustensils.filter((item) => {
@@ -76,6 +78,7 @@ export function searchUstensile(element) {
     ? ErrorInTagInput()
     : filteredSuggestion("red", recipesUstensiles);
   reloadCard(arrayCleaner(recipesUstensiles));
+  setRecipe(recipesUstensiles);
 }
 
 // Dropdown Tags
@@ -83,9 +86,18 @@ export function searchUstensile(element) {
  * recherches tout les ingredients pour le dropdown
  */
 export function searchAllIngredient() {
-  const allRecipes =
-    isSearchbarEmpty() + isInputTagEmpty() === 0 ? recipes : getRecipes();
+  cleanDropdown();
+  let allRecipes = [];
+  if (isSearchbarEmpty() === 0 && isInputTagEmpty() === 0) {
+    allRecipes.length = 0;
+    allRecipes = recipes;
+  } else {
+    allRecipes.length = 0;
+    allRecipes = getRecipes();
+  }
+
   const allIngredients = [];
+  console.log("allRecipes ing", allRecipes);
 
   allRecipes.forEach((props) => {
     props.ingredients.forEach((i) => {
@@ -103,11 +115,12 @@ export function searchAllIngredient() {
  * recherches tout les appareils pour le dropdown
  */
 export function searchAllAppareil() {
+  cleanDropdown();
   const allRecipes =
     isSearchbarEmpty() + isInputTagEmpty() === 0 ? recipes : getRecipes();
 
   const allAppareils = [];
-
+  console.log("allRecipes app", allRecipes);
   allRecipes.forEach((app) => {
     allAppareils.push(app.appliance.toLowerCase());
   });
@@ -123,10 +136,11 @@ export function searchAllAppareil() {
  * recherches tout les ustensiles pour le dropdown
  */
 export function searchAllUstensile() {
+  cleanDropdown();
   const allRecipes =
     isSearchbarEmpty() + isInputTagEmpty() === 0 ? recipes : getRecipes();
   const allUstensiles = [];
-
+  console.log("allRecipes ust", allRecipes);
   allRecipes.forEach((ust) => {
     ust.ustensils.forEach((u) => {
       allUstensiles.push(u.toLowerCase());
