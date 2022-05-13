@@ -14,7 +14,7 @@ export class SearchBar {
                     <input type="text" class="form-control form-control-lg " 
                 id="search-bar" name="search-bar"
                 placeholder="Recherche par titre, ingredient ou description">
-                    <img src="${icon}" class="input-group-addon" >
+                    <img src="${icon}" class="input-group-addon" alt="icone de recherche">
                   </div>
              `;
     div.classList.add("search", "col-12");
