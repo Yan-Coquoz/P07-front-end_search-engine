@@ -16,7 +16,6 @@ export function findByTitle(item) {
       tempArr.push(elt);
     }
   });
-
   findByIngredient(item);
 }
 
