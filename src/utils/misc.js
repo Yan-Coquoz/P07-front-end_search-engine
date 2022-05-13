@@ -27,9 +27,7 @@ export function arrayCleaner(arrays) {
  * @returns {number}
  */
 export function isSearchbarEmpty() {
-  const input = document.querySelector("#search-bar").value.length;
-
-  return input;
+  return document.querySelector("#search-bar").value.length;
 }
 /**
  * Retourne la longueur des carateres dans les inputs (tag)

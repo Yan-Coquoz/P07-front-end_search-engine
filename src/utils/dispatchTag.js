@@ -90,7 +90,6 @@ export function dispatchTagDOM(typeOrColor, arr) {
 export function dispatchTagElement(color, item) {
   switch (color) {
     case "blue":
-      // TODO revoir cette partie pour éliminer le tag et refaire un nouveau tableau
       searchIngredient(item);
       return "bg-primary";
     case "green":
@@ -110,6 +109,7 @@ export function dispatchGetElementInList(evt) {
   evt.preventDefault();
   evt.stopPropagation();
   const couleur = evt.target.parentElement.attributes[1].nodeValue.slice(3);
+
   const value = evt.target.innerText;
   addSelectTag(couleur, value);
 

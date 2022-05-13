@@ -100,7 +100,7 @@ export function ErrorInTagInput() {
   const parent = document.querySelector("#searching_bar");
   if (!document.getElementById("error_span")) {
     const span = document.createElement("span");
-    const errorText = "Rien ne correspond à votre recherche";
+    const errorText = "Pas de Tags qui ne correspond à votre recherche";
     span.textContent = errorText;
     span.classList.add(
       "text-danger",
@@ -116,7 +116,9 @@ export function ErrorInTagInput() {
     }, 3000);
   }
 }
-
+/**
+ * Créer un message d'erreur en cas de non concordance
+ */
 export function ErrorInSearchBar() {
   const div = document.querySelector(".carte");
   const span = document.createElement("span");
