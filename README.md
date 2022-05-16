@@ -17,7 +17,10 @@ Lancement du projet `./index.html`
 - [Fiche d'investigation](https://docs.google.com/document/d/1CNqJkfKX0z9X5e4po4bgkRfzjJ1wti2oZy2nK9p7_lo/edit)
 - Test de performance sur [JSBen.ch](https://jsben.ch/)
 - Test de performance sur [JSBench.me](https://jsbench.me/)
-- Mes differents tests dans le fichier [searchPerf](searchPerf.js)
+- Mes differents tests dans les fichiers :
+  - [Perf divers](searchPerf.js)
+  - [Les boucles](loopPerf.js)
+  - [SearchBar tests](optionsTest.js)
 
 ## SearchBar
 
