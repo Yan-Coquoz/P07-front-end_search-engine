@@ -5,9 +5,10 @@ import {
   searchAllAppareil,
   searchAllIngredient,
   searchAllUstensile,
+  searchEltTagByIng,
 } from "./tagFilter.js";
 
-import { dropdownTagItem, addSelectTag } from "./reloadDOM.js";
+import { dropdownTagItem, addSelectTagDOM } from "./reloadDOM.js";
 
 /**
  * Distribut l'event selon l'input (champs / tag)
@@ -48,7 +49,6 @@ export function dispatchCallTag(evt) {
   switch (btnColor) {
     case "blue":
       searchAllIngredient();
-
       break;
     case "green":
       searchAllAppareil();
@@ -62,7 +62,7 @@ export function dispatchCallTag(evt) {
 /**
  * Renvoi les nouveaux tableau pour les tags
  * @param {string} typeOrColor le typeOrColor de selecteur ou sa couleur
- * @param {array} arr
+ * @param {array} arr tableau de string
  */
 export function dispatchTagDOM(typeOrColor, arr) {
   switch (typeOrColor) {
@@ -88,15 +88,18 @@ export function dispatchTagDOM(typeOrColor, arr) {
  * @returns {string} la classe de bootstrap pour la couleur
  */
 export function dispatchTagElement(color, item) {
+  // TODO revoir cette partie pour éliminer le tag du dropdown et refaire un nouveau tableau
   switch (color) {
     case "blue":
-      // TODO revoir cette partie pour éliminer le tag et refaire un nouveau tableau
+      searchEltTagByIng(item);
       searchIngredient(item);
       return "bg-primary";
     case "green":
+      // searchEltTag(item, getRecipes());
       searchAppareil(item);
       return "bg-success";
     case "red":
+      // searchEltTag(item, getRecipes());
       searchUstensile(item);
       return "bg-danger";
   }
@@ -111,7 +114,6 @@ export function dispatchGetElementInList(evt) {
   evt.stopPropagation();
   const couleur = evt.target.parentElement.attributes[1].nodeValue.slice(3);
   const value = evt.target.innerText;
-  addSelectTag(couleur, value);
-
+  addSelectTagDOM(couleur, value);
   document.removeEventListener("click", dispatchGetElementInList);
 }

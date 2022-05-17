@@ -23,16 +23,15 @@ export function arrayCleaner(arrays) {
 }
 
 /**
- * check le status de l'input (searchbar)
+ * check le status de l'input (searchbar) s'il est vide ou non.
  * @returns {number}
  */
 export function isSearchbarEmpty() {
-  const input = document.querySelector("#search-bar").value.length;
-
-  return input;
+  return document.querySelector("#search-bar").value.length;
 }
+
 /**
- * Retourne la longueur des carateres dans les inputs (tag)
+ * check si les inputs des tags sont vide.
  * @returns {number}
  */
 export function isInputTagEmpty() {
@@ -41,6 +40,9 @@ export function isInputTagEmpty() {
   const inputRed = document.querySelector(".red").value.length;
 
   return inputBlue + inputGreen + inputRed;
+}
+export function isMiniTag() {
+  return document.querySelector(".ul_tag").childElementCount + 1;
 }
 
 // traitement du nouveau tableau de recette selon ce qui est recherché

@@ -1,6 +1,7 @@
 import { CardRecipes } from "../models/CardRecipes.js";
 
 import { dispatchGetElementInList, dispatchTagElement } from "./dispatchTag.js";
+import { setRecipe } from "./misc.js";
 
 /**
  * Nouveau rendu des recettes selon le type de recherche
@@ -13,6 +14,7 @@ export function reloadCard(arr) {
   });
 
   if (arr.length > 0) {
+    setRecipe(arr);
     arr.forEach((newArray) => {
       containerArticles.appendChild(new CardRecipes(newArray).CardRenderDom());
     });
@@ -26,10 +28,12 @@ export function reloadCard(arr) {
  */
 export function dropdownTagItem(color, tab) {
   const ul = document.querySelector(`#ul-${color}`);
+
   /*
    * Empêche la création supplémentaire d'une liste au cas ou elle soit déjà présente.
    */
   if (!document.querySelector(`#ul-${color} li.dropdown-item`)) {
+    ul.innerHTML = "";
     for (const element of tab.sort()) {
       const li = document.createElement("li");
       li.classList.add("dropdown-item", "text-light");
@@ -71,7 +75,7 @@ export function suggestionDOM(color, arr) {
  * @param {string} color la couleur du type de tag
  * @param {string} element le nom de l'élément selectionné
  */
-export function addSelectTag(color, element) {
+export function addSelectTagDOM(color, element) {
   const ul = document.querySelector(`.ul_tag`);
   const li = document.createElement("li");
   const img = document.createElement("img");

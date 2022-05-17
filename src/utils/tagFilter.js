@@ -6,22 +6,31 @@ import {
   isInputTagEmpty,
   setRecipe,
   cleanDropdown,
+  isMiniTag,
 } from "./misc.js";
-import { reloadCard, suggestionDOM, ErrorInTagInput } from "./reloadDOM.js";
+import {
+  reloadCard,
+  suggestionDOM,
+  ErrorInTagInput,
+  dropdownTagItem,
+} from "./reloadDOM.js";
 import { dispatchTagDOM } from "./dispatchTag.js";
 
 /**
  * Recherche par ingrédients (input tag)
- * @param {string} element caractères venant de l'input
+ * @param {string} element caractères venant de l'input ou des tags
  * @returns {arrayOfObject}
  */
 export function searchIngredient(element) {
-  const allRecipes = isSearchbarEmpty() === 0 ? recipes : getRecipes();
+  const allRecipes =
+    isSearchbarEmpty() === 0 && isInputTagEmpty() === 0
+      ? recipes
+      : getRecipes();
 
   const recipesIngredients = [];
   const getSuggests = [];
 
-  allRecipes.map((obj) => {
+  allRecipes.forEach((obj) => {
     const results = obj.ingredients.filter((ele) => {
       if (ele.ingredient.toLowerCase().includes(element.toLowerCase())) {
         recipesIngredients.push(obj);
@@ -36,7 +45,7 @@ export function searchIngredient(element) {
   } else {
     filteredSuggestion("blue", getSuggests);
     reloadCard(arrayCleaner(recipesIngredients));
-    setRecipe(recipesIngredients);
+    setRecipe(arrayCleaner(recipesIngredients));
   }
 }
 
@@ -92,12 +101,13 @@ export function searchAllIngredient() {
     allRecipes.length = 0;
     allRecipes = recipes;
   } else {
+    // console.log("je prends getRecipes ");
     allRecipes.length = 0;
     allRecipes = getRecipes();
   }
 
   const allIngredients = [];
-  console.log("allRecipes ing", allRecipes);
+  // console.log("allRecipes ing", allRecipes);
 
   allRecipes.forEach((props) => {
     props.ingredients.forEach((i) => {
@@ -105,7 +115,7 @@ export function searchAllIngredient() {
     });
   });
   /**
-   * @constant {arrayOfString} ingredients
+   * @constant {arrayOfString} ingredients tableau de string (ingredient)
    */
   const ingredients = arrayCleaner(allIngredients);
   dispatchTagDOM("ingredient", ingredients);
@@ -181,3 +191,60 @@ export function filteredSuggestion(color, arr) {
   }
   suggestionDOM(color, arrayCleaner(suggests));
 }
+
+export function searchEltTagByIng(item) {
+  //
+  const allRecipes =
+    isSearchbarEmpty() === 0 &&
+    isInputTagEmpty() === 0 &&
+    getRecipes().length === 0
+      ? recipes
+      : getRecipes();
+
+  const recipesIngredients = []; // pour le reloadCard
+  const itemToPops = []; // mise à jour du talbeau du dropdown (tableau de string)
+  // TODO a revoir KISS and DRY
+  console.log("tableau allRecipes : ", allRecipes);
+
+  allRecipes.forEach((obj) => {
+    // un objet du tableau
+    obj.ingredients.filter((ele) => {
+      // check si dans cette objet il y a un tableau contenant une valeur item
+      if (ele.ingredient.toLowerCase().includes(item.toLowerCase())) {
+        // on stock l'obj
+        recipesIngredients.push(obj);
+      }
+    });
+  });
+  console.log("tableau du reload ", recipesIngredients);
+  // fait un tableau de string
+  recipesIngredients.forEach((elt) => {
+    elt.ingredients.forEach((ing) => {
+      itemToPops.push(ing.ingredient.toLowerCase());
+    });
+  });
+
+  console.log(itemToPops);
+
+  // je supprime l'élément recherché
+  const eltPops = itemToPops.filter(
+    (elt) => elt.toLowerCase() !== item.toLowerCase()
+  );
+  console.log(eltPops);
+
+  reloadCard(recipesIngredients);
+  setRecipe(recipesIngredients);
+  //!  NOTE  ce doit être un tableau de string
+  dropdownTagItem("red", eltPops);
+}
+/**
+ * searchEltTagByIng(item)
+ * 1) si les champs sont vide, tu prends le tableau recipes
+ * 2) on bloucle pour trouver les bons items recherché
+ * 3) on stock les objets dans un tableau recipesIngredients.
+ * 4) on boucle sur ce tableau (recipesIngredients) et on recupere tout les ingredients que l'on va stocké dans un tableau de string (itemToPops)
+ * 5) on  boucle sur ce tableau de string (itemToPops) pour en supprimé la valeur recherché.
+ * 6) un fois la valeur enlever, on envois le tableau (itemToPops) pour le nouveau rendu du dropdown
+ * 7) le tableau recipesIngredients est utilisé pour le nouveau rendu des recettes
+ *
+ */
