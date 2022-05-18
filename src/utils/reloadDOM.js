@@ -73,21 +73,21 @@ export function suggestionDOM(color, arr) {
 /**
  * Création du tag
  * @param {string} color la couleur du type de tag
- * @param {string} element le nom de l'élément selectionné
+ * @param {string} item le nom de l'élément selectionné
  */
-export function addSelectTagDOM(color, element) {
+export function addSelectTagDOM(color, item) {
   const ul = document.querySelector(`.ul_tag`);
   const li = document.createElement("li");
   const img = document.createElement("img");
-
+  const bootstrapColor = dispatchTagElement(color, item);
   img.setAttribute("src", "./public/assets/close.svg");
   img.setAttribute("alt", "close");
   li.classList.add("ul_tag--li", "mx-1");
 
-  li.classList.add(dispatchTagElement(color, element));
+  li.classList.add(bootstrapColor);
 
   li.style.color = "white";
-  li.textContent = element;
+  li.textContent = item;
 
   li.appendChild(img);
   ul.appendChild(li);
@@ -125,7 +125,8 @@ export function ErrorInSearchBar() {
   const div = document.querySelector(".carte");
   const span = document.createElement("span");
   if (!document.querySelector(".error_seachbar")) {
-    span.textContent = "Il n'y a pas de recherche correspondante !";
+    span.textContent = `« Aucune recette ne correspond à votre critère… vous pouvez
+    chercher « tarte aux pommes », « poisson », etc.`;
     span.classList.add("text-danger", "fw-bold", "error_seachbar");
     div.insertAdjacentElement("afterbegin", span);
   }

@@ -6,7 +6,7 @@ import {
   isInputTagEmpty,
   setRecipe,
   cleanDropdown,
-  isMiniTag,
+  // isMiniTag,
 } from "./misc.js";
 import {
   reloadCard,
@@ -22,10 +22,7 @@ import { dispatchTagDOM } from "./dispatchTag.js";
  * @returns {arrayOfObject}
  */
 export function searchIngredient(element) {
-  const allRecipes =
-    isSearchbarEmpty() === 0 && isInputTagEmpty() === 0
-      ? recipes
-      : getRecipes();
+  const allRecipes = isSearchbarEmpty() === 0 ? recipes : getRecipes();
 
   const recipesIngredients = [];
   const getSuggests = [];
@@ -91,78 +88,50 @@ export function searchUstensile(element) {
 }
 
 // Dropdown Tags
+
+// tableau de string pour le dropdown
+const allIngredients = [];
+const allAppareils = [];
+const allUstensiles = [];
 /**
  * recherches tout les ingredients pour le dropdown
+ * @param {arrayOfObject} arr
  */
-export function searchAllIngredient() {
-  cleanDropdown();
-  let allRecipes = [];
-  if (isSearchbarEmpty() === 0 && isInputTagEmpty() === 0) {
-    allRecipes.length = 0;
-    allRecipes = recipes;
-  } else {
-    // console.log("je prends getRecipes ");
-    allRecipes.length = 0;
-    allRecipes = getRecipes();
-  }
+export function getAllIngredient(arr) {
+  allIngredients.length = 0;
 
-  const allIngredients = [];
-  // console.log("allRecipes ing", allRecipes);
-
-  allRecipes.forEach((props) => {
-    props.ingredients.forEach((i) => {
-      allIngredients.push(i.ingredient.toLowerCase());
+  arr.forEach((elt) => {
+    elt.ingredients.forEach((ingredient) => {
+      allIngredients.push(ingredient.ingredient.toLowerCase());
     });
   });
-  /**
-   * @constant {arrayOfString} ingredients tableau de string (ingredient)
-   */
-  const ingredients = arrayCleaner(allIngredients);
-  dispatchTagDOM("ingredient", ingredients);
+
+  dispatchTagDOM("blue", arrayCleaner(allIngredients));
 }
 
 /**
  * recherches tout les appareils pour le dropdown
  */
-export function searchAllAppareil() {
-  cleanDropdown();
-  const allRecipes =
-    isSearchbarEmpty() + isInputTagEmpty() === 0 ? recipes : getRecipes();
-
-  const allAppareils = [];
-  console.log("allRecipes app", allRecipes);
-  allRecipes.forEach((app) => {
+export function getAllAppareil(arr) {
+  arr.forEach((app) => {
     allAppareils.push(app.appliance.toLowerCase());
   });
-
-  /**
-   * @constant {arrayOfString} appareils
-   */
-  const appareils = arrayCleaner(allAppareils);
-  dispatchTagDOM("appareil", appareils);
+  dispatchTagDOM("green", arrayCleaner(allAppareils));
 }
 
 /**
  * recherches tout les ustensiles pour le dropdown
  */
-export function searchAllUstensile() {
-  cleanDropdown();
-  const allRecipes =
-    isSearchbarEmpty() + isInputTagEmpty() === 0 ? recipes : getRecipes();
-  const allUstensiles = [];
-  console.log("allRecipes ust", allRecipes);
-  allRecipes.forEach((ust) => {
+export function getAllUstensile(arr) {
+  arr.forEach((ust) => {
     ust.ustensils.forEach((u) => {
       allUstensiles.push(u.toLowerCase());
     });
   });
-  /**
-   * @constant {arrayOfString} ustensiles
-   */
-  const ustensiles = arrayCleaner(allUstensiles);
-  dispatchTagDOM("ustensile", ustensiles);
+  dispatchTagDOM("red", arrayCleaner(allUstensiles));
 }
 
+// Suggestions
 /**
  * Selon la couleur et le tag selectionné, créer un nouveau tableau (suggestion tag)
  * @param {string} color
@@ -193,20 +162,15 @@ export function filteredSuggestion(color, arr) {
 }
 
 export function searchEltTagByIng(item) {
-  //
-  const allRecipes =
-    isSearchbarEmpty() === 0 &&
-    isInputTagEmpty() === 0 &&
-    getRecipes().length === 0
-      ? recipes
-      : getRecipes();
-
+  /**
+   // TODO cette fonction doit :
+  * 
+  */
   const recipesIngredients = []; // pour le reloadCard
   const itemToPops = []; // mise à jour du talbeau du dropdown (tableau de string)
   // TODO a revoir KISS and DRY
-  console.log("tableau allRecipes : ", allRecipes);
 
-  allRecipes.forEach((obj) => {
+  recipes.forEach((obj) => {
     // un objet du tableau
     obj.ingredients.filter((ele) => {
       // check si dans cette objet il y a un tableau contenant une valeur item
@@ -238,13 +202,18 @@ export function searchEltTagByIng(item) {
   dropdownTagItem("red", eltPops);
 }
 /**
+ * option 1
  * searchEltTagByIng(item)
  * 1) si les champs sont vide, tu prends le tableau recipes
- * 2) on bloucle pour trouver les bons items recherché
+ * 2) on boucle pour trouver les bons items recherché
  * 3) on stock les objets dans un tableau recipesIngredients.
  * 4) on boucle sur ce tableau (recipesIngredients) et on recupere tout les ingredients que l'on va stocké dans un tableau de string (itemToPops)
  * 5) on  boucle sur ce tableau de string (itemToPops) pour en supprimé la valeur recherché.
  * 6) un fois la valeur enlever, on envois le tableau (itemToPops) pour le nouveau rendu du dropdown
  * 7) le tableau recipesIngredients est utilisé pour le nouveau rendu des recettes
+ */
+/**
+ * option 2
+ * searchEltTagByIng(item)
  *
  */

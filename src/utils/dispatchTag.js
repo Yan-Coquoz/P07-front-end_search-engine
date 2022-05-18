@@ -2,13 +2,15 @@ import {
   searchAppareil,
   searchIngredient,
   searchUstensile,
-  searchAllAppareil,
-  searchAllIngredient,
-  searchAllUstensile,
+  getAllAppareil,
+  getAllIngredient,
+  getAllUstensile,
   searchEltTagByIng,
 } from "./tagFilter.js";
 
 import { dropdownTagItem, addSelectTagDOM } from "./reloadDOM.js";
+import { isInputTagEmpty, isSearchbarEmpty } from "./misc.js";
+import { recipes } from "../data/recipes.js";
 
 /**
  * Distribut l'event selon l'input (champs / tag)
@@ -43,30 +45,36 @@ export function dispatchSelected(evt) {
 export function dispatchCallTag(evt) {
   evt.preventDefault();
 
-  const btnColor = evt.target.id.slice(4);
+  const btnColor = evt.target.id.slice(4); // la couleur du btn
   document.removeEventListener("click", dispatchCallTag);
 
   switch (btnColor) {
     case "blue":
-      searchAllIngredient();
+      if (isSearchbarEmpty() === 0 && isInputTagEmpty() === 0) {
+        getAllIngredient(recipes);
+      }
+      // TODO si il y a des tags présent, faire un fonction qui va géré le tableau de string
       break;
     case "green":
-      searchAllAppareil();
+      if (isSearchbarEmpty() === 0 && isInputTagEmpty() === 0) {
+        getAllAppareil(recipes);
+      }
       break;
     case "red":
-      searchAllUstensile();
+      if (isSearchbarEmpty() === 0 && isInputTagEmpty() === 0) {
+        getAllUstensile(recipes);
+      }
       break;
   }
 }
 
 /**
  * Renvoi les nouveaux tableau pour les tags
- * @param {string} typeOrColor le typeOrColor de selecteur ou sa couleur
+ * @param {string} color couleur du champ
  * @param {array} arr tableau de string
  */
-export function dispatchTagDOM(typeOrColor, arr) {
-  switch (typeOrColor) {
-    case "ingredient":
+export function dispatchTagDOM(color, arr) {
+  switch (color) {
     case "blue":
       dropdownTagItem("blue", arr);
       break;
@@ -92,15 +100,15 @@ export function dispatchTagElement(color, item) {
   switch (color) {
     case "blue":
       searchEltTagByIng(item);
-      searchIngredient(item);
+      // searchIngredient(item);
       return "bg-primary";
     case "green":
       // searchEltTag(item, getRecipes());
-      searchAppareil(item);
+      // searchAppareil(item);
       return "bg-success";
     case "red":
       // searchEltTag(item, getRecipes());
-      searchUstensile(item);
+      // searchUstensile(item);
       return "bg-danger";
   }
 }
