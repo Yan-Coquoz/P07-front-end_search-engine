@@ -45,40 +45,27 @@ export function dispatchSelected(evt) {
 }
 
 /**
- * Distribut l'évent selon la modale
+ * Distribut l'évent selon le dropdown
  * @param {MouseEvent} evt
  */
 export function dispatchCallTag(evt) {
   evt.preventDefault();
   const btnColor = evt.target.id.slice(4); // la couleur du btn
   document.removeEventListener("click", dispatchCallTag);
-
   cleanDropdown();
-
   switch (btnColor) {
     case "blue":
-      console.log("nbr de tags :", isMiniTag());
-      // Je check si tout est vide
+      // Je check si tout les champs sont vide
       if (isSearchbarEmpty() + isInputTagEmpty() + isMiniTag() === 0) {
-        console.log("recipes");
         getAllIngredient(recipes);
       } else if (
-        // si la serchbar est vide et soit le champs tag et les tag sont remplis
+        // si la searchbar est vide et soit le champs tag et les tag sont remplis
         isSearchbarEmpty() === 0 &&
         isInputTagEmpty() + isMiniTag() !== 0
       ) {
-        console.log("getRecipes() ", getRecipes());
+        // console.log("getRecipes() ", getRecipes());
         getAllIngredient(getRecipes());
       }
-      // else if (
-      //   isSearchbarEmpty() + isInputTagEmpty() === 0 &&
-      //   isMiniTag() !== 0
-      // ) {
-      //   // TODO si il y a des tags déjà présent, faire un fonction qui va géré le tableau de string
-      //   console.log(
-      //     "tout les champs sont vide, mais il y a déjà des tags présent ."
-      //   );
-      // }
       break;
     case "green":
       if (isSearchbarEmpty() + isInputTagEmpty() + isMiniTag() === 0) {
@@ -135,8 +122,9 @@ export function dispatchTagElement(color, item) {
   // TODO revoir cette partie pour éliminer le tag du dropdown et refaire un nouveau tableau
   switch (color) {
     case "blue":
-      searchEltTagByIng(item);
-      // searchIngredient(item);
+      if (isInputTagEmpty() === 0) {
+        searchEltTagByIng(item);
+      }
       return "bg-primary";
     case "green":
       // searchEltTag(item, getRecipes());
@@ -158,6 +146,11 @@ export function dispatchGetElementInList(evt) {
   evt.stopPropagation();
   const couleur = evt.target.parentElement.attributes[1].nodeValue.slice(3);
   const value = evt.target.innerText;
+  // Fermeture du dropdown apres avoir selectionné un item (rafraichissement)
+  const btnDropdown = document.querySelector(`#btn-${couleur}`);
+  const ulDropdown = document.querySelector(`#ul-${couleur}`);
+  btnDropdown.classList.remove("show");
+  ulDropdown.classList.remove("show");
   addSelectTagDOM(couleur, value);
   document.removeEventListener("click", dispatchGetElementInList);
 }

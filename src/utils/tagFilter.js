@@ -1,7 +1,11 @@
 import { recipes } from "../data/recipes.js";
 import {
   arrayCleaner,
+  arrayToDropdown,
+  cleanDropdown,
   getRecipes,
+  isInputTagEmpty,
+  isMiniTag,
   isSearchbarEmpty,
   // isInputTagEmpty,
   setRecipe,
@@ -133,6 +137,50 @@ export function getAllUstensile(arr) {
   dispatchTagDOM("red", arrayCleaner(allUstensiles));
 }
 
+/**
+ *
+ * @param {string} item élément recherché
+ */
+export function searchEltTagByIng(item) {
+  cleanDropdown();
+  // FIXME  DRY et KISS
+  const recipesIngredients = []; // pour le reloadCard
+  const itemToPops = []; // mise à jour du talbeau du dropdown (tableau de string)
+  const arr = arrayToDropdown();
+
+  arr.forEach((obj) => {
+    // un objet du tableau
+    obj.ingredients.filter((ele) => {
+      // check si dans cette objet il y a un tableau contenant une valeur item
+      if (ele.ingredient.toLowerCase().includes(item.toLowerCase())) {
+        // on stock l'obj
+        recipesIngredients.push(obj);
+      }
+    });
+  });
+
+  console.log("tableau du reload ", recipesIngredients);
+  // fait un tableau de string
+  recipesIngredients.forEach((elt) => {
+    elt.ingredients.forEach((ing) => {
+      itemToPops.push(ing.ingredient.toLowerCase());
+    });
+  });
+
+  console.log(itemToPops);
+
+  // je supprime l'élément recherché
+  const eltPops = itemToPops.filter(
+    (elt) => elt.toLowerCase() !== item.toLowerCase()
+  );
+
+  console.log("supp ", eltPops);
+
+  reloadCard(recipesIngredients);
+  setRecipe(recipesIngredients);
+  dropdownTagItem("red", eltPops);
+}
+
 // Suggestions
 /**
  * Selon la couleur et le tag selectionné, créer un nouveau tableau (suggestion tag)
@@ -162,59 +210,3 @@ export function filteredSuggestion(color, arr) {
   }
   suggestionDOM(color, arrayCleaner(suggests));
 }
-
-export function searchEltTagByIng(item) {
-  /**
-   // TODO cette fonction doit :
-  * 
-  */
-  const recipesIngredients = []; // pour le reloadCard
-  const itemToPops = []; // mise à jour du talbeau du dropdown (tableau de string)
-
-  arr.forEach((obj) => {
-    // un objet du tableau
-    obj.ingredients.filter((ele) => {
-      // check si dans cette objet il y a un tableau contenant une valeur item
-      if (ele.ingredient.toLowerCase().includes(item.toLowerCase())) {
-        // on stock l'obj
-        recipesIngredients.push(obj);
-      }
-    });
-  });
-  console.log("tableau du reload ", recipesIngredients);
-  // fait un tableau de string
-  recipesIngredients.forEach((elt) => {
-    elt.ingredients.forEach((ing) => {
-      itemToPops.push(ing.ingredient.toLowerCase());
-    });
-  });
-
-  console.log(itemToPops);
-
-  // je supprime l'élément recherché
-  const eltPops = itemToPops.filter(
-    (elt) => elt.toLowerCase() !== item.toLowerCase()
-  );
-  console.log(eltPops);
-
-  reloadCard(recipesIngredients);
-  setRecipe(recipesIngredients);
-  //!  NOTE  ce doit être un tableau de string
-  dropdownTagItem("red", eltPops);
-}
-/**
- * option 1
- * searchEltTagByIng(item)
- * 1) si les champs sont vide, tu prends le tableau recipes
- * 2) on boucle pour trouver les bons items recherché
- * 3) on stock les objets dans un tableau recipesIngredients.
- * 4) on boucle sur ce tableau (recipesIngredients) et on recupere tout les ingredients que l'on va stocké dans un tableau de string (itemToPops)
- * 5) on  boucle sur ce tableau de string (itemToPops) pour en supprimé la valeur recherché.
- * 6) un fois la valeur enlever, on envois le tableau (itemToPops) pour le nouveau rendu du dropdown
- * 7) le tableau recipesIngredients est utilisé pour le nouveau rendu des recettes
- */
-/**
- * option 2
- * searchEltTagByIng(item)
- *
- */

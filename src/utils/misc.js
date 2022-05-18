@@ -1,3 +1,4 @@
+import { recipes } from "../data/recipes.js";
 /**
  * supprime tous les éléments du dropdown
  */
@@ -50,7 +51,19 @@ export function isMiniTag() {
   return document.querySelector(".ul_tag").childElementCount;
 }
 
-// traitement du nouveau tableau de recette selon ce qui est recherché
+/**
+ * Vérifie si les champs de tag et les tags sont vide
+ * @returns {arrayOfObject}
+ */
+export function arrayToDropdown() {
+  if (isInputTagEmpty() + isMiniTag() === 0) {
+    return recipes;
+  } else {
+    return getRecipes();
+  }
+}
+
+// traitement du nouveau tableau de recette selon ce qui est recherché (setter / getter)
 const arrayTransitions = [];
 /**
  * setter, arrivé d'un tableau crée par la searchbar

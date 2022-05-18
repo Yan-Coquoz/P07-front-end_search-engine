@@ -28,7 +28,6 @@ export function reloadCard(arr) {
  */
 export function dropdownTagItem(color, tab) {
   const ul = document.querySelector(`#ul-${color}`);
-
   /*
    * Empêche la création supplémentaire d'une liste au cas ou elle soit déjà présente.
    */
