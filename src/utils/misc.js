@@ -41,8 +41,13 @@ export function isInputTagEmpty() {
 
   return inputBlue + inputGreen + inputRed;
 }
+
+/**
+ * check s'il y a des tags présent sous la searchbar
+ * @returns {number} le nombre de tags présent
+ */
 export function isMiniTag() {
-  return document.querySelector(".ul_tag").childElementCount + 1;
+  return document.querySelector(".ul_tag").childElementCount;
 }
 
 // traitement du nouveau tableau de recette selon ce qui est recherché

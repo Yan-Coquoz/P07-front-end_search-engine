@@ -3,9 +3,9 @@ import {
   arrayCleaner,
   getRecipes,
   isSearchbarEmpty,
-  isInputTagEmpty,
+  // isInputTagEmpty,
   setRecipe,
-  cleanDropdown,
+
   // isMiniTag,
 } from "./misc.js";
 import {
@@ -113,6 +113,7 @@ export function getAllIngredient(arr) {
  * recherches tout les appareils pour le dropdown
  */
 export function getAllAppareil(arr) {
+  allAppareils.length = 0;
   arr.forEach((app) => {
     allAppareils.push(app.appliance.toLowerCase());
   });
@@ -123,6 +124,7 @@ export function getAllAppareil(arr) {
  * recherches tout les ustensiles pour le dropdown
  */
 export function getAllUstensile(arr) {
+  allUstensiles.length = 0;
   arr.forEach((ust) => {
     ust.ustensils.forEach((u) => {
       allUstensiles.push(u.toLowerCase());
@@ -168,9 +170,8 @@ export function searchEltTagByIng(item) {
   */
   const recipesIngredients = []; // pour le reloadCard
   const itemToPops = []; // mise à jour du talbeau du dropdown (tableau de string)
-  // TODO a revoir KISS and DRY
 
-  recipes.forEach((obj) => {
+  arr.forEach((obj) => {
     // un objet du tableau
     obj.ingredients.filter((ele) => {
       // check si dans cette objet il y a un tableau contenant une valeur item

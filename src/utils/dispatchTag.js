@@ -9,7 +9,13 @@ import {
 } from "./tagFilter.js";
 
 import { dropdownTagItem, addSelectTagDOM } from "./reloadDOM.js";
-import { isInputTagEmpty, isSearchbarEmpty } from "./misc.js";
+import {
+  cleanDropdown,
+  getRecipes,
+  isInputTagEmpty,
+  isMiniTag,
+  isSearchbarEmpty,
+} from "./misc.js";
 import { recipes } from "../data/recipes.js";
 
 /**
@@ -44,25 +50,55 @@ export function dispatchSelected(evt) {
  */
 export function dispatchCallTag(evt) {
   evt.preventDefault();
-
   const btnColor = evt.target.id.slice(4); // la couleur du btn
   document.removeEventListener("click", dispatchCallTag);
 
+  cleanDropdown();
+
   switch (btnColor) {
     case "blue":
-      if (isSearchbarEmpty() === 0 && isInputTagEmpty() === 0) {
+      console.log("nbr de tags :", isMiniTag());
+      // Je check si tout est vide
+      if (isSearchbarEmpty() + isInputTagEmpty() + isMiniTag() === 0) {
+        console.log("recipes");
         getAllIngredient(recipes);
+      } else if (
+        // si la serchbar est vide et soit le champs tag et les tag sont remplis
+        isSearchbarEmpty() === 0 &&
+        isInputTagEmpty() + isMiniTag() !== 0
+      ) {
+        console.log("getRecipes() ", getRecipes());
+        getAllIngredient(getRecipes());
       }
-      // TODO si il y a des tags présent, faire un fonction qui va géré le tableau de string
+      // else if (
+      //   isSearchbarEmpty() + isInputTagEmpty() === 0 &&
+      //   isMiniTag() !== 0
+      // ) {
+      //   // TODO si il y a des tags déjà présent, faire un fonction qui va géré le tableau de string
+      //   console.log(
+      //     "tout les champs sont vide, mais il y a déjà des tags présent ."
+      //   );
+      // }
       break;
     case "green":
-      if (isSearchbarEmpty() === 0 && isInputTagEmpty() === 0) {
+      if (isSearchbarEmpty() + isInputTagEmpty() + isMiniTag() === 0) {
         getAllAppareil(recipes);
+      } else if (
+        // si la serchbar est vide et soit le champs tag et les tag sont remplis
+        isSearchbarEmpty() === 0 &&
+        isInputTagEmpty() + isMiniTag() !== 0
+      ) {
+        getAllAppareil(getRecipes());
       }
       break;
     case "red":
-      if (isSearchbarEmpty() === 0 && isInputTagEmpty() === 0) {
+      if (isSearchbarEmpty() + isInputTagEmpty() + isMiniTag() === 0) {
         getAllUstensile(recipes);
+      } else if (
+        isSearchbarEmpty() === 0 &&
+        isInputTagEmpty() + isMiniTag() !== 0
+      ) {
+        getAllUstensile(getRecipes());
       }
       break;
   }
@@ -104,7 +140,7 @@ export function dispatchTagElement(color, item) {
       return "bg-primary";
     case "green":
       // searchEltTag(item, getRecipes());
-      // searchAppareil(item);
+      searchAppareil(item);
       return "bg-success";
     case "red":
       // searchEltTag(item, getRecipes());
