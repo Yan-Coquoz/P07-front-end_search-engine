@@ -1,24 +1,28 @@
 import {
-  searchAppareil,
-  searchIngredient,
   searchUstensile,
-  getAllAppareil,
-  getAllIngredient,
   getAllUstensile,
-  searchEltTagByIng,
-  searchEltTagByApp,
   searchEltTagByUst,
-} from "./tagFilter.js";
-
-import { dropdownTagItemDOM, addSelectTagDOM } from "./reloadDOM.js";
+} from "../tag/tagFilterUst.js";
+import {
+  searchAppareil,
+  getAllAppareil,
+  searchEltTagByApp,
+} from "../tag/tagFilterApp.js";
+import {
+  searchIngredient,
+  getAllIngredient,
+  searchEltTagByIng,
+} from "../tag/tagFilterIng.js";
+import { dropdownTagItemDOM, addSelectTagDOM } from "../reloadDOM.js";
 import {
   cleanDropdown,
   getRecipes,
   isInputTagEmpty,
   isMiniTag,
   isSearchbarEmpty,
-} from "./misc.js";
-import { recipes } from "../data/recipes.js";
+  closeDropdown,
+} from "../misc.js";
+import { recipes } from "../../data/recipes.js";
 
 /**
  * Distribut l'event selon l'input (champs / tag)
@@ -91,11 +95,9 @@ export function dispatchTagDOM(color, arr) {
     case "blue":
       dropdownTagItemDOM("blue", arr);
       break;
-    case "ustensile":
     case "red":
       dropdownTagItemDOM("red", arr);
       break;
-    case "appareil":
     case "green":
       dropdownTagItemDOM("green", arr);
       break;
@@ -109,7 +111,6 @@ export function dispatchTagDOM(color, arr) {
  * @returns {string} la classe de bootstrap pour la couleur
  */
 export function dispatchAndGetColor(color, item) {
-  // TODO revoir cette partie pour éliminer le tag du dropdown et refaire un nouveau tableau
   switch (color) {
     case "blue":
       if (isInputTagEmpty() === 0) {
@@ -122,7 +123,7 @@ export function dispatchAndGetColor(color, item) {
       return "bg-success";
     case "red":
       searchEltTagByUst(item);
-      // searchUstensile(item);
+
       return "bg-danger";
   }
 }
@@ -137,10 +138,7 @@ export function dispatchGetElementInList(evt) {
   const couleur = evt.target.parentElement.attributes[1].nodeValue.slice(3);
   const value = evt.target.innerText;
   // Fermeture du dropdown apres avoir selectionné un item (rafraichissement)
-  const btnDropdown = document.querySelector(`#btn-${couleur}`);
-  const ulDropdown = document.querySelector(`#ul-${couleur}`);
-  btnDropdown.classList.remove("show");
-  ulDropdown.classList.remove("show");
+  closeDropdown(couleur);
   addSelectTagDOM(couleur, value);
   document.removeEventListener("click", dispatchGetElementInList);
 }

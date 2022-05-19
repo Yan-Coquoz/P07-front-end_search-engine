@@ -36,9 +36,10 @@ export function isSearchbarEmpty() {
  * @returns {number}
  */
 export function isInputTagEmpty() {
-  const inputBlue = document.querySelector(".blue").value.length;
   const inputGreen = document.querySelector(".green").value.length;
+  const inputBlue = document.querySelector(".blue").value.length;
   const inputRed = document.querySelector(".red").value.length;
+  console.log(`blue ${inputBlue} green ${inputGreen} red ${inputRed}`);
 
   return inputBlue + inputGreen + inputRed;
 }
@@ -61,6 +62,15 @@ export function arrayToDropdown() {
   } else {
     return getRecipes();
   }
+}
+/**
+ * Ferme le dropdown
+ */
+export function closeDropdown(couleur) {
+  const btnDropdown = document.querySelector(`#btn-${couleur}`);
+  const ulDropdown = document.querySelector(`#ul-${couleur}`);
+  btnDropdown.classList.remove("show");
+  ulDropdown.classList.remove("show");
 }
 
 // traitement du nouveau tableau de recette selon ce qui est recherché (setter / getter)

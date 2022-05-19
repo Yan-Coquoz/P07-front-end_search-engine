@@ -3,7 +3,8 @@ import { CardRecipes } from "../models/CardRecipes.js";
 import {
   dispatchGetElementInList,
   dispatchAndGetColor,
-} from "./dispatchTag.js";
+} from "./dispatch/dispatchTag.js";
+import { deleteTag } from "./filter.js";
 import { setRecipe } from "./misc.js";
 
 /**
@@ -85,6 +86,7 @@ export function addSelectTagDOM(color, item) {
 
   img.setAttribute("src", "./public/assets/close.svg");
   img.setAttribute("alt", "close");
+  img.classList.add(`${color}`, "close");
   li.classList.add("ul_tag--li", "mx-1");
 
   li.classList.add(bootstrapColor);
@@ -95,9 +97,7 @@ export function addSelectTagDOM(color, item) {
   li.appendChild(img);
   ul.appendChild(li);
 
-  img.addEventListener("click", () => {
-    li.remove();
-  });
+  img.addEventListener("click", deleteTag);
 }
 
 /**

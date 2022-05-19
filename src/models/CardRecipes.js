@@ -98,7 +98,11 @@ export class CardRecipes {
           : baseObject.quantite;
       }
       if (baseObject.unit) {
-        unit = baseObject.unit;
+        if (baseObject.unit === "grammes") {
+          unit = "g";
+        } else {
+          unit = baseObject.unit;
+        }
       }
 
       strong.classList.add("list_ingredient");
