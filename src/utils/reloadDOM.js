@@ -1,6 +1,9 @@
 import { CardRecipes } from "../models/CardRecipes.js";
 
-import { dispatchGetElementInList, dispatchTagElement } from "./dispatchTag.js";
+import {
+  dispatchGetElementInList,
+  dispatchAndGetColor,
+} from "./dispatchTag.js";
 import { setRecipe } from "./misc.js";
 
 /**
@@ -26,7 +29,7 @@ export function reloadCard(arr) {
  * @param {array} tab un tableau de string
  * @returns {HTMLElement}
  */
-export function dropdownTagItem(color, tab) {
+export function dropdownTagItemDOM(color, tab) {
   const ul = document.querySelector(`#ul-${color}`);
   /*
    * Empêche la création supplémentaire d'une liste au cas ou elle soit déjà présente.
@@ -78,7 +81,8 @@ export function addSelectTagDOM(color, item) {
   const ul = document.querySelector(`.ul_tag`);
   const li = document.createElement("li");
   const img = document.createElement("img");
-  const bootstrapColor = dispatchTagElement(color, item);
+  const bootstrapColor = dispatchAndGetColor(color, item);
+
   img.setAttribute("src", "./public/assets/close.svg");
   img.setAttribute("alt", "close");
   li.classList.add("ul_tag--li", "mx-1");

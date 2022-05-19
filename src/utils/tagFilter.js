@@ -16,7 +16,7 @@ import {
   reloadCard,
   suggestionDOM,
   ErrorInTagInput,
-  dropdownTagItem,
+  dropdownTagItemDOM,
 } from "./reloadDOM.js";
 import { dispatchTagDOM } from "./dispatchTag.js";
 
@@ -139,13 +139,11 @@ export function getAllUstensile(arr) {
 
 /**
  *
- * @param {string} item élément recherché
+ * @param {string} item élément tag recherché
  */
 export function searchEltTagByIng(item) {
   cleanDropdown();
-  // FIXME  DRY et KISS
   const recipesIngredients = []; // pour le reloadCard
-  const itemToPops = []; // mise à jour du talbeau du dropdown (tableau de string)
   const arr = arrayToDropdown();
 
   arr.forEach((obj) => {
@@ -159,26 +157,63 @@ export function searchEltTagByIng(item) {
     });
   });
 
-  console.log("tableau du reload ", recipesIngredients);
-  // fait un tableau de string
-  recipesIngredients.forEach((elt) => {
-    elt.ingredients.forEach((ing) => {
-      itemToPops.push(ing.ingredient.toLowerCase());
+  // je supprime l'élément recherché
+  const eltPops = arrayCleaner(allIngredients).filter((elt) => {
+    return elt.toLowerCase() !== item.toLowerCase();
+  });
+
+  dropdownTagItemDOM("blue", eltPops);
+
+  setRecipe(recipesIngredients);
+  reloadCard(recipesIngredients);
+}
+/**
+ * Doit supprimé l'élément taggé du dropdown
+ * @param {string} item élément tag recherché
+ */
+export function searchEltTagByApp(item) {
+  cleanDropdown();
+  const recipesAppareils = [];
+  const arr = arrayToDropdown();
+
+  arr.filter((app) => {
+    if (app.appliance.toLowerCase().includes(item.toLowerCase())) {
+      recipesAppareils.push(app);
+    }
+  });
+
+  const eltPops = arrayCleaner(allAppareils).filter((elt) => {
+    return elt.toLowerCase() !== item.toLowerCase();
+  });
+
+  dropdownTagItemDOM("green", eltPops);
+  setRecipe(recipesAppareils);
+  reloadCard(recipesAppareils);
+}
+/**
+ *
+ * @param {string} item élément tag recherché
+ */
+export function searchEltTagByUst(item) {
+  cleanDropdown();
+  const recipesUstensiles = [];
+
+  const arr = arrayToDropdown();
+  arr.forEach((usts) => {
+    usts.ustensils.filter((ust) => {
+      if (ust.toLowerCase().includes(item.toLowerCase())) {
+        recipesUstensiles.push(usts);
+      }
     });
   });
 
-  console.log(itemToPops);
+  const eltPops = arrayCleaner(allUstensiles).filter((elt) => {
+    return elt.toLowerCase() !== item.toLowerCase();
+  });
 
-  // je supprime l'élément recherché
-  const eltPops = itemToPops.filter(
-    (elt) => elt.toLowerCase() !== item.toLowerCase()
-  );
-
-  console.log("supp ", eltPops);
-
-  reloadCard(recipesIngredients);
-  setRecipe(recipesIngredients);
-  dropdownTagItem("red", eltPops);
+  dropdownTagItemDOM("red", eltPops);
+  reloadCard(recipesUstensiles);
+  setRecipe(recipesUstensiles);
 }
 
 // Suggestions

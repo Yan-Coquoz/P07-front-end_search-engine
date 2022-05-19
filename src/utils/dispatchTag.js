@@ -6,9 +6,11 @@ import {
   getAllIngredient,
   getAllUstensile,
   searchEltTagByIng,
+  searchEltTagByApp,
+  searchEltTagByUst,
 } from "./tagFilter.js";
 
-import { dropdownTagItem, addSelectTagDOM } from "./reloadDOM.js";
+import { dropdownTagItemDOM, addSelectTagDOM } from "./reloadDOM.js";
 import {
   cleanDropdown,
   getRecipes,
@@ -58,33 +60,21 @@ export function dispatchCallTag(evt) {
       // Je check si tout les champs sont vide
       if (isSearchbarEmpty() + isInputTagEmpty() + isMiniTag() === 0) {
         getAllIngredient(recipes);
-      } else if (
-        // si la searchbar est vide et soit le champs tag et les tag sont remplis
-        isSearchbarEmpty() === 0 &&
-        isInputTagEmpty() + isMiniTag() !== 0
-      ) {
-        // console.log("getRecipes() ", getRecipes());
+      } else {
         getAllIngredient(getRecipes());
       }
       break;
     case "green":
       if (isSearchbarEmpty() + isInputTagEmpty() + isMiniTag() === 0) {
         getAllAppareil(recipes);
-      } else if (
-        // si la serchbar est vide et soit le champs tag et les tag sont remplis
-        isSearchbarEmpty() === 0 &&
-        isInputTagEmpty() + isMiniTag() !== 0
-      ) {
+      } else {
         getAllAppareil(getRecipes());
       }
       break;
     case "red":
       if (isSearchbarEmpty() + isInputTagEmpty() + isMiniTag() === 0) {
         getAllUstensile(recipes);
-      } else if (
-        isSearchbarEmpty() === 0 &&
-        isInputTagEmpty() + isMiniTag() !== 0
-      ) {
+      } else {
         getAllUstensile(getRecipes());
       }
       break;
@@ -99,15 +89,15 @@ export function dispatchCallTag(evt) {
 export function dispatchTagDOM(color, arr) {
   switch (color) {
     case "blue":
-      dropdownTagItem("blue", arr);
+      dropdownTagItemDOM("blue", arr);
       break;
     case "ustensile":
     case "red":
-      dropdownTagItem("red", arr);
+      dropdownTagItemDOM("red", arr);
       break;
     case "appareil":
     case "green":
-      dropdownTagItem("green", arr);
+      dropdownTagItemDOM("green", arr);
       break;
   }
 }
@@ -118,7 +108,7 @@ export function dispatchTagDOM(color, arr) {
  * @param {string} item recherché
  * @returns {string} la classe de bootstrap pour la couleur
  */
-export function dispatchTagElement(color, item) {
+export function dispatchAndGetColor(color, item) {
   // TODO revoir cette partie pour éliminer le tag du dropdown et refaire un nouveau tableau
   switch (color) {
     case "blue":
@@ -127,11 +117,11 @@ export function dispatchTagElement(color, item) {
       }
       return "bg-primary";
     case "green":
-      // searchEltTag(item, getRecipes());
-      searchAppareil(item);
+      searchEltTagByApp(item);
+
       return "bg-success";
     case "red":
-      // searchEltTag(item, getRecipes());
+      searchEltTagByUst(item);
       // searchUstensile(item);
       return "bg-danger";
   }
