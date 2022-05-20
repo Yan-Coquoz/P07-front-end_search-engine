@@ -36,9 +36,9 @@ export function isSearchbarEmpty() {
  * @returns {number}
  */
 export function isInputTagEmpty() {
-  const inputGreen = document.querySelector(".green").value.length;
-  const inputBlue = document.querySelector(".blue").value.length;
-  const inputRed = document.querySelector(".red").value.length;
+  const inputBlue = document.querySelector("#ingredient").value.length;
+  const inputGreen = document.querySelector("#appareil").value.length;
+  const inputRed = document.querySelector("#ustensile").value.length;
   console.log(`blue ${inputBlue} green ${inputGreen} red ${inputRed}`);
 
   return inputBlue + inputGreen + inputRed;
