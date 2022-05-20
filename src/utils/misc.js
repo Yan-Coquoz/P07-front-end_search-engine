@@ -62,11 +62,23 @@ export function arrayToDropdown() {
     return getRecipes();
   }
 }
+
+/**
+ * Si la valeur de selectionné est déja présent (true) sinon (false)
+ * @param {string} value valeur du tag
+ * @returns {boolean}
+ */
 export function isTagValue(value) {
+  const arr = [];
   let isBool;
   document.querySelectorAll(".ul_tag--li").forEach((item) => {
-    isBool = item.textContent.toLowerCase() !== value.toLowerCase();
+    arr.push(item.textContent.toLowerCase());
   });
+  arr.find((item) => {
+    isBool = item.includes(value.toLowerCase());
+    return isBool;
+  });
+  arr.length = 0;
   return isBool;
 }
 

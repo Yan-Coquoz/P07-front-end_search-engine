@@ -1,7 +1,11 @@
 import { recipes } from "../../data/recipes.js";
 import { filteredSuggestion } from "../filter.js";
 import { dispatchTagDOM } from "../dispatch/dispatchTag.js";
-import { dropdownTagItemDOM, reloadCard } from "../reloadDOM.js";
+import {
+  dropdownTagItemDOM,
+  reloadCard,
+  ErrorInTagInput,
+} from "../reloadDOM.js";
 import {
   cleanDropdown,
   arrayCleaner,
@@ -16,6 +20,7 @@ import {
  * @returns {arrayOfObject}
  */
 export function searchAppareil(element) {
+  const errorText = "Il n'y a pas d'appareils correspondant à votre recherche";
   const allRecipes = isSearchbarEmpty() === 0 ? recipes : getRecipes();
 
   const recipesAppareils = allRecipes.filter((app) => {
@@ -23,7 +28,7 @@ export function searchAppareil(element) {
   });
 
   recipesAppareils.length === 0
-    ? ErrorInTagInput()
+    ? ErrorInTagInput(errorText)
     : filteredSuggestion("green", recipesAppareils);
   reloadCard(arrayCleaner(recipesAppareils));
   setRecipe(recipesAppareils);

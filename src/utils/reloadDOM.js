@@ -103,12 +103,13 @@ export function addSelectTagDOM(color, item) {
 /**
  * Créer un message d'erreur en cas de non concordance
  */
-export function ErrorInTagInput() {
+export function ErrorInTagInput(text) {
+  //"Il n'y a pas d'éléments correspondant à votre recherche"
   const parent = document.querySelector("#searching_bar");
   if (!document.getElementById("error_span")) {
     const span = document.createElement("span");
-    const errorText = "Rien ne correspond à votre recherche";
-    span.textContent = errorText;
+
+    span.textContent = text;
     span.classList.add(
       "text-danger",
       "fw-bold",

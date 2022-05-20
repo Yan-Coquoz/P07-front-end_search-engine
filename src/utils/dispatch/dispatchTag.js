@@ -13,7 +13,11 @@ import {
   getAllIngredient,
   searchEltTagByIng,
 } from "../tag/tagFilterIng.js";
-import { dropdownTagItemDOM, addSelectTagDOM } from "../reloadDOM.js";
+import {
+  dropdownTagItemDOM,
+  addSelectTagDOM,
+  ErrorInTagInput,
+} from "../reloadDOM.js";
 import {
   cleanDropdown,
   getRecipes,
@@ -141,10 +145,11 @@ export function dispatchGetElementInList(evt) {
   // Fermeture du dropdown apres avoir selectionné un item (rafraichissement)
   closeDropdown(couleur);
   // check si le tag est déjà présent
-  if (!document.querySelector(".ul_tag--li") || isTagValue(value)) {
+  if (!document.querySelector(".ul_tag--li") || !isTagValue(value)) {
     addSelectTagDOM(couleur, value);
   } else {
-    console.log("le tag existe déjà !");
+    const textError = "le tag existe déjà !";
+    ErrorInTagInput(textError);
   }
   document.removeEventListener("click", dispatchGetElementInList);
 }

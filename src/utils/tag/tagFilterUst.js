@@ -9,7 +9,11 @@ import {
 
 import { filteredSuggestion } from "../filter.js";
 import { dispatchTagDOM } from "../dispatch/dispatchTag.js";
-import { dropdownTagItemDOM, reloadCard } from "../reloadDOM.js";
+import {
+  dropdownTagItemDOM,
+  reloadCard,
+  ErrorInTagInput,
+} from "../reloadDOM.js";
 
 /**
  * Recherche par ustensiles (input tag)
@@ -17,6 +21,7 @@ import { dropdownTagItemDOM, reloadCard } from "../reloadDOM.js";
  * @returns {arrayOfObject}
  */
 export function searchUstensile(element) {
+  const errorText = "Il n'y a pas d'ustensiles correspondant à votre recherche";
   const allRecipes = isSearchbarEmpty() === 0 ? recipes : getRecipes();
   const recipesUstensiles = [];
   allRecipes.map((obj) => {
@@ -27,7 +32,7 @@ export function searchUstensile(element) {
     });
   });
   recipesUstensiles.length === 0
-    ? ErrorInTagInput()
+    ? ErrorInTagInput(errorText)
     : filteredSuggestion("red", recipesUstensiles);
   reloadCard(arrayCleaner(recipesUstensiles));
   setRecipe(recipesUstensiles);

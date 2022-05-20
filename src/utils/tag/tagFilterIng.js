@@ -9,7 +9,11 @@ import {
 
 import { filteredSuggestion } from "../filter.js";
 import { dispatchTagDOM } from "../dispatch/dispatchTag.js";
-import { dropdownTagItemDOM, reloadCard } from "../reloadDOM.js";
+import {
+  dropdownTagItemDOM,
+  reloadCard,
+  ErrorInTagInput,
+} from "../reloadDOM.js";
 /**
  * Recherche par ingrédients (input tag)
  * @param {string} element caractères venant de l'input ou des tags
@@ -17,7 +21,8 @@ import { dropdownTagItemDOM, reloadCard } from "../reloadDOM.js";
  */
 export function searchIngredient(element) {
   const allRecipes = isSearchbarEmpty() === 0 ? recipes : getRecipes();
-
+  const errorText =
+    "Il n'y a pas d'ingrédients correspondant à votre recherche";
   const recipesIngredients = [];
   const getSuggests = [];
 
@@ -32,7 +37,7 @@ export function searchIngredient(element) {
   });
 
   if (recipesIngredients.length === 0) {
-    ErrorInTagInput();
+    ErrorInTagInput(errorText);
   } else {
     filteredSuggestion("blue", getSuggests);
     reloadCard(arrayCleaner(recipesIngredients));
