@@ -43,7 +43,7 @@ export function searchIngredient(element) {
 // Dropdown Tags
 
 // tableau de string pour le dropdown
-const allIngredients = [];
+export const allIngredients = [];
 
 /**
  * recherches tout les ingredients pour le dropdown

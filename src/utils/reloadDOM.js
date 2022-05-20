@@ -4,7 +4,7 @@ import {
   dispatchGetElementInList,
   dispatchAndGetColor,
 } from "./dispatch/dispatchTag.js";
-import { deleteTag } from "./filter.js";
+import { deleteTag, presentTags } from "./filter.js";
 import { setRecipe } from "./misc.js";
 
 /**
@@ -96,7 +96,7 @@ export function addSelectTagDOM(color, item) {
 
   li.appendChild(img);
   ul.appendChild(li);
-
+  presentTags.push(item);
   img.addEventListener("click", deleteTag);
 }
 

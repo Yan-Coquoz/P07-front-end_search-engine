@@ -1,5 +1,12 @@
 import { arrayCleaner } from "./misc.js";
 import { suggestionDOM } from "./reloadDOM.js";
+import { allIngredients } from "./tag/tagFilterIng.js";
+import { allAppareils } from "./tag/tagFilterApp.js";
+import { allUstensiles } from "./tag/tagFilterUst.js";
+/**
+ * @constant {array} presentTags tableau de string des tags courant.
+ */
+export let presentTags = [];
 
 // Suggestions
 /**
@@ -33,19 +40,22 @@ export function filteredSuggestion(color, arr) {
 
 export function deleteTag(evt) {
   evt.preventDefault();
+  // TODO empeché la duplication du tag avant d'implémenter le delete
   const closeElt = evt.target.parentElement;
-  // const colorElt = evt.srcElement.classList[0];
+  const colorElt = evt.srcElement.classList[0];
+  const deleteItem = evt.target.parentElement.textContent;
   closeElt.remove();
-
-  // switch (colorElt) {
-  //   case "blue":
-  //     dispatchAndGetColor(colorElt, allIngredients);
-  //     break;
-  //   case "green":
-  //     dropdownTagItemDOM(colorElt, allAppareils);
-  //     break;
-  //   case "red":
-  //     dropdownTagItemDOM(colorElt, allUstensiles);
-  //     break;
-  // }
+  console.log("ingredient présent dans les recettes ", allIngredients);
+  console.log("appareils présent dans les recettes ", allAppareils);
+  console.log("ustensiles présent dans les recettes ", allUstensiles);
+  const presentEltTags = document.querySelectorAll(".ul_tag--li");
+  presentEltTags.forEach((elt) => {
+    console.log(elt.textContent);
+  });
+  console.log(presentTags);
+  const updatePresentTags = presentTags.filter((elt) => {
+    return elt.toLowerCase() !== deleteItem.toLowerCase();
+  });
+  [presentTags] = [updatePresentTags];
+  console.log(presentTags);
 }

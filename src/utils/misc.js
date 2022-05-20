@@ -39,8 +39,7 @@ export function isInputTagEmpty() {
   const inputBlue = document.querySelector("#ingredient").value.length;
   const inputGreen = document.querySelector("#appareil").value.length;
   const inputRed = document.querySelector("#ustensile").value.length;
-  console.log(`blue ${inputBlue} green ${inputGreen} red ${inputRed}`);
-
+  // console.log(`blue ${inputBlue} green ${inputGreen} red ${inputRed}`);
   return inputBlue + inputGreen + inputRed;
 }
 
@@ -63,6 +62,14 @@ export function arrayToDropdown() {
     return getRecipes();
   }
 }
+export function isTagValue(value) {
+  let isBool;
+  document.querySelectorAll(".ul_tag--li").forEach((item) => {
+    isBool = item.textContent.toLowerCase() !== value.toLowerCase();
+  });
+  return isBool;
+}
+
 /**
  * Ferme le dropdown
  */

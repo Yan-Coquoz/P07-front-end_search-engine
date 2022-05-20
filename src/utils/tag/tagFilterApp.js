@@ -29,7 +29,7 @@ export function searchAppareil(element) {
   setRecipe(recipesAppareils);
 }
 
-const allAppareils = [];
+export const allAppareils = [];
 /**
  * recherches tout les appareils pour le dropdown
  */

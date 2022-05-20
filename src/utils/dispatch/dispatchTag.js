@@ -21,6 +21,7 @@ import {
   isMiniTag,
   isSearchbarEmpty,
   closeDropdown,
+  isTagValue,
 } from "../misc.js";
 import { recipes } from "../../data/recipes.js";
 
@@ -139,6 +140,11 @@ export function dispatchGetElementInList(evt) {
   const value = evt.target.innerText;
   // Fermeture du dropdown apres avoir selectionné un item (rafraichissement)
   closeDropdown(couleur);
-  addSelectTagDOM(couleur, value);
+  // check si le tag est déjà présent
+  if (!document.querySelector(".ul_tag--li") || isTagValue(value)) {
+    addSelectTagDOM(couleur, value);
+  } else {
+    console.log("le tag existe déjà !");
+  }
   document.removeEventListener("click", dispatchGetElementInList);
 }

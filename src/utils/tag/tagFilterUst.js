@@ -33,7 +33,7 @@ export function searchUstensile(element) {
   setRecipe(recipesUstensiles);
 }
 
-const allUstensiles = [];
+export const allUstensiles = [];
 
 /**
  * recherches tout les ustensiles pour le dropdown
