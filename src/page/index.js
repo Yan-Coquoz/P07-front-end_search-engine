@@ -2,6 +2,7 @@ import { recipes } from "../data/recipes.js";
 import { CardRecipes } from "../models/CardRecipes.js";
 import { SearchBar } from "../models/SearchBar.js";
 import { SearchByTag } from "../models/SearchByTag.js";
+import { sortRecipes } from "../utils/filter.js";
 export class MainApp {
   constructor() {
     this.articleCardContainer = document.querySelector("#card_container");
@@ -51,7 +52,8 @@ export class MainApp {
    * @return {HTMLElement}
    */
   displayCardRecipes() {
-    recipes.forEach((element) => {
+    const arr = sortRecipes(recipes);
+    arr.forEach((element) => {
       this.articleCardContainer.appendChild(
         new CardRecipes(element).CardRenderDom()
       );
@@ -59,7 +61,7 @@ export class MainApp {
   }
 
   /**
-   * Appel des différentes methodes d'affichage du DOM
+   * Appel des différentes méthodes d'affichage du DOM
    * @return {HTMLElement}
    */
   init() {

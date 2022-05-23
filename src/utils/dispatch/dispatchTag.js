@@ -30,7 +30,7 @@ import {
 import { recipes } from "../../data/recipes.js";
 
 /**
- * Distribut l'event selon l'input (champs / tag)
+ * Distribut l'event selon l'input (champs des tags)
  * @param {KeyboardEvent} evt
  */
 export function dispatchSelected(evt) {
@@ -95,16 +95,22 @@ export function dispatchCallTag(evt) {
  * @param {string} color couleur du champ
  * @param {array} arr tableau de string
  */
-export function dispatchTagDOM(color, arr) {
+export function dispatchTag(color, arr) {
   switch (color) {
     case "blue":
-      dropdownTagItemDOM("blue", arr);
+      if (arr.length !== 0) {
+        dropdownTagItemDOM("blue", arr);
+      }
       break;
     case "red":
-      dropdownTagItemDOM("red", arr);
+      if (arr.length !== 0) {
+        dropdownTagItemDOM("red", arr);
+      }
       break;
     case "green":
-      dropdownTagItemDOM("green", arr);
+      if (arr.length !== 0) {
+        dropdownTagItemDOM("green", arr);
+      }
       break;
   }
 }
@@ -142,13 +148,13 @@ export function dispatchGetElementInList(evt) {
   evt.stopPropagation();
   const couleur = evt.target.parentElement.attributes[1].nodeValue.slice(3);
   const value = evt.target.innerText;
-  // Fermeture du dropdown apres avoir selectionné un item (rafraichissement)
+  // Fermeture du dropdown après avoir selectionné un item (rafraichissement)
   closeDropdown(couleur);
   // check si le tag est déjà présent
   if (!document.querySelector(".ul_tag--li") || !isTagValue(value)) {
     addSelectTagDOM(couleur, value);
   } else {
-    const textError = "le tag existe déjà !";
+    const textError = "Ce filtre existe déjà !";
     ErrorInTagInput(textError);
   }
   document.removeEventListener("click", dispatchGetElementInList);

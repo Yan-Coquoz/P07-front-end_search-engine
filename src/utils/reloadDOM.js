@@ -4,7 +4,7 @@ import {
   dispatchGetElementInList,
   dispatchAndGetColor,
 } from "./dispatch/dispatchTag.js";
-import { deleteTag, presentTags } from "./filter.js";
+import { deleteTag, presentTags, sortRecipes } from "./filter.js";
 import { setRecipe } from "./misc.js";
 
 /**
@@ -19,7 +19,7 @@ export function reloadCard(arr) {
 
   if (arr.length > 0) {
     setRecipe(arr);
-    arr.forEach((newArray) => {
+    sortRecipes(arr).forEach((newArray) => {
       containerArticles.appendChild(new CardRecipes(newArray).CardRenderDom());
     });
   }
@@ -27,6 +27,7 @@ export function reloadCard(arr) {
 
 /**
  * retourne tout les tags (dropdown)
+ * @param {string} color la couleur du tag
  * @param {array} tab un tableau de string
  * @returns {HTMLElement}
  */
@@ -40,6 +41,7 @@ export function dropdownTagItemDOM(color, tab) {
     for (const element of tab.sort()) {
       const li = document.createElement("li");
       li.classList.add("dropdown-item", "text-light");
+      // met en capitale le 1er caractère de l'élement.
       li.textContent = element.replace(/^./, element[0].toUpperCase());
       ul.appendChild(li);
     }

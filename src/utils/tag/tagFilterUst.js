@@ -8,7 +8,7 @@ import {
 } from "../misc.js";
 
 import { filteredSuggestion } from "../filter.js";
-import { dispatchTagDOM } from "../dispatch/dispatchTag.js";
+import { dispatchTag } from "../dispatch/dispatchTag.js";
 import {
   dropdownTagItemDOM,
   reloadCard,
@@ -50,7 +50,7 @@ export function getAllUstensile(arr) {
       allUstensiles.push(u.toLowerCase());
     });
   });
-  dispatchTagDOM("red", arrayCleaner(allUstensiles));
+  dispatchTag("red", arrayCleaner(allUstensiles));
 }
 
 /**

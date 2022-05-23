@@ -18,17 +18,41 @@ function testingForIn(arr) {
 testingForIn(arr); // 20.175ms
 
 // boucle For
-var tab = new Array(100000).fill(Math.random());
-function testingFor(tab) {
+var tableau = new Array(100000).fill(Math.random());
+function testingFor(_arr) {
   console.time("for");
   var res = [];
-  for (let i = 0; i < tab.length; i++) {
-    res.push(tab[i]);
+  for (let i = 0; i < _arr.length; i++) {
+    res.push(_arr[i]);
   }
   console.timeEnd("for");
   return res;
 }
-testingFor(tab); // 4.229ms
+testingFor(tableau); // 4.229ms
+
+// Filter
+var tabl = new Array(100000).fill(Math.random());
+function testingFilter(_tabl) {
+  console.time("filter");
+  var res = _tabl.filter((i) => {
+    return i;
+  });
+  console.timeEnd("filter");
+  return res;
+}
+testingFilter(tabl); // 4.238ms
+
+// map
+var arr = new Array(100000).fill(Math.random());
+function testingMap(arr) {
+  console.time("map");
+  var res = arr.map(function (x) {
+    return x;
+  });
+  console.timeEnd("map");
+  return res;
+}
+testingMap(arr); // 6.281ms
 
 // for of
 var arr = new Array(100000).fill(Math.random());
@@ -44,7 +68,6 @@ function testingForOf(arr) {
 testingForOf(arr); // 6.363ms
 
 // forEach
-
 var arr = new Array(100000).fill(Math.random());
 function testingForEach(arr) {
   console.time("forEach");
@@ -57,20 +80,7 @@ function testingForEach(arr) {
 }
 testingForEach(arr); // 3.929ms
 
-// map
-var arr = new Array(100000).fill(Math.random());
-function testingMap(arr) {
-  console.time("map");
-  var res = arr.map(function (x) {
-    return x;
-  });
-  console.timeEnd("map");
-  return res;
-}
-testingMap(arr); // 6.281ms
-
 // while
-
 var arr = new Array(100000).fill(Math.random());
 function testingWhile(arr) {
   console.time("While");

@@ -1,6 +1,6 @@
 import { recipes } from "../../data/recipes.js";
 import { filteredSuggestion } from "../filter.js";
-import { dispatchTagDOM } from "../dispatch/dispatchTag.js";
+import { dispatchTag } from "../dispatch/dispatchTag.js";
 import {
   dropdownTagItemDOM,
   reloadCard,
@@ -43,7 +43,7 @@ export function getAllAppareil(arr) {
   arr.forEach((app) => {
     allAppareils.push(app.appliance.toLowerCase());
   });
-  dispatchTagDOM("green", arrayCleaner(allAppareils));
+  dispatchTag("green", arrayCleaner(allAppareils));
 }
 
 /**

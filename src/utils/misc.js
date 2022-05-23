@@ -39,7 +39,7 @@ export function isInputTagEmpty() {
   const inputBlue = document.querySelector("#ingredient").value.length;
   const inputGreen = document.querySelector("#appareil").value.length;
   const inputRed = document.querySelector("#ustensile").value.length;
-  // console.log(`blue ${inputBlue} green ${inputGreen} red ${inputRed}`);
+
   return inputBlue + inputGreen + inputRed;
 }
 

@@ -7,13 +7,14 @@ import {
   isSearchbarEmpty,
 } from "../misc.js";
 
-import { filteredSuggestion } from "../filter.js";
-import { dispatchTagDOM } from "../dispatch/dispatchTag.js";
+import { deleteItem, filteredSuggestion } from "../filter.js";
+import { dispatchTag } from "../dispatch/dispatchTag.js";
 import {
   dropdownTagItemDOM,
   reloadCard,
   ErrorInTagInput,
 } from "../reloadDOM.js";
+
 /**
  * Recherche par ingrédients (input tag)
  * @param {string} element caractères venant de l'input ou des tags
@@ -23,6 +24,9 @@ export function searchIngredient(element) {
   const allRecipes = isSearchbarEmpty() === 0 ? recipes : getRecipes();
   const errorText =
     "Il n'y a pas d'ingrédients correspondant à votre recherche";
+  /**
+   * @constant {arrayOfObject} recipesIngredients contient les recettes avec l'ingrédient recherché
+   */
   const recipesIngredients = [];
   const getSuggests = [];
 
@@ -40,7 +44,9 @@ export function searchIngredient(element) {
     ErrorInTagInput(errorText);
   } else {
     filteredSuggestion("blue", getSuggests);
+
     reloadCard(arrayCleaner(recipesIngredients));
+
     setRecipe(arrayCleaner(recipesIngredients));
   }
 }
@@ -52,10 +58,11 @@ export const allIngredients = [];
 
 /**
  * recherches tout les ingredients pour le dropdown
- * @param {arrayOfObject} arr
+ * @param {arrayOfObject} arr prend un tableau d'objet
  */
 export function getAllIngredient(arr) {
   cleanDropdown();
+
   allIngredients.length = 0;
   arr.forEach((elt) => {
     elt.ingredients.forEach((ingredient) => {
@@ -63,7 +70,7 @@ export function getAllIngredient(arr) {
     });
   });
 
-  dispatchTagDOM("blue", arrayCleaner(allIngredients));
+  dispatchTag("blue", arrayCleaner(allIngredients));
 }
 
 /**
@@ -87,12 +94,9 @@ export function searchEltTagByIng(item) {
   });
 
   // je supprime l'élément recherché
-  const eltPops = arrayCleaner(allIngredients).filter((elt) => {
-    return elt.toLowerCase() !== item.toLowerCase();
-  });
+  const eltPops = arrayCleaner(deleteItem(item, allIngredients));
 
   dropdownTagItemDOM("blue", eltPops);
-
-  setRecipe(recipesIngredients);
-  reloadCard(recipesIngredients);
+  reloadCard(arrayCleaner(recipesIngredients));
+  setRecipe(arrayCleaner(recipesIngredients));
 }
