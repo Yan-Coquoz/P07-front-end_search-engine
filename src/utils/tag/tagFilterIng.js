@@ -14,6 +14,7 @@ import {
   reloadCard,
   ErrorInTagInput,
 } from "../reloadDOM.js";
+//@ts-check
 
 /**
  * Recherche par ingrédients (input tag)
@@ -28,6 +29,7 @@ export function searchIngredient(element) {
    * @constant {arrayOfObject} recipesIngredients contient les recettes avec l'ingrédient recherché
    */
   const recipesIngredients = [];
+
   const getSuggests = [];
 
   allRecipes.forEach((obj) => {
@@ -74,7 +76,6 @@ export function getAllIngredient(arr) {
 }
 
 /**
- *
  * @param {string} item élément tag recherché
  */
 export function searchEltTagByIng(item) {
@@ -94,9 +95,8 @@ export function searchEltTagByIng(item) {
   });
 
   // je supprime l'élément recherché
-  const eltPops = arrayCleaner(deleteItem(item, allIngredients));
+  dropdownTagItemDOM("blue", arrayCleaner(deleteItem(item, allIngredients)));
 
-  dropdownTagItemDOM("blue", eltPops);
   reloadCard(arrayCleaner(recipesIngredients));
   setRecipe(arrayCleaner(recipesIngredients));
 }

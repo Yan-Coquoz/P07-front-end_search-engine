@@ -33,7 +33,7 @@ import { recipes } from "../../data/recipes.js";
  * Distribut l'event selon l'input (champs des tags)
  * @param {KeyboardEvent} evt
  */
-export function dispatchSelected(evt) {
+export function dispatchSelectedInputTag(evt) {
   evt.preventDefault();
   evt.stopPropagation();
   const element = evt.target.id;
@@ -52,7 +52,7 @@ export function dispatchSelected(evt) {
       searchUstensile(ustensile);
       break;
   }
-  document.removeEventListener("input", dispatchSelected);
+  document.removeEventListener("input", dispatchSelectedInputTag);
 }
 
 /**

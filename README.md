@@ -1,6 +1,8 @@
 # Création d'alogrithmes de recherche
 
-![GitHub repo size](<https://img.shields.io/github/repo-size/Yan-Coquoz/P07-front-end_search-engine>)  
+- ![Author](<https://img.shields.io/badge/Author-Yan Coquoz-">)
+- ![GitHub repo size](<https://img.shields.io/github/repo-size/Yan-Coquoz/P07-front-end_search-engine>)  
+
 Lancement du projet `./index.html`
 
 ## Pour le projet

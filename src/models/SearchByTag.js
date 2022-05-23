@@ -1,8 +1,11 @@
 import {
-  dispatchSelected,
+  dispatchSelectedInputTag,
   dispatchCallTag,
 } from "../utils/dispatch/dispatchTag.js";
 
+/**
+ * Class qui crée les différents inputs de tags
+ */
 export class SearchByTag {
   /**
    * @returns {HTMLElement}
@@ -59,7 +62,7 @@ export class SearchByTag {
       </li>`;
 
     div.querySelectorAll("input").forEach((inputElement) => {
-      inputElement.addEventListener("input", dispatchSelected);
+      inputElement.addEventListener("input", dispatchSelectedInputTag);
     });
     div.querySelectorAll("button.dropdown-toggle").forEach((btnElement) => {
       btnElement.addEventListener("click", dispatchCallTag);

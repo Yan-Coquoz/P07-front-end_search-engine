@@ -1,4 +1,10 @@
+/**
+ * Class qui crée la carte des recettes
+ */
 export class CardRecipes {
+  /**
+   * @param {Object} recipe
+   */
   constructor(recipe) {
     this.id = recipe.id;
     this.name = recipe.name;

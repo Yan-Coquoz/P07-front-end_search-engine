@@ -4,7 +4,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "jsdoc": "jsdoc -c jsdoc.json"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Yan-Coquoz/P11-front-end-search-engine.git"
@@ -17,6 +19,7 @@
   "devDependencies": {
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
+    "jsdoc": "^3.6.10",
     "prettier": "^2.6.2"
   },
   "homepage": "https://github.com/Yan-Coquoz/P11-front-end-search-engine/public/#index.html"

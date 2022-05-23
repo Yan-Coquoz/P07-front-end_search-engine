@@ -3,6 +3,12 @@ import { CardRecipes } from "../models/CardRecipes.js";
 import { SearchBar } from "../models/SearchBar.js";
 import { SearchByTag } from "../models/SearchByTag.js";
 import { sortRecipes } from "../utils/filter.js";
+
+//@ts-check
+
+/**
+ * Point d'entree de l'application
+ */
 export class MainApp {
   constructor() {
     this.articleCardContainer = document.querySelector("#card_container");

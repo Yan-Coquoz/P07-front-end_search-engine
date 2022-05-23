@@ -69,8 +69,8 @@ export function cleanPresentTags() {
 }
 /**
  * Tri des recettes par ordre alphabétique selon leurs titres
- * @param {arrayOfObject} arr
- * @returns
+ * @param {arrayOfObject} arr tableau d'objet
+ * @returns {arrayOfObject}
  */
 export function sortRecipes(arr) {
   return arr.sort((prev, next) => prev.name.localeCompare(next.name));
