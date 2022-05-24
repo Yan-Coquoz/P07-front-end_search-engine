@@ -10,12 +10,15 @@ import {
   arrayCleaner,
   arrayToDropdown,
   setRecipe,
+  getRecipes,
 } from "../misc.js";
+
+export const allAppareils = [];
 
 /**
  * Recherche par appareils (input tag)
- * @param {string} element caractères venant de l'input
- * @returns {arrayOfObject}
+ * @param {string} color la couleur de l'input tag
+ * @param {string} element caractères venant de l'input ou des tags
  */
 export function searchAppareil(color, element, arr) {
   const errorText = "Il n'y a pas d'appareils correspondant à votre recherche";
@@ -29,18 +32,20 @@ export function searchAppareil(color, element, arr) {
     : filteredSuggestion(color, recipesAppareils);
   reloadCard(arrayCleaner(recipesAppareils));
   setRecipe(recipesAppareils);
+  getListAppForDropdown(color, getRecipes());
 }
 
-export const allAppareils = [];
 /**
- * recherches tout les appareils pour le dropdown
+ * recherches tout les ustensiles pour le dropdown
+ * @param {string} color couleur du tag
+ * @param {arrayOfObject} arr tableau de recettes
  */
-export function getAllAppareil(arr) {
+export function getListAppForDropdown(color, arr) {
   allAppareils.length = 0;
   arr.forEach((app) => {
     allAppareils.push(app.appliance.toLowerCase());
   });
-  dispatchTag("green", arrayCleaner(allAppareils));
+  dispatchTag(color, arrayCleaner(allAppareils));
 }
 
 /**

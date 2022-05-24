@@ -86,9 +86,6 @@ export function deleteTag(evt) {
 
   console.log("++ color ++", colorElt);
   console.log("++ element supp ++", deleteElt);
-  // console.log("ingredient  ", allIngredients);
-  // console.log("appareils  ", allAppareils);
-  // console.log("ustensiles  ", allUstensiles);
 
   document.querySelectorAll(".ul_tag--li").forEach((elt) => {
     console.log("++ element restant ++", elt.textContent);
@@ -103,6 +100,5 @@ export function deleteTag(evt) {
   }
 
   presentTags = [...deleteItem(deleteElt, presentTags)];
-  console.log(activeElts);
   cleanPresentTags();
 }

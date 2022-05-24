@@ -3,6 +3,7 @@ import {
   arrayCleaner,
   arrayToDropdown,
   setRecipe,
+  getRecipes,
 } from "../misc.js";
 
 import { filteredSuggestion } from "../filter.js";
@@ -13,10 +14,12 @@ import {
   ErrorInTagInput,
 } from "../reloadDOM.js";
 
+export const allUstensiles = [];
+
 /**
  * Recherche par ustensiles (input tag)
+ * @param {string} color couleur du tag
  * @param {string} element caractères venant de l'input
- * @returns {arrayOfObject}
  */
 export function searchUstensile(color, element, arr) {
   const errorText = "Il n'y a pas d'ustensiles correspondant à votre recherche";
@@ -34,21 +37,22 @@ export function searchUstensile(color, element, arr) {
     : filteredSuggestion(color, recipesUstensiles);
   reloadCard(arrayCleaner(recipesUstensiles));
   setRecipe(recipesUstensiles);
+  getListUstForDropdown(color, getRecipes());
 }
-
-export const allUstensiles = [];
 
 /**
  * recherches tout les ustensiles pour le dropdown
+ * @param {string} color couleur du tag
+ * @param {arrayOfObject} arr tableau de recettes
  */
-export function getAllUstensile(arr) {
+export function getListUstForDropdown(color, arr) {
   allUstensiles.length = 0;
   arr.forEach((ust) => {
     ust.ustensils.forEach((u) => {
       allUstensiles.push(u.toLowerCase());
     });
   });
-  dispatchTag("red", arrayCleaner(allUstensiles));
+  dispatchTag(color, arrayCleaner(allUstensiles));
 }
 
 /**

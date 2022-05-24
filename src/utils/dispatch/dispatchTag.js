@@ -1,18 +1,6 @@
-import {
-  searchUstensile,
-  getAllUstensile,
-  searchEltTagByUst,
-} from "../tag/tagFilterUst.js";
-import {
-  searchAppareil,
-  getAllAppareil,
-  searchEltTagByApp,
-} from "../tag/tagFilterApp.js";
-import {
-  searchIngredient,
-  getAllIngredient,
-  searchEltTagByIng,
-} from "../tag/tagFilterIng.js";
+import { searchUstensile, searchEltTagByUst } from "../tag/tagFilterUst.js";
+import { searchAppareil, searchEltTagByApp } from "../tag/tagFilterApp.js";
+import { searchIngredient, searchEltTagByIng } from "../tag/tagFilterIng.js";
 import {
   dropdownTagItemDOM,
   addSelectTagDOM,
@@ -21,16 +9,16 @@ import {
 import {
   cleanDropdown,
   getRecipes,
-  isInputTagEmpty,
   isMiniTag,
   isSearchbarEmpty,
   closeDropdown,
   isTagValue,
+  isInputTagEmpty,
 } from "../misc.js";
 import { recipes } from "../../data/recipes.js";
 
 /**
- * Distribut l'event selon l'input (champs des tags)
+ * Distribut l'event selon l'input ou le bouton des tags
  * @param {KeyboardEvent|MouseEvent} evt évènement de l'input ou du bouton des tags
  */
 export function dispatchSelectedTag(evt) {
@@ -42,32 +30,33 @@ export function dispatchSelectedTag(evt) {
 
   if (evt.type === "input") {
     color = evt.target.classList[2];
+    if (isSearchbarEmpty() + isMiniTag() === 0) {
+      arr = recipes;
+    } else {
+      arr = getRecipes();
+    }
   } else if (evt.type === "click") {
     color = evt.target.id.slice(4);
+    if (isSearchbarEmpty() + isInputTagEmpty() + isMiniTag() === 0) {
+      arr = recipes;
+    } else {
+      arr = getRecipes();
+    }
   }
 
   cleanDropdown();
 
-  if (isSearchbarEmpty() + isInputTagEmpty() + isMiniTag() === 0) {
-    console.log("recipes");
-    arr = recipes;
-  } else {
-    console.log("getRecipes");
-    arr = getRecipes();
-  }
-
   switch (color) {
     case "blue":
       searchIngredient(color, item, arr);
-      getAllIngredient(arr);
       break;
     case "green":
       searchAppareil(color, item, arr);
-      getAllAppareil(arr);
+
       break;
     case "red":
       searchUstensile(color, item, arr);
-      getAllUstensile(arr);
+
       break;
   }
   document.removeEventListener("input", dispatchSelectedTag);
@@ -107,9 +96,7 @@ export function dispatchTag(color, arr) {
 export function dispatchAndGetColor(color, item) {
   switch (color) {
     case "blue":
-      if (isInputTagEmpty() === 0) {
-        searchEltTagByIng(item);
-      }
+      searchEltTagByIng(item);
       return "bg-primary";
     case "green":
       searchEltTagByApp(item);

@@ -3,21 +3,20 @@ import {
   arrayCleaner,
   arrayToDropdown,
   setRecipe,
+  getRecipes,
 } from "../misc.js";
 
 import { deleteItem, filteredSuggestion } from "../filter.js";
 import { dispatchTag } from "../dispatch/dispatchTag.js";
-import {
-  dropdownTagItemDOM,
-  reloadCard,
-  ErrorInTagInput,
-} from "../reloadDOM.js";
+import { reloadCard, ErrorInTagInput } from "../reloadDOM.js";
+
+// tableau de string pour le dropdown
+export const allIngredients = [];
 
 /**
  * Recherche par ingrédients (input tag)
  * @param {string} color la couleur de l'input tag
  * @param {string} element caractères venant de l'input ou des tags
- * @returns {arrayOfObject}
  */
 export function searchIngredient(color, element, arr) {
   const errorText =
@@ -36,6 +35,7 @@ export function searchIngredient(color, element, arr) {
         return ele.ingredient.toLowerCase().includes(element.toLowerCase());
       }
     });
+
     if (results.length >= 1) getSuggests.push(results);
   });
 
@@ -44,32 +44,31 @@ export function searchIngredient(color, element, arr) {
   } else {
     filteredSuggestion(color, getSuggests);
 
+    setRecipe(arrayCleaner(recipesIngredients));
+
     reloadCard(arrayCleaner(recipesIngredients));
 
-    setRecipe(arrayCleaner(recipesIngredients));
+    getListIngForDropdown(color, getRecipes());
   }
 }
 
 // Dropdown Tags
 
-// tableau de string pour le dropdown
-export const allIngredients = [];
-
 /**
- * recherches tout les ingredients pour le dropdown
- * @param {arrayOfObject} arr prend un tableau d'objet
+ * recherches tout les ustensiles pour le dropdown
+ * @param {string} color couleur du tag
+ * @param {arrayOfObject} arr tableau de recettes
  */
-export function getAllIngredient(arr) {
-  cleanDropdown();
-
+export function getListIngForDropdown(color, arr) {
   allIngredients.length = 0;
-  arr.forEach((elt) => {
-    elt.ingredients.forEach((ingredient) => {
-      allIngredients.push(ingredient.ingredient.toLowerCase());
+
+  arr.map((elt) => {
+    elt.ingredients.map((ing) => {
+      allIngredients.push(ing.ingredient.toLowerCase());
     });
   });
 
-  dispatchTag("blue", arrayCleaner(allIngredients));
+  dispatchTag(color, arrayCleaner(allIngredients));
 }
 
 /**
@@ -92,7 +91,7 @@ export function searchEltTagByIng(item) {
   });
 
   // je supprime l'élément recherché
-  dropdownTagItemDOM("blue", arrayCleaner(deleteItem(item, allIngredients)));
+  dispatchTag("blue", arrayCleaner(deleteItem(item, allIngredients)));
 
   reloadCard(arrayCleaner(recipesIngredients));
   setRecipe(arrayCleaner(recipesIngredients));
