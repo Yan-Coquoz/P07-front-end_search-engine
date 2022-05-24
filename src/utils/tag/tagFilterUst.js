@@ -1,10 +1,8 @@
-import { recipes } from "../../data/recipes.js";
 import {
   cleanDropdown,
   arrayCleaner,
   arrayToDropdown,
   setRecipe,
-  isSearchbarEmpty,
 } from "../misc.js";
 
 import { filteredSuggestion } from "../filter.js";
@@ -20,11 +18,11 @@ import {
  * @param {string} element caractères venant de l'input
  * @returns {arrayOfObject}
  */
-export function searchUstensile(element) {
+export function searchUstensile(color, element, arr) {
   const errorText = "Il n'y a pas d'ustensiles correspondant à votre recherche";
-  const allRecipes = isSearchbarEmpty() === 0 ? recipes : getRecipes();
+
   const recipesUstensiles = [];
-  allRecipes.map((obj) => {
+  arr.map((obj) => {
     return obj.ustensils.filter((item) => {
       if (item.toLowerCase().includes(element.toLowerCase())) {
         recipesUstensiles.push(obj);
@@ -33,7 +31,7 @@ export function searchUstensile(element) {
   });
   recipesUstensiles.length === 0
     ? ErrorInTagInput(errorText)
-    : filteredSuggestion("red", recipesUstensiles);
+    : filteredSuggestion(color, recipesUstensiles);
   reloadCard(arrayCleaner(recipesUstensiles));
   setRecipe(recipesUstensiles);
 }

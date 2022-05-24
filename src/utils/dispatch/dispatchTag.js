@@ -31,63 +31,46 @@ import { recipes } from "../../data/recipes.js";
 
 /**
  * Distribut l'event selon l'input (champs des tags)
- * @param {KeyboardEvent} evt
+ * @param {KeyboardEvent|MouseEvent} evt évènement de l'input ou du bouton des tags
  */
-export function dispatchSelectedInputTag(evt) {
+export function dispatchSelectedTag(evt) {
   evt.preventDefault();
   evt.stopPropagation();
-  const element = evt.target.id;
+  const item = evt.target.value;
 
-  switch (element) {
-    case "ingredient":
-      const ingredient = evt.target.value;
-      searchIngredient(ingredient);
-      break;
-    case "appareil":
-      const appareil = evt.target.value;
-      searchAppareil(appareil);
-      break;
-    case "ustensile":
-      const ustensile = evt.target.value;
-      searchUstensile(ustensile);
-      break;
+  let color, arr;
+
+  if (evt.type === "input") {
+    color = evt.target.classList[2];
+  } else if (evt.type === "click") {
+    color = evt.target.id.slice(4);
   }
-  document.removeEventListener("input", dispatchSelectedInputTag);
-}
 
-/**
- * Distribut l'évent selon le dropdown
- * @param {MouseEvent} evt
- */
-export function dispatchCallTag(evt) {
-  evt.preventDefault();
-  const btnColor = evt.target.id.slice(4); // la couleur du btn
-  document.removeEventListener("click", dispatchCallTag);
   cleanDropdown();
-  switch (btnColor) {
+
+  if (isSearchbarEmpty() + isInputTagEmpty() + isMiniTag() === 0) {
+    console.log("recipes");
+    arr = recipes;
+  } else {
+    console.log("getRecipes");
+    arr = getRecipes();
+  }
+
+  switch (color) {
     case "blue":
-      // Je check si tout les champs sont vide
-      if (isSearchbarEmpty() + isInputTagEmpty() + isMiniTag() === 0) {
-        getAllIngredient(recipes);
-      } else {
-        getAllIngredient(getRecipes());
-      }
+      searchIngredient(color, item, arr);
+      getAllIngredient(arr);
       break;
     case "green":
-      if (isSearchbarEmpty() + isInputTagEmpty() + isMiniTag() === 0) {
-        getAllAppareil(recipes);
-      } else {
-        getAllAppareil(getRecipes());
-      }
+      searchAppareil(color, item, arr);
+      getAllAppareil(arr);
       break;
     case "red":
-      if (isSearchbarEmpty() + isInputTagEmpty() + isMiniTag() === 0) {
-        getAllUstensile(recipes);
-      } else {
-        getAllUstensile(getRecipes());
-      }
+      searchUstensile(color, item, arr);
+      getAllUstensile(arr);
       break;
   }
+  document.removeEventListener("input", dispatchSelectedTag);
 }
 
 /**

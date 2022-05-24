@@ -1,4 +1,3 @@
-import { recipes } from "../../data/recipes.js";
 import { filteredSuggestion } from "../filter.js";
 import { dispatchTag } from "../dispatch/dispatchTag.js";
 import {
@@ -11,7 +10,6 @@ import {
   arrayCleaner,
   arrayToDropdown,
   setRecipe,
-  isSearchbarEmpty,
 } from "../misc.js";
 
 /**
@@ -19,17 +17,16 @@ import {
  * @param {string} element caractères venant de l'input
  * @returns {arrayOfObject}
  */
-export function searchAppareil(element) {
+export function searchAppareil(color, element, arr) {
   const errorText = "Il n'y a pas d'appareils correspondant à votre recherche";
-  const allRecipes = isSearchbarEmpty() === 0 ? recipes : getRecipes();
 
-  const recipesAppareils = allRecipes.filter((app) => {
+  const recipesAppareils = arr.filter((app) => {
     return app.appliance.toLowerCase().includes(element.toLowerCase());
   });
 
   recipesAppareils.length === 0
     ? ErrorInTagInput(errorText)
-    : filteredSuggestion("green", recipesAppareils);
+    : filteredSuggestion(color, recipesAppareils);
   reloadCard(arrayCleaner(recipesAppareils));
   setRecipe(recipesAppareils);
 }

@@ -1,10 +1,8 @@
-import { recipes } from "../../data/recipes.js";
 import {
   cleanDropdown,
   arrayCleaner,
   arrayToDropdown,
   setRecipe,
-  isSearchbarEmpty,
 } from "../misc.js";
 
 import { deleteItem, filteredSuggestion } from "../filter.js";
@@ -14,15 +12,14 @@ import {
   reloadCard,
   ErrorInTagInput,
 } from "../reloadDOM.js";
-//@ts-check
 
 /**
  * Recherche par ingrédients (input tag)
+ * @param {string} color la couleur de l'input tag
  * @param {string} element caractères venant de l'input ou des tags
  * @returns {arrayOfObject}
  */
-export function searchIngredient(element) {
-  const allRecipes = isSearchbarEmpty() === 0 ? recipes : getRecipes();
+export function searchIngredient(color, element, arr) {
   const errorText =
     "Il n'y a pas d'ingrédients correspondant à votre recherche";
   /**
@@ -32,7 +29,7 @@ export function searchIngredient(element) {
 
   const getSuggests = [];
 
-  allRecipes.forEach((obj) => {
+  arr.forEach((obj) => {
     const results = obj.ingredients.filter((ele) => {
       if (ele.ingredient.toLowerCase().includes(element.toLowerCase())) {
         recipesIngredients.push(obj);
@@ -45,7 +42,7 @@ export function searchIngredient(element) {
   if (recipesIngredients.length === 0) {
     ErrorInTagInput(errorText);
   } else {
-    filteredSuggestion("blue", getSuggests);
+    filteredSuggestion(color, getSuggests);
 
     reloadCard(arrayCleaner(recipesIngredients));
 
