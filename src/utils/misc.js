@@ -12,6 +12,10 @@ export const allIngredients = [];
  * @type {array} tableau de string pour le dropdown
  */
 export const allAppareils = [];
+/**
+ * @type {array} tableau de string pour le dropdown
+ */
+export const allUstensiles = [];
 
 /**
  * supprime tous les éléments du dropdown

@@ -4,6 +4,7 @@ import {
   arrayToDropdown,
   setRecipe,
   getRecipes,
+  allUstensiles,
 } from "../misc.js";
 
 import { filteredSuggestion } from "../filter.js";
@@ -13,8 +14,6 @@ import {
   reloadCard,
   ErrorInTagInput,
 } from "../reloadDOM.js";
-
-export const allUstensiles = [];
 
 /**
  * Recherche par ustensiles (input tag)

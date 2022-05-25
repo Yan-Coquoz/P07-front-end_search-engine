@@ -54,18 +54,16 @@ export function dispatchSelectedTag(evt) {
       break;
     case "green":
       searchAppareil(color, item, arr);
-
       break;
     case "red":
       searchUstensile(color, item, arr);
-
       break;
   }
   document.removeEventListener("input", dispatchSelectedTag);
 }
 
 /**
- * Renvoi les nouveaux tableau pour les tags
+ * Renvoi les nouveaux tableau pour les tags et gère l'ajout/suppression des tags
  * @param {string} color couleur du champ
  * @param {array} arr tableau de string
  */
@@ -78,10 +76,7 @@ export function dispatchTag(color, arr) {
     dropdownTagItemDOM(color, newArr);
   }
 
-  if (/*presentTags.length !== 0 &&*/ arr.length === 0) {
-    const ul = document.querySelector(".dropdown-menu");
-    ul.classList.remove("show");
-  } else if (isMiniTag() !== 0) {
+  if (isMiniTag() !== 0) {
     presentTags.forEach((item) => {
       newArr = deleteItem(item, arr);
     });
@@ -104,11 +99,9 @@ export function dispatchAndGetColor(color, item) {
       return "bg-primary";
     case "green":
       searchEltTagByApp(item);
-
       return "bg-success";
     case "red":
       searchEltTagByUst(item);
-
       return "bg-danger";
   }
 }

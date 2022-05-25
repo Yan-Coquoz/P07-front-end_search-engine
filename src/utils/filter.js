@@ -78,12 +78,10 @@ export function sortRecipes(arr) {
 
 export function deleteTag(evt) {
   evt.preventDefault();
-
   // TODO le reload après avoir delete
-
-  const closeElt = evt.target.parentElement;
-  const colorElt = evt.srcElement.classList[0];
+  const closeTagElt = evt.target.parentElement;
   const deleteElt = evt.target.parentElement.textContent.toLowerCase();
+  const colorElt = evt.srcElement.classList[0];
 
   // suppression du tag
   const index = presentTags.indexOf(deleteElt);
@@ -92,14 +90,14 @@ export function deleteTag(evt) {
     console.log("presentTags ", presentTags);
   }
 
-  closeElt.remove();
+  closeTagElt.remove();
 
   if (isMiniTag() + isInputTagEmpty() + isSearchbarEmpty() === 0) {
     console.log("il n'y a plus de tags");
     presentTags.length = 0;
     reloadCard(recipes);
   } else {
-    reloadCard(getRecipes());
+    console.log("on reload selon les tags présent ou les inputs");
   }
 
   cleanPresentTags();

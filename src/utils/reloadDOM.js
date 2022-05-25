@@ -32,7 +32,6 @@ export function reloadCard(arr) {
  * @returns {HTMLElement}
  */
 export function dropdownTagItemDOM(color, tab) {
-  // console.log("dropdown tab ", tab);
   const ul = document.querySelector(`#ul-${color}`);
   /*
    * Empêche la création supplémentaire d'une liste au cas ou elle soit déjà présente.

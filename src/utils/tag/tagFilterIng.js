@@ -5,7 +5,6 @@ import {
   setRecipe,
   getRecipes,
   allIngredients,
-  presentTags,
 } from "../misc.js";
 
 import { deleteItem, filteredSuggestion } from "../filter.js";
@@ -71,9 +70,11 @@ export function getListIngForDropdown(color, arr) {
 }
 
 /**
+ * A la selection du tag, va cherché l'élément dans les recettes qui correspondantes
  * @param {string} item élément tag recherché
  */
 export function searchEltTagByIng(item) {
+  // TODO revoir pour possible refactoring
   cleanDropdown();
   const recipesIngredients = []; // pour le reloadCard
   const arr = arrayToDropdown();
@@ -89,12 +90,8 @@ export function searchEltTagByIng(item) {
     });
   });
 
-  console.log("allIngredients ", allIngredients);
-  console.log("presentTags ", presentTags);
   const newArrays = deleteItem(item, arrayCleaner(allIngredients));
-  // console.log("newArrays ", newArrays);
   dispatchTag("blue", newArrays);
-
   reloadCard(arrayCleaner(recipesIngredients));
   setRecipe(arrayCleaner(recipesIngredients));
 }
