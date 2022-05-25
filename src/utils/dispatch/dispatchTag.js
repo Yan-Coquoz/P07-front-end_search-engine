@@ -6,6 +6,7 @@ import {
   addSelectTagDOM,
   ErrorInTagInput,
 } from "../reloadDOM.js";
+import { deleteItem } from "../filter.js";
 import {
   cleanDropdown,
   getRecipes,
@@ -14,6 +15,7 @@ import {
   closeDropdown,
   isTagValue,
   isInputTagEmpty,
+  presentTags,
 } from "../misc.js";
 import { recipes } from "../../data/recipes.js";
 
@@ -68,22 +70,24 @@ export function dispatchSelectedTag(evt) {
  * @param {array} arr tableau de string
  */
 export function dispatchTag(color, arr) {
-  switch (color) {
-    case "blue":
-      if (arr.length !== 0) {
-        dropdownTagItemDOM("blue", arr);
-      }
-      break;
-    case "red":
-      if (arr.length !== 0) {
-        dropdownTagItemDOM("red", arr);
-      }
-      break;
-    case "green":
-      if (arr.length !== 0) {
-        dropdownTagItemDOM("green", arr);
-      }
-      break;
+  const inputSearchTag = document.querySelector(`input.${color}`).value;
+  let newArr;
+
+  if (arr.includes(inputSearchTag)) {
+    newArr = deleteItem(inputSearchTag, arr);
+    dropdownTagItemDOM(color, newArr);
+  }
+
+  if (/*presentTags.length !== 0 &&*/ arr.length === 0) {
+    const ul = document.querySelector(".dropdown-menu");
+    ul.classList.remove("show");
+  } else if (isMiniTag() !== 0) {
+    presentTags.forEach((item) => {
+      newArr = deleteItem(item, arr);
+    });
+    dropdownTagItemDOM(color, newArr);
+  } else {
+    dropdownTagItemDOM(color, arr);
   }
 }
 

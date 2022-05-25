@@ -41,7 +41,7 @@ export function searchUstensile(color, element, arr) {
 }
 
 /**
- * recherches tout les ustensiles pour le dropdown
+ * recherche tout les ustensiles pour le dropdown
  * @param {string} color couleur du tag
  * @param {arrayOfObject} arr tableau de recettes
  */

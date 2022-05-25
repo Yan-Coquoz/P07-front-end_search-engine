@@ -36,3 +36,9 @@ Lancement du projet `./index.html`
 - Par mots clés.
 - Les mots clé séléctionnés doivent êtres supprimé du dropdown.
 - Selon les mots clés choisi, les recettes se mettent à jour.
+
+## jsDoc
+
+````bash
+npm run jsdoc
+````

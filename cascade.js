@@ -51,3 +51,19 @@ export function ustensilTag(color, item, arr) {
   console.log(arrayCleaner(apps));
   console.log(arrayCleaner(usts));
 }
+
+/// TEST
+// aplatir un array
+const nbr = [[1, 5], [2, 8], 6, 9, [7, [3, 4]]];
+console.log(nbr);
+console.log(nbr.flat(Infinity));
+
+// suppression d'un élément du tableau
+const arrayName = ["bob", "jane", "izack", "raphael", "isa"];
+const nbx = arrayName.indexOf("jane");
+console.log(nbx);
+if (nbx !== -1) {
+  // indexOf retroune -1 si l'element n'est pas trouvé dans le tableau
+  arrayName.splice(nbx, 1); // splice avec -1 supprime le dernier élément du tableau
+}
+console.log(arrayName);

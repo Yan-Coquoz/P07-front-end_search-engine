@@ -4,14 +4,13 @@ import {
   arrayToDropdown,
   setRecipe,
   getRecipes,
+  allIngredients,
+  presentTags,
 } from "../misc.js";
 
 import { deleteItem, filteredSuggestion } from "../filter.js";
 import { dispatchTag } from "../dispatch/dispatchTag.js";
 import { reloadCard, ErrorInTagInput } from "../reloadDOM.js";
-
-// tableau de string pour le dropdown
-export const allIngredients = [];
 
 /**
  * Recherche par ingrédients (input tag)
@@ -55,15 +54,15 @@ export function searchIngredient(color, element, arr) {
 // Dropdown Tags
 
 /**
- * recherches tout les ustensiles pour le dropdown
+ * recherche tout les ingredients pour le dropdown
  * @param {string} color couleur du tag
  * @param {arrayOfObject} arr tableau de recettes
  */
 export function getListIngForDropdown(color, arr) {
   allIngredients.length = 0;
 
-  arr.map((elt) => {
-    elt.ingredients.map((ing) => {
+  arr.forEach((elt) => {
+    elt.ingredients.forEach((ing) => {
       allIngredients.push(ing.ingredient.toLowerCase());
     });
   });
@@ -82,7 +81,7 @@ export function searchEltTagByIng(item) {
   arr.forEach((obj) => {
     // un objet du tableau
     obj.ingredients.filter((ele) => {
-      // check si dans cette objet il y a un tableau contenant une valeur item
+      // check si, dans cette objet, il y a un tableau contenant une valeur item
       if (ele.ingredient.toLowerCase().includes(item.toLowerCase())) {
         // on stock l'obj
         recipesIngredients.push(obj);
@@ -90,8 +89,11 @@ export function searchEltTagByIng(item) {
     });
   });
 
-  // je supprime l'élément recherché
-  dispatchTag("blue", arrayCleaner(deleteItem(item, allIngredients)));
+  console.log("allIngredients ", allIngredients);
+  console.log("presentTags ", presentTags);
+  const newArrays = deleteItem(item, arrayCleaner(allIngredients));
+  // console.log("newArrays ", newArrays);
+  dispatchTag("blue", newArrays);
 
   reloadCard(arrayCleaner(recipesIngredients));
   setRecipe(arrayCleaner(recipesIngredients));

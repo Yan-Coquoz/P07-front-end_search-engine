@@ -4,16 +4,11 @@ import {
   isInputTagEmpty,
   isMiniTag,
   isSearchbarEmpty,
+  presentTags,
 } from "./misc.js";
 import { reloadCard, suggestionDOM } from "./reloadDOM.js";
-import { allIngredients } from "./tag/tagFilterIng.js";
-import { allAppareils } from "./tag/tagFilterApp.js";
-import { allUstensiles } from "./tag/tagFilterUst.js";
+
 import { recipes } from "../data/recipes.js";
-/**
- * @constant {array} presentTags tableau de string des tags courant.
- */
-export let presentTags = [];
 
 // Suggestions
 /**
@@ -50,23 +45,28 @@ export function filteredSuggestion(color, arr) {
  *  supprime un élément dans un tableau, et retourne le tableau
  * @param {string} item élément à supprimer
  * @param {array} arr tableau de string
- * @returns {array}
+ * @returns {array} un nouveau tableau de string
  */
 export function deleteItem(item, arr) {
-  console.log(item);
-  return arr.filter((elt) => {
+  const tab = arr.filter((elt) => {
     return elt.toLowerCase() !== item.toLowerCase();
   });
+  const getIndex = arr.indexOf(item.toLowerCase());
+
+  if (getIndex !== -1) {
+    arr.splice(getIndex, 1);
+  }
+  return tab;
 }
+
 /**
  * nettoye le tableau des tags (string)
  * @returns {array} vide
  */
 export function cleanPresentTags() {
-  if (isMiniTag() + isInputTagEmpty() === 0) {
-    return (presentTags.length = 0);
-  }
+  if (isMiniTag() + isInputTagEmpty() === 0) presentTags.length = 0;
 }
+
 /**
  * Tri des recettes par ordre alphabétique selon leurs titres
  * @param {arrayOfObject} arr tableau d'objet
@@ -78,18 +78,21 @@ export function sortRecipes(arr) {
 
 export function deleteTag(evt) {
   evt.preventDefault();
+
   // TODO le reload après avoir delete
+
   const closeElt = evt.target.parentElement;
   const colorElt = evt.srcElement.classList[0];
   const deleteElt = evt.target.parentElement.textContent.toLowerCase();
+
+  // suppression du tag
+  const index = presentTags.indexOf(deleteElt);
+  if (index !== -1) {
+    presentTags.splice(index, 1);
+    console.log("presentTags ", presentTags);
+  }
+
   closeElt.remove();
-
-  console.log("++ color ++", colorElt);
-  console.log("++ element supp ++", deleteElt);
-
-  document.querySelectorAll(".ul_tag--li").forEach((elt) => {
-    console.log("++ element restant ++", elt.textContent);
-  });
 
   if (isMiniTag() + isInputTagEmpty() + isSearchbarEmpty() === 0) {
     console.log("il n'y a plus de tags");
@@ -99,6 +102,5 @@ export function deleteTag(evt) {
     reloadCard(getRecipes());
   }
 
-  presentTags = [...deleteItem(deleteElt, presentTags)];
   cleanPresentTags();
 }

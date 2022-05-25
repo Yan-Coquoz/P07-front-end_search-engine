@@ -4,8 +4,8 @@ import {
   dispatchGetElementInList,
   dispatchAndGetColor,
 } from "./dispatch/dispatchTag.js";
-import { deleteTag, presentTags, sortRecipes } from "./filter.js";
-import { setRecipe } from "./misc.js";
+import { deleteTag, sortRecipes } from "./filter.js";
+import { presentTags, setRecipe } from "./misc.js";
 
 /**
  * Nouveau rendu des recettes selon le type de recherche
@@ -32,6 +32,7 @@ export function reloadCard(arr) {
  * @returns {HTMLElement}
  */
 export function dropdownTagItemDOM(color, tab) {
+  // console.log("dropdown tab ", tab);
   const ul = document.querySelector(`#ul-${color}`);
   /*
    * Empêche la création supplémentaire d'une liste au cas ou elle soit déjà présente.
@@ -98,7 +99,7 @@ export function addSelectTagDOM(color, item) {
 
   li.appendChild(img);
   ul.appendChild(li);
-  presentTags.push(item);
+  presentTags.push(item.toLowerCase());
   img.addEventListener("click", deleteTag);
 }
 

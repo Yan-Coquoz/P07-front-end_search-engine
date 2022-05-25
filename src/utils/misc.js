@@ -1,4 +1,18 @@
 import { recipes } from "../data/recipes.js";
+
+/**
+ * @type {array} presentTags tableau de string des tags courant.
+ */
+export let presentTags = [];
+/**
+ * @type {array} tableau de string pour le dropdown
+ */
+export const allIngredients = [];
+/**
+ * @type {array} tableau de string pour le dropdown
+ */
+export const allAppareils = [];
+
 /**
  * supprime tous les éléments du dropdown
  */
@@ -64,7 +78,7 @@ export function arrayToDropdown() {
 }
 
 /**
- * Si la valeur de selectionné est déja présent (true) sinon (false)
+ * Si la valeur selectionné est déja présent (true) sinon (false)
  * @param {string} value valeur du tag
  * @returns {boolean}
  */

@@ -11,9 +11,8 @@ import {
   arrayToDropdown,
   setRecipe,
   getRecipes,
+  allAppareils,
 } from "../misc.js";
-
-export const allAppareils = [];
 
 /**
  * Recherche par appareils (input tag)
@@ -35,8 +34,10 @@ export function searchAppareil(color, element, arr) {
   getListAppForDropdown(color, getRecipes());
 }
 
+// Dropdown Tags
+
 /**
- * recherches tout les ustensiles pour le dropdown
+ * recherche tout les appareils pour le dropdown
  * @param {string} color couleur du tag
  * @param {arrayOfObject} arr tableau de recettes
  */
@@ -49,7 +50,7 @@ export function getListAppForDropdown(color, arr) {
 }
 
 /**
- * Doit supprimé l'élément taggé du dropdown
+ * supprime l'élément taggé du dropdown
  * @param {string} item élément tag recherché
  */
 export function searchEltTagByApp(item) {
