@@ -23,6 +23,6 @@ export function dispatchSearchBar(evt) {
  * @param {array} array selon le titre / ingredient / description
  */
 export function dispatchArraySearchRecipe(arr) {
-  reloadCard(arrayCleaner(arr));
   setRecipe(arrayCleaner(arr));
+  reloadCard(arrayCleaner(arr));
 }

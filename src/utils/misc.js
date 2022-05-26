@@ -1,19 +1,23 @@
 import { recipes } from "../data/recipes.js";
 
 /**
- * @type {array} presentTags tableau de string des tags courant.
+ * tableau de string des tags courant, s'assure que les recettes possèdent ses valeurs
+ * @type {array}
  */
 export let presentTags = [];
 /**
- * @type {array} tableau de string pour le dropdown
+ * tableau de string pour le dropdown
+ * @type {array}
  */
 export const allIngredients = [];
 /**
- * @type {array} tableau de string pour le dropdown
+ * tableau de string pour le dropdown
+ * @type {array}
  */
 export const allAppareils = [];
 /**
- * @type {array} tableau de string pour le dropdown
+ * tableau de string pour le dropdown
+ * @type {array}
  */
 export const allUstensiles = [];
 
@@ -25,11 +29,44 @@ export function cleanDropdown() {
     item.remove();
   });
 }
+/**
+ * Contrôle si tous les champs ont une valeur, si oui, la place dans le tableau presentTags.
+ */
+export function fieldControl() {
+  const searchBar = document.querySelector("#search-bar").value;
+  const searchIng = document.querySelector("#ingredient").value;
+  const searchApp = document.querySelector("#appareil").value;
+  const searchUst = document.querySelector("#ustensile").value;
+
+  // Check si les valeurs des inputs sont presents.
+  presentTags.forEach((item) => {
+    if (searchBar) {
+      if (!item.toLowerCase().includes(searchBar.toLowerCase())) {
+        presentTags.push(searchBar);
+      }
+    }
+    if (searchIng) {
+      if (!item.toLowerCase().includes(searchIng.toLowerCase())) {
+        presentTags.push(searchIng);
+      }
+    }
+    if (searchApp) {
+      if (!item.toLowerCase().includes(searchApp.toLowerCase())) {
+        presentTags.push(searchApp);
+      }
+    }
+    if (searchUst) {
+      if (!item.toLowerCase().includes(searchUst.toLowerCase())) {
+        presentTags.push(searchUst);
+      }
+    }
+  });
+}
 
 /**
  * Nettoye le tableau de ses doublons
  * @param {array} arrays
- * @returns {array}
+ * @returns {array} retourne le tableau
  */
 export function arrayCleaner(arrays) {
   /**

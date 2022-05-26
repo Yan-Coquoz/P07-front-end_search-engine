@@ -57,6 +57,8 @@ export function ustensilTag(color, item, arr) {
 const nbr = [[1, 5], [2, 8], 6, 9, [7, [3, 4]]];
 console.log(nbr);
 console.log(nbr.flat(Infinity));
+const newnbr = nbr.flat(Infinity);
+console.log(newnbr);
 
 // suppression d'un élément du tableau
 const arrayName = ["bob", "jane", "izack", "raphael", "isa"];

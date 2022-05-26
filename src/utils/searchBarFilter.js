@@ -1,5 +1,6 @@
 import { recipes } from "../data/recipes.js";
 import { dispatchArraySearchRecipe } from "./dispatch/dispachSearchbar.js";
+import { arrayCleaner, presentTags } from "./misc.js";
 import { ErrorInSearchBar } from "./reloadDOM.js";
 
 const tempArr = [];
@@ -26,12 +27,18 @@ export function findByTitle(item) {
 export function findByIngredient(item) {
   for (let index = 0; index < recipes.length; index++) {
     const elements = recipes[index].ingredients;
+
     for (let j = 0; j < elements.length; j++) {
-      if (elements[j].ingredient.toLocaleLowerCase().includes(item)) {
+      if (elements[j].ingredient.toLowerCase().includes(item)) {
         tempArr.push(recipes[index]);
+        // garantit la prise en compte de la searchBar
+        if (elements[j].ingredient.toLowerCase() === item) {
+          presentTags.push(item);
+        }
       }
     }
   }
+  arrayCleaner(presentTags);
   findByDesc(item);
 }
 

@@ -74,7 +74,6 @@ export function getListIngForDropdown(color, arr) {
  * @param {string} item élément tag recherché
  */
 export function searchEltTagByIng(item) {
-  // TODO revoir pour possible refactoring
   cleanDropdown();
   const recipesIngredients = []; // pour le reloadCard
   const arr = arrayToDropdown();

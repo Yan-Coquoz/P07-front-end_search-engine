@@ -2,9 +2,9 @@ import { arrayCleaner, setRecipe } from "../misc.js";
 import { reloadCard } from "../reloadDOM.js";
 
 const recettes = [];
-const ings = [];
-const apps = [];
-const usts = [];
+// const ings = [];
+// const apps = [];
+// const usts = [];
 
 export function reloadCascadTag(color, item, arr) {
   if (color === "blue") {
@@ -12,7 +12,7 @@ export function reloadCascadTag(color, item, arr) {
       obj.ingredients.filter((ing) => {
         if (ing.ingredient.toLowerCase().includes(item.toLowerCase())) {
           recettes.push(obj);
-          ings.push(ing.ingredient.toLowerCase());
+          //   ings.push(ing.ingredient.toLowerCase());
         }
       });
     });
@@ -26,7 +26,7 @@ export function appareilTag(color, item, arr) {
     arr.filter((obj) => {
       if (obj.appliance.toLowerCase().includes(item.toLowerCase())) {
         recettes.push(obj);
-        apps.push(obj.appliance.toLowerCase());
+        // apps.push(obj.appliance.toLowerCase());
       }
     });
   }
@@ -40,7 +40,7 @@ export function ustensilTag(color, item, arr) {
       obj.ustensils.filter((ust) => {
         if (ust.toLowerCase().includes(item.toLowerCase())) {
           recettes.push(obj);
-          usts.push(ust.toLowerCase());
+          //   usts.push(ust.toLowerCase());
         }
       });
     });

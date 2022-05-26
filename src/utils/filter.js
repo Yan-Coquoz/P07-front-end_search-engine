@@ -1,5 +1,6 @@
 import {
   arrayCleaner,
+  fieldControl,
   isInputTagEmpty,
   isMiniTag,
   isSearchbarEmpty,
@@ -81,42 +82,17 @@ export function deleteTag(evt) {
   const closeTagElt = evt.target.parentElement;
   const deleteElt = evt.target.parentElement.textContent.toLowerCase();
   const colorElt = evt.srcElement.classList[0];
-  const searchBar = document.querySelector("#search-bar").value;
-  const searchIng = document.querySelector("#ingredient").value;
-  const searchApp = document.querySelector("#appareil").value;
-  const searchUst = document.querySelector("#ustensile").value;
-
-  if (searchBar) {
-    if (!presentTags.includes(searchIng)) {
-      presentTags.push(searchBar);
-    }
-  }
-
-  if (searchIng) {
-    if (!presentTags.includes(searchIng)) {
-      presentTags.push(searchIng);
-    }
-  }
-  if (searchApp) {
-    if (!presentTags.includes(searchIng)) {
-      presentTags.push(searchApp);
-    }
-  }
-  if (searchUst) {
-    if (!presentTags.includes(searchIng)) {
-      presentTags.push(searchUst);
-    }
-  }
 
   // suppression du tag
-  const index = presentTags.indexOf(deleteElt);
+  const index = arrayCleaner(presentTags).indexOf(deleteElt);
   if (index !== -1) {
     presentTags.splice(index, 1);
-    console.log("presentTags ", presentTags);
   }
 
-  closeTagElt.remove();
+  fieldControl();
 
+  closeTagElt.remove();
+  // Si tous les champs sont vides et qu'il n'y a pas de tags présent je RAZ
   if (isMiniTag() + isInputTagEmpty() + isSearchbarEmpty() === 0) {
     presentTags.length = 0;
     reloadCard(recipes);
