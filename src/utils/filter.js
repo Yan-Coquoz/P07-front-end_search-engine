@@ -1,13 +1,12 @@
 import {
   arrayCleaner,
-  getRecipes,
   isInputTagEmpty,
   isMiniTag,
   isSearchbarEmpty,
   presentTags,
 } from "./misc.js";
 import { reloadCard, suggestionDOM } from "./reloadDOM.js";
-
+import { reloadCascadTag } from "./tag/closeTag.js";
 import { recipes } from "../data/recipes.js";
 
 // Suggestions
@@ -78,10 +77,36 @@ export function sortRecipes(arr) {
 
 export function deleteTag(evt) {
   evt.preventDefault();
-  // TODO le reload après avoir delete
+
   const closeTagElt = evt.target.parentElement;
   const deleteElt = evt.target.parentElement.textContent.toLowerCase();
   const colorElt = evt.srcElement.classList[0];
+  const searchBar = document.querySelector("#search-bar").value;
+  const searchIng = document.querySelector("#ingredient").value;
+  const searchApp = document.querySelector("#appareil").value;
+  const searchUst = document.querySelector("#ustensile").value;
+
+  if (searchBar) {
+    if (!presentTags.includes(searchIng)) {
+      presentTags.push(searchBar);
+    }
+  }
+
+  if (searchIng) {
+    if (!presentTags.includes(searchIng)) {
+      presentTags.push(searchIng);
+    }
+  }
+  if (searchApp) {
+    if (!presentTags.includes(searchIng)) {
+      presentTags.push(searchApp);
+    }
+  }
+  if (searchUst) {
+    if (!presentTags.includes(searchIng)) {
+      presentTags.push(searchUst);
+    }
+  }
 
   // suppression du tag
   const index = presentTags.indexOf(deleteElt);
@@ -93,12 +118,13 @@ export function deleteTag(evt) {
   closeTagElt.remove();
 
   if (isMiniTag() + isInputTagEmpty() + isSearchbarEmpty() === 0) {
-    console.log("il n'y a plus de tags");
     presentTags.length = 0;
     reloadCard(recipes);
-  } else {
-    console.log("on reload selon les tags présent ou les inputs");
   }
+  // recherche des recettes avec les tags présent.
+  arrayCleaner(presentTags).forEach((elt) => {
+    reloadCascadTag(colorElt, elt, recipes);
+  });
 
   cleanPresentTags();
 }
