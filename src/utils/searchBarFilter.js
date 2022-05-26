@@ -1,5 +1,5 @@
 import { recipes } from "../data/recipes.js";
-import { dispatchArraySearchRecipe } from "./dispachSearchbar.js";
+import { dispatchArraySearchRecipe } from "./dispatch/dispachSearchbar.js";
 import { ErrorInSearchBar } from "./reloadDOM.js";
 
 const tempArr = [];

@@ -97,7 +97,6 @@ export function searchAllIngredient() {
   }
 
   const allIngredients = [];
-  // console.log("allRecipes ing", allRecipes);
 
   allRecipes.forEach((props) => {
     props.ingredients.forEach((i) => {
@@ -120,7 +119,7 @@ export function searchAllAppareil() {
     isSearchbarEmpty() + isInputTagEmpty() === 0 ? recipes : getRecipes();
 
   const allAppareils = [];
-  // console.log("allRecipes app", allRecipes);
+
   allRecipes.forEach((app) => {
     allAppareils.push(app.appliance.toLowerCase());
   });
@@ -140,7 +139,7 @@ export function searchAllUstensile() {
   const allRecipes =
     isSearchbarEmpty() + isInputTagEmpty() === 0 ? recipes : getRecipes();
   const allUstensiles = [];
-  // console.log("allRecipes ust", allRecipes);
+
   allRecipes.forEach((ust) => {
     ust.ustensils.forEach((u) => {
       allUstensiles.push(u.toLowerCase());

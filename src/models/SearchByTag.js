@@ -1,5 +1,8 @@
-import { dispatchSelected, dispatchCallTag } from "../utils/dispatchTag.js";
+import { dispatchSelectedTag } from "../utils/dispatch/dispatchTag.js";
 
+/**
+ * Class qui crée les différents inputs de tags
+ */
 export class SearchByTag {
   /**
    * @returns {HTMLElement}
@@ -14,11 +17,11 @@ export class SearchByTag {
             <input name="ingredient" class="form-control bg-primary blue" id="ingredient" list="datalistOptions_blue" placeholder="Ingrédients">
           </div>
         </button>
-        <button type="button" id="btn-blue" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+        <button type="button" id="btn-blue" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
          
         </button>
         <datalist class="datalist_blue" id="datalistOptions_blue"></datalist>                 
-        <ul class="dropdown-menu bg-primary p-2 text-light col-12" id="ul-blue">
+        <ul class="dropdown-menu bg-primary p-2 text-light col-12 " id="ul-blue" >
          
         </ul>
       </li>
@@ -30,7 +33,7 @@ export class SearchByTag {
           <input name="appareils" list="datalistOptions_green" class="form-control bg-success green" id="appareil" placeholder="Appareils">
           </div>
         </button>
-        <button type="button" id="btn-green" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+        <button type="button" id="btn-green" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
          
         </button>
         <datalist class="datalist_green" id="datalistOptions_green"></datalist>                  
@@ -46,7 +49,7 @@ export class SearchByTag {
           <input name="ustensiles" list="datalistOptions_red" class="form-control bg-danger pe-3 red" id="ustensile" placeholder="Ustensiles">
           </div>
         </button>
-        <button type="button" id="btn-red" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+        <button type="button" id="btn-red" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
          
         </button>
         <datalist class="datalist_red" id="datalistOptions_red"></datalist>                 
@@ -56,10 +59,10 @@ export class SearchByTag {
       </li>`;
 
     div.querySelectorAll("input").forEach((inputElement) => {
-      inputElement.addEventListener("input", dispatchSelected);
+      inputElement.addEventListener("input", dispatchSelectedTag);
     });
     div.querySelectorAll("button.dropdown-toggle").forEach((btnElement) => {
-      btnElement.addEventListener("click", dispatchCallTag);
+      btnElement.addEventListener("click", dispatchSelectedTag);
     });
 
     div.classList.add(

@@ -1,6 +1,11 @@
 import { CardRecipes } from "../models/CardRecipes.js";
 
-import { dispatchGetElementInList, dispatchTagElement } from "./dispatchTag.js";
+import {
+  dispatchGetElementInList,
+  dispatchAndGetColor,
+} from "./dispatch/dispatchTag.js";
+import { deleteTag, sortRecipes } from "./filter.js";
+import { presentTags, setRecipe } from "./misc.js";
 
 /**
  * Nouveau rendu des recettes selon le type de recherche
@@ -13,7 +18,8 @@ export function reloadCard(arr) {
   });
 
   if (arr.length > 0) {
-    arr.forEach((newArray) => {
+    setRecipe(arr);
+    sortRecipes(arr).forEach((newArray) => {
       containerArticles.appendChild(new CardRecipes(newArray).CardRenderDom());
     });
   }
@@ -21,18 +27,21 @@ export function reloadCard(arr) {
 
 /**
  * retourne tout les tags (dropdown)
+ * @param {string} color la couleur du tag
  * @param {array} tab un tableau de string
  * @returns {HTMLElement}
  */
-export function dropdownTagItem(color, tab) {
+export function dropdownTagItemDOM(color, tab) {
   const ul = document.querySelector(`#ul-${color}`);
   /*
    * Empêche la création supplémentaire d'une liste au cas ou elle soit déjà présente.
    */
   if (!document.querySelector(`#ul-${color} li.dropdown-item`)) {
+    ul.innerHTML = "";
     for (const element of tab.sort()) {
       const li = document.createElement("li");
       li.classList.add("dropdown-item", "text-light");
+      // met en capitale le 1er caractère de l'élement.
       li.textContent = element.replace(/^./, element[0].toUpperCase());
       ul.appendChild(li);
     }
@@ -69,39 +78,40 @@ export function suggestionDOM(color, arr) {
 /**
  * Création du tag
  * @param {string} color la couleur du type de tag
- * @param {string} element le nom de l'élément selectionné
+ * @param {string} item le nom de l'élément selectionné
  */
-export function addSelectTag(color, element) {
+export function addSelectTagDOM(color, item) {
   const ul = document.querySelector(`.ul_tag`);
   const li = document.createElement("li");
   const img = document.createElement("img");
+  const bootstrapColor = dispatchAndGetColor(color, item);
 
   img.setAttribute("src", "./public/assets/close.svg");
   img.setAttribute("alt", "close");
+  img.classList.add(`${color}`, "close");
   li.classList.add("ul_tag--li", "mx-1");
 
-  li.classList.add(dispatchTagElement(color, element));
+  li.classList.add(bootstrapColor);
 
   li.style.color = "white";
-  li.textContent = element;
+  li.textContent = item;
 
   li.appendChild(img);
   ul.appendChild(li);
-
-  img.addEventListener("click", () => {
-    li.remove();
-  });
+  presentTags.push(item.toLowerCase());
+  img.addEventListener("click", deleteTag);
 }
 
 /**
  * Créer un message d'erreur en cas de non concordance
  */
-export function ErrorInTagInput() {
+export function ErrorInTagInput(text) {
+  //"Il n'y a pas d'éléments correspondant à votre recherche"
   const parent = document.querySelector("#searching_bar");
   if (!document.getElementById("error_span")) {
     const span = document.createElement("span");
-    const errorText = "Pas de Tags qui ne correspond à votre recherche";
-    span.textContent = errorText;
+
+    span.textContent = text;
     span.classList.add(
       "text-danger",
       "fw-bold",
@@ -123,7 +133,8 @@ export function ErrorInSearchBar() {
   const div = document.querySelector(".carte");
   const span = document.createElement("span");
   if (!document.querySelector(".error_seachbar")) {
-    span.textContent = "Il n'y a pas de recherche correspondante !";
+    span.textContent = `« Aucune recette ne correspond à votre critère… vous pouvez
+    chercher « tarte aux pommes », « poisson », etc.`;
     span.classList.add("text-danger", "fw-bold", "error_seachbar");
     div.insertAdjacentElement("afterbegin", span);
   }

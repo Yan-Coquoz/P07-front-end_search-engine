@@ -1,4 +1,10 @@
+/**
+ * Class qui crée la carte des recettes
+ */
 export class CardRecipes {
+  /**
+   * @param {Object} recipe
+   */
   constructor(recipe) {
     this.id = recipe.id;
     this.name = recipe.name;
@@ -98,7 +104,11 @@ export class CardRecipes {
           : baseObject.quantite;
       }
       if (baseObject.unit) {
-        unit = baseObject.unit;
+        if (baseObject.unit === "grammes") {
+          unit = "g";
+        } else {
+          unit = baseObject.unit;
+        }
       }
 
       strong.classList.add("list_ingredient");

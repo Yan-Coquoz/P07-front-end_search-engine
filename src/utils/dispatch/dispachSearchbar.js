@@ -1,6 +1,6 @@
-import { findByTitle } from "./searchBarFilter.js";
-import { reloadCard, ErrorInSearchBar } from "./reloadDOM.js";
-import { setRecipe, arrayCleaner } from "./misc.js";
+import { findByTitle } from "../searchBarFilter.js";
+import { reloadCard, ErrorInSearchBar } from "../reloadDOM.js";
+import { setRecipe, arrayCleaner } from "../misc.js";
 
 export function dispatchSearchBar(evt) {
   const entry = evt.target.value.toLowerCase();
@@ -23,6 +23,6 @@ export function dispatchSearchBar(evt) {
  * @param {array} array selon le titre / ingredient / description
  */
 export function dispatchArraySearchRecipe(arr) {
-  reloadCard(arrayCleaner(arr));
   setRecipe(arrayCleaner(arr));
+  reloadCard(arrayCleaner(arr));
 }

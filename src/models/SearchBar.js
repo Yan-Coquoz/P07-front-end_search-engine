@@ -1,4 +1,7 @@
-import { dispatchSearchBar } from "../utils/dispachSearchbar.js";
+import { dispatchSearchBar } from "../utils/dispatch/dispachSearchbar.js";
+/**
+ * Class qui crée la searchbar
+ */
 export class SearchBar {
   /**
    * @returns {HTMLElement}
