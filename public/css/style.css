@@ -79,8 +79,11 @@ p {
 #ul-blue {
   transform: translate3d(0px, 56px, 0px) !important ;
 }
+.dropdown-menu {
+  max-width: 70rem;
+}
 .dropdown-menu.show {
-  width: 75vw;
+  width: 60vw;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
