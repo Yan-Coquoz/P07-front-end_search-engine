@@ -32,10 +32,12 @@ export function dispatchSelectedTag(evt) {
 
   if (evt.type === "input") {
     color = evt.target.classList[2];
+    console.log(evt);
     if (isSearchbarEmpty() + isMiniTag() === 0) {
+      console.log("dispatch if");
       arr = recipes;
     } else {
-      console.log("getRecipes input");
+      console.log("dispatch");
       arr = getRecipes();
     }
   } else if (evt.type === "click") {
@@ -43,13 +45,12 @@ export function dispatchSelectedTag(evt) {
     if (isSearchbarEmpty() + isInputTagEmpty() + isMiniTag() === 0) {
       arr = recipes;
     } else {
-      console.log("getRecipes click");
       arr = getRecipes();
     }
   }
 
   cleanDropdown();
-
+  console.log(color);
   switch (color) {
     case "blue":
       searchIngredient(color, item, arr);
@@ -58,6 +59,7 @@ export function dispatchSelectedTag(evt) {
       searchAppareil(color, item, arr);
       break;
     case "red":
+      console.log("ust");
       searchUstensile(color, item, arr);
       break;
   }
