@@ -34,10 +34,8 @@ export function dispatchSelectedTag(evt) {
     color = evt.target.classList[2];
 
     if (isSearchbarEmpty() + isMiniTag() === 0) {
-      console.log("dispatch if");
       arr = recipes;
     } else {
-      console.log("dispatch");
       arr = getRecipes();
     }
   } else if (evt.type === "click") {

@@ -1,6 +1,7 @@
 import {
   arrayCleaner,
   fieldControl,
+  getRecipes,
   isInputTagEmpty,
   isMiniTag,
   isSearchbarEmpty,
@@ -67,14 +68,17 @@ export function deleteItem(item, arr) {
 export function sortRecipes(arr) {
   return arr.sort((prev, next) => prev.name.localeCompare(next.name));
 }
-
+/**
+ * Supprime le tag selectionné et relance une recherche à partir des tags restant
+ * @param {MouseEvent} evt
+ */
 export function deleteTag(evt) {
   evt.preventDefault();
   fieldControl();
 
   const closeTagElt = evt.target.parentElement;
   const deleteElt = evt.target.parentElement.textContent.toLowerCase();
-  const colorElt = evt.srcElement.classList[0];
+  const colorElt = evt.target.classList[0];
 
   // suppression du tag
   const index = arrayCleaner(presentTags).indexOf(deleteElt);
@@ -90,6 +94,6 @@ export function deleteTag(evt) {
   }
   // recherche des recettes avec les tags présent.
   arrayCleaner(presentTags).forEach((elt) => {
-    reloadCascadTag(colorElt, elt, recipes);
+    reloadCascadTag(elt, recipes);
   });
 }
