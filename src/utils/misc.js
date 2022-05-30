@@ -30,7 +30,7 @@ export function cleanDropdown() {
   });
 }
 /**
- * Contrôle si tous les champs ont une valeur, si oui, la place dans le tableau presentTags.
+ * Contrôle tous les champs, si ils ont une valeur, la place dans le tableau presentTags.
  */
 export function fieldControl() {
   const searchBar = document.querySelector("#search-bar").value;

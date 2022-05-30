@@ -60,14 +60,6 @@ export function deleteItem(item, arr) {
 }
 
 /**
- * nettoye le tableau des tags (string)
- * @returns {array} vide
- */
-export function cleanPresentTags() {
-  if (isMiniTag() + isInputTagEmpty() === 0) presentTags.length = 0;
-}
-
-/**
  * Tri des recettes par ordre alphabétique selon leurs titres
  * @param {arrayOfObject} arr tableau d'objet
  * @returns {arrayOfObject}
@@ -78,6 +70,7 @@ export function sortRecipes(arr) {
 
 export function deleteTag(evt) {
   evt.preventDefault();
+  fieldControl();
 
   const closeTagElt = evt.target.parentElement;
   const deleteElt = evt.target.parentElement.textContent.toLowerCase();
@@ -89,8 +82,6 @@ export function deleteTag(evt) {
     presentTags.splice(index, 1);
   }
 
-  fieldControl();
-
   closeTagElt.remove();
   // Si tous les champs sont vides et qu'il n'y a pas de tags présent je RAZ
   if (isMiniTag() + isInputTagEmpty() + isSearchbarEmpty() === 0) {
@@ -101,6 +92,4 @@ export function deleteTag(evt) {
   arrayCleaner(presentTags).forEach((elt) => {
     reloadCascadTag(colorElt, elt, recipes);
   });
-
-  cleanPresentTags();
 }

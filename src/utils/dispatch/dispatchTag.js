@@ -32,7 +32,7 @@ export function dispatchSelectedTag(evt) {
 
   if (evt.type === "input") {
     color = evt.target.classList[2];
-    console.log(evt);
+
     if (isSearchbarEmpty() + isMiniTag() === 0) {
       console.log("dispatch if");
       arr = recipes;
@@ -50,7 +50,7 @@ export function dispatchSelectedTag(evt) {
   }
 
   cleanDropdown();
-  console.log(color);
+
   switch (color) {
     case "blue":
       searchIngredient(color, item, arr);
@@ -59,7 +59,6 @@ export function dispatchSelectedTag(evt) {
       searchAppareil(color, item, arr);
       break;
     case "red":
-      console.log("ust");
       searchUstensile(color, item, arr);
       break;
   }
