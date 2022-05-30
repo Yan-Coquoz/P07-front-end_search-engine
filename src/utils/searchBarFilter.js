@@ -1,5 +1,6 @@
 import { recipes } from "../data/recipes.js";
 import { dispatchArraySearchRecipe } from "./dispatch/dispachSearchbar.js";
+import { arrayCleaner, presentTags } from "./misc.js";
 import { ErrorInSearchBar } from "./reloadDOM.js";
 
 const tempArr = [];
@@ -28,9 +29,13 @@ export function findByIngredient(item) {
     elt.ingredients.filter((ing) => {
       if (ing.ingredient.toLowerCase().includes(item)) {
         tempArr.push(elt);
+        if (elements[j].ingredient.toLowerCase() === item) {
+          presentTags.push(item);
+        }
       }
     });
   });
+  arrayCleaner(presentTags);
   findByDesc(item);
 }
 
