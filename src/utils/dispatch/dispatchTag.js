@@ -35,6 +35,7 @@ export function dispatchSelectedTag(evt) {
     if (isSearchbarEmpty() + isMiniTag() === 0) {
       arr = recipes;
     } else {
+      console.log("getRecipes input");
       arr = getRecipes();
     }
   } else if (evt.type === "click") {
@@ -42,6 +43,7 @@ export function dispatchSelectedTag(evt) {
     if (isSearchbarEmpty() + isInputTagEmpty() + isMiniTag() === 0) {
       arr = recipes;
     } else {
+      console.log("getRecipes click");
       arr = getRecipes();
     }
   }

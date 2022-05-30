@@ -111,7 +111,7 @@ export function isMiniTag() {
  * @returns {arrayOfObject}
  */
 export function arrayToDropdown() {
-  if (isInputTagEmpty() + isMiniTag() === 0) {
+  if (isSearchbarEmpty() + isInputTagEmpty() + isMiniTag() === 0) {
     return recipes;
   } else {
     return getRecipes();
