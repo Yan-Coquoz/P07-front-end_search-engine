@@ -15,14 +15,14 @@ Lancement du projet `./index.html`
 
 ## Investigation
 
-- [Diagramme d'activité](https://app.diagrams.net/?libs=general;flowchart#G1jY3R4fk_gseolrlvcdd6jIMq_qhmJB2C)
+- [Diagramme d'activité](./public/docs/P07%20Search%20BDD.drawio.png)
 - [Fiche d'investigation](https://docs.google.com/document/d/1CNqJkfKX0z9X5e4po4bgkRfzjJ1wti2oZy2nK9p7_lo/edit)
 - Test de performance sur [JSBen.ch](https://jsben.ch/)
 - Test de performance sur [JSBench.me](https://jsbench.me/)
 - Mes differents tests dans les fichiers :
-  - [Perf divers](searchPerf.js)
-  - [Les boucles](loopPerf.js)
-  - [SearchBar tests](optionsTest.js)
+  - [Perf divers](./sandbox/searchPerf.js)
+  - [Les boucles](./sandbox/loopPerf.js)
+  - [SearchBar tests](./sandbox/optionsTest.js)
 
 ## SearchBar
 
