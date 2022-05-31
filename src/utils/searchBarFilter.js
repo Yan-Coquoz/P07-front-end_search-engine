@@ -29,7 +29,7 @@ export function findByIngredient(item) {
     elt.ingredients.filter((ing) => {
       if (ing.ingredient.toLowerCase().includes(item)) {
         tempArr.push(elt);
-        if (elements[j].ingredient.toLowerCase() === item) {
+        if (ing.ingredient.toLowerCase() === item) {
           presentTags.push(item);
         }
       }
