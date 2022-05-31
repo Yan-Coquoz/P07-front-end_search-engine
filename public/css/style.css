@@ -83,7 +83,7 @@ p {
   max-width: 70rem;
 }
 .dropdown-menu.show {
-  width: 60vw;
+  width: 65vw;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

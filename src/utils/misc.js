@@ -1,4 +1,5 @@
 import { recipes } from "../data/recipes.js";
+import { addSelectTagDOM } from "./reloadDOM.js";
 
 /**
  * tableau de string des tags courant, s'assure que les recettes possèdent ses valeurs
@@ -29,8 +30,9 @@ export function cleanDropdown() {
     item.remove();
   });
 }
+
 /**
- * Contrôle si tous les champs ont une valeur, si oui, la place dans le tableau presentTags.
+ * Contrôle tous les champs, si ils ont une valeur, la place dans le tableau presentTags.
  */
 export function fieldControl() {
   const searchBar = document.querySelector("#search-bar").value;
@@ -107,11 +109,11 @@ export function isMiniTag() {
 }
 
 /**
- * Vérifie si les champs de tag et les tags sont vide
+ * Vérifie si les champs sont vide
  * @returns {arrayOfObject}
  */
 export function arrayToDropdown() {
-  if (isInputTagEmpty() + isMiniTag() === 0) {
+  if (isSearchbarEmpty() + isInputTagEmpty() + isMiniTag() === 0) {
     return recipes;
   } else {
     return getRecipes();
@@ -119,22 +121,41 @@ export function arrayToDropdown() {
 }
 
 /**
- * Si la valeur selectionné est déja présent (true) sinon (false)
+ * Si la valeur selectionné du minitag est déja présent (true) sinon (false)
  * @param {string} value valeur du tag
  * @returns {boolean}
  */
 export function isTagValue(value) {
   const arr = [];
   let isBool;
+
   document.querySelectorAll(".ul_tag--li").forEach((item) => {
     arr.push(item.textContent.toLowerCase());
   });
+
   arr.find((item) => {
     isBool = item.includes(value.toLowerCase());
+
     return isBool;
   });
+
   arr.length = 0;
   return isBool;
+}
+/**
+ * Ajoute l'élément du champ des tags en tag et vide le champ.
+ * @param {string} color couleur du tag
+ * @param {array} arr tableau de string
+ */
+export function searchTagToAddTag(color, arr) {
+  const inputTag = document.querySelector(`input.${color}`);
+  if (arr.length !== 0) {
+    const elt = arr[0];
+    if (!isTagValue(elt)) {
+      addSelectTagDOM(color, elt);
+      inputTag.value = "";
+    }
+  }
 }
 
 /**

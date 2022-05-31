@@ -60,14 +60,6 @@ export function deleteItem(item, arr) {
 }
 
 /**
- * nettoye le tableau des tags (string)
- * @returns {array} vide
- */
-export function cleanPresentTags() {
-  if (isMiniTag() + isInputTagEmpty() === 0) presentTags.length = 0;
-}
-
-/**
  * Tri des recettes par ordre alphabétique selon leurs titres
  * @param {arrayOfObject} arr tableau d'objet
  * @returns {arrayOfObject}
@@ -75,21 +67,22 @@ export function cleanPresentTags() {
 export function sortRecipes(arr) {
   return arr.sort((prev, next) => prev.name.localeCompare(next.name));
 }
-
+/**
+ * Supprime le tag selectionné et relance une recherche à partir des tags restant
+ * @param {MouseEvent} evt
+ */
 export function deleteTag(evt) {
   evt.preventDefault();
+  fieldControl();
 
   const closeTagElt = evt.target.parentElement;
   const deleteElt = evt.target.parentElement.textContent.toLowerCase();
-  const colorElt = evt.srcElement.classList[0];
 
   // suppression du tag
   const index = arrayCleaner(presentTags).indexOf(deleteElt);
   if (index !== -1) {
     presentTags.splice(index, 1);
   }
-
-  fieldControl();
 
   closeTagElt.remove();
   // Si tous les champs sont vides et qu'il n'y a pas de tags présent je RAZ
@@ -99,8 +92,6 @@ export function deleteTag(evt) {
   }
   // recherche des recettes avec les tags présent.
   arrayCleaner(presentTags).forEach((elt) => {
-    reloadCascadTag(colorElt, elt, recipes);
+    reloadCascadTag(elt, recipes);
   });
-
-  cleanPresentTags();
 }

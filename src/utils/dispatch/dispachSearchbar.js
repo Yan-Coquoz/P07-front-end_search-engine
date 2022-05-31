@@ -1,6 +1,7 @@
 import { findByTitle } from "../searchBarFilter.js";
 import { reloadCard, ErrorInSearchBar } from "../reloadDOM.js";
 import { setRecipe, arrayCleaner } from "../misc.js";
+import { recipes } from "../../data/recipes.js";
 
 export function dispatchSearchBar(evt) {
   const entry = evt.target.value.toLowerCase();
@@ -15,6 +16,8 @@ export function dispatchSearchBar(evt) {
     } else {
       ErrorInSearchBar();
     }
+  } else if (entry.length === 0) {
+    reloadCard(recipes);
   }
 }
 

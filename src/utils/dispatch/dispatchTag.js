@@ -32,6 +32,7 @@ export function dispatchSelectedTag(evt) {
 
   if (evt.type === "input") {
     color = evt.target.classList[2];
+
     if (isSearchbarEmpty() + isMiniTag() === 0) {
       arr = recipes;
     } else {

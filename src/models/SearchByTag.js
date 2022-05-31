@@ -46,7 +46,7 @@ export class SearchByTag {
       <li class="sort__red list-inline-item btn-group w-100">                    
         <button type="button" class="btn btn-danger ">
           <div class="input-group ">
-          <input name="ustensiles" list="datalistOptions_red" class="form-control bg-danger pe-3 red" id="ustensile" placeholder="Ustensiles">
+          <input name="ustensiles" list="datalistOptions_red" class="form-control bg-danger red " id="ustensile" placeholder="Ustensiles">
           </div>
         </button>
         <button type="button" id="btn-red" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
