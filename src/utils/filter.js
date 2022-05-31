@@ -1,7 +1,6 @@
 import {
   arrayCleaner,
   fieldControl,
-  getRecipes,
   isInputTagEmpty,
   isMiniTag,
   isSearchbarEmpty,
@@ -78,7 +77,6 @@ export function deleteTag(evt) {
 
   const closeTagElt = evt.target.parentElement;
   const deleteElt = evt.target.parentElement.textContent.toLowerCase();
-  const colorElt = evt.target.classList[0];
 
   // suppression du tag
   const index = arrayCleaner(presentTags).indexOf(deleteElt);

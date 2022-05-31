@@ -6,6 +6,7 @@ import {
   getRecipes,
   allUstensiles,
   presentTags,
+  searchTagToAddTag,
 } from "../misc.js";
 
 import { filteredSuggestion } from "../filter.js";
@@ -23,24 +24,32 @@ import {
  */
 export function searchUstensile(color, element, arr) {
   const errorText = "Il n'y a pas d'ustensiles correspondant à votre recherche";
-
   const recipesUstensiles = [];
+  const arrUst = [];
   arr.map((obj) => {
     return obj.ustensils.filter((item) => {
       if (item.toLowerCase().includes(element.toLowerCase())) {
         recipesUstensiles.push(obj);
         if (item.toLowerCase() === element.toLowerCase()) {
           presentTags.push(element);
+          arrUst.push(element);
         }
       }
     });
   });
-  recipesUstensiles.length === 0
-    ? ErrorInTagInput(errorText)
-    : filteredSuggestion(color, recipesUstensiles);
-  reloadCard(arrayCleaner(recipesUstensiles));
-  setRecipe(recipesUstensiles);
-  getListUstForDropdown(color, getRecipes());
+  if (recipesUstensiles.length === 0) {
+    ErrorInTagInput(errorText);
+  } else {
+    if (arrUst.length !== 0) {
+      searchTagToAddTag(color, arrUst);
+    } else {
+      arrUst.length = 0;
+    }
+    filteredSuggestion(color, arrayCleaner(recipesUstensiles));
+    reloadCard(arrayCleaner(recipesUstensiles));
+    setRecipe(arrayCleaner(recipesUstensiles));
+    getListUstForDropdown(color, getRecipes());
+  }
 }
 
 /**

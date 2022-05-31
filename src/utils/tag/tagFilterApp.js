@@ -4,6 +4,7 @@ import {
   dropdownTagItemDOM,
   reloadCard,
   ErrorInTagInput,
+  addSelectTagDOM,
 } from "../reloadDOM.js";
 import {
   cleanDropdown,
@@ -13,6 +14,7 @@ import {
   getRecipes,
   allAppareils,
   presentTags,
+  searchTagToAddTag,
 } from "../misc.js";
 
 /**
@@ -23,20 +25,28 @@ import {
 export function searchAppareil(color, element, arr) {
   const errorText = "Il n'y a pas d'appareils correspondant à votre recherche";
 
+  const arrApp = [];
   const recipesAppareils = arr.filter((app) => {
     if (app.appliance.toLowerCase() === element.toLowerCase()) {
       presentTags.push(element);
+      arrApp.push(element);
     }
     return app.appliance.toLowerCase().includes(element.toLowerCase());
   });
 
-  console.log(arrayCleaner(presentTags));
-  recipesAppareils.length === 0
-    ? ErrorInTagInput(errorText)
-    : filteredSuggestion(color, recipesAppareils);
-  reloadCard(arrayCleaner(recipesAppareils));
-  setRecipe(recipesAppareils);
-  getListAppForDropdown(color, getRecipes());
+  if (recipesAppareils.length === 0) {
+    ErrorInTagInput(errorText);
+  } else {
+    if (arrApp.length !== 0) {
+      searchTagToAddTag(color, arrApp);
+    } else {
+      arrApp.length = 0;
+    }
+    filteredSuggestion(color, arrayCleaner(recipesAppareils));
+    reloadCard(arrayCleaner(recipesAppareils));
+    setRecipe(arrayCleaner(recipesAppareils));
+    getListAppForDropdown(color, getRecipes());
+  }
 }
 
 // Dropdown Tags

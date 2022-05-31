@@ -6,11 +6,13 @@ import {
   getRecipes,
   allIngredients,
   presentTags,
+  isTagValue,
+  searchTagToAddTag,
 } from "../misc.js";
 
 import { deleteItem, filteredSuggestion } from "../filter.js";
 import { dispatchTag } from "../dispatch/dispatchTag.js";
-import { reloadCard, ErrorInTagInput } from "../reloadDOM.js";
+import { reloadCard, ErrorInTagInput, addSelectTagDOM } from "../reloadDOM.js";
 
 /**
  * Recherche par ingrédients (input tag)
@@ -24,8 +26,8 @@ export function searchIngredient(color, element, arr) {
    * @constant {arrayOfObject} recipesIngredients contient les recettes avec l'ingrédient recherché
    */
   const recipesIngredients = [];
-
   const getSuggests = [];
+  const arrIngs = [];
 
   arr.forEach((obj) => {
     const results = obj.ingredients.filter((ele) => {
@@ -33,23 +35,24 @@ export function searchIngredient(color, element, arr) {
         recipesIngredients.push(obj);
         if (ele.ingredient.toLowerCase() === element.toLowerCase()) {
           presentTags.push(element);
+          arrIngs.push(element);
         }
         return ele.ingredient.toLowerCase().includes(element.toLowerCase());
       }
     });
-
     if (results.length >= 1) getSuggests.push(results);
   });
-
   if (recipesIngredients.length === 0) {
     ErrorInTagInput(errorText);
   } else {
+    if (arrIngs.length !== 0) {
+      searchTagToAddTag(color, arrIngs);
+    } else {
+      arrIngs.length = 0;
+    }
     filteredSuggestion(color, getSuggests);
-
     setRecipe(arrayCleaner(recipesIngredients));
-
     reloadCard(arrayCleaner(recipesIngredients));
-
     getListIngForDropdown(color, getRecipes());
   }
 }
