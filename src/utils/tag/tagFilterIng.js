@@ -5,6 +5,7 @@ import {
   setRecipe,
   getRecipes,
   allIngredients,
+  presentTags,
 } from "../misc.js";
 
 import { deleteItem, filteredSuggestion } from "../filter.js";
@@ -30,6 +31,9 @@ export function searchIngredient(color, element, arr) {
     const results = obj.ingredients.filter((ele) => {
       if (ele.ingredient.toLowerCase().includes(element.toLowerCase())) {
         recipesIngredients.push(obj);
+        if (ele.ingredient.toLowerCase() === element.toLowerCase()) {
+          presentTags.push(element);
+        }
         return ele.ingredient.toLowerCase().includes(element.toLowerCase());
       }
     });

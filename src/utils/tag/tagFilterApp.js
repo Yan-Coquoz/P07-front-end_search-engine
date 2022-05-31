@@ -12,6 +12,7 @@ import {
   setRecipe,
   getRecipes,
   allAppareils,
+  presentTags,
 } from "../misc.js";
 
 /**
@@ -23,9 +24,13 @@ export function searchAppareil(color, element, arr) {
   const errorText = "Il n'y a pas d'appareils correspondant à votre recherche";
 
   const recipesAppareils = arr.filter((app) => {
+    if (app.appliance.toLowerCase() === element.toLowerCase()) {
+      presentTags.push(element);
+    }
     return app.appliance.toLowerCase().includes(element.toLowerCase());
   });
 
+  console.log(arrayCleaner(presentTags));
   recipesAppareils.length === 0
     ? ErrorInTagInput(errorText)
     : filteredSuggestion(color, recipesAppareils);

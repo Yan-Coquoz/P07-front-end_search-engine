@@ -15,16 +15,12 @@ const recettes = [];
  */
 export function reloadCascadTag(item, arr) {
   if (presentTags.length === 0) {
-    console.log("zero");
     recettes.length = 0;
   }
 
   arr.forEach((obj) => {
-    console.log("obj ", obj);
     obj.ingredients.filter((ing) => {
-      console.log("ing ", ing);
       if (ing.ingredient.toLowerCase().includes(item.toLowerCase())) {
-        console.log("je trouve item");
         recettes.push(obj);
       }
     });

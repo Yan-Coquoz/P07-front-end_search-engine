@@ -5,6 +5,7 @@ import {
   setRecipe,
   getRecipes,
   allUstensiles,
+  presentTags,
 } from "../misc.js";
 
 import { filteredSuggestion } from "../filter.js";
@@ -28,6 +29,9 @@ export function searchUstensile(color, element, arr) {
     return obj.ustensils.filter((item) => {
       if (item.toLowerCase().includes(element.toLowerCase())) {
         recipesUstensiles.push(obj);
+        if (item.toLowerCase() === element.toLowerCase()) {
+          presentTags.push(element);
+        }
       }
     });
   });
