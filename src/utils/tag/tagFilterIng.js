@@ -6,13 +6,12 @@ import {
   getRecipes,
   allIngredients,
   presentTags,
-  isTagValue,
   searchTagToAddTag,
 } from "../misc.js";
 
 import { deleteItem, filteredSuggestion } from "../filter.js";
 import { dispatchTag } from "../dispatch/dispatchTag.js";
-import { reloadCard, ErrorInTagInput, addSelectTagDOM } from "../reloadDOM.js";
+import { reloadCard, ErrorInTagInput } from "../reloadDOM.js";
 
 /**
  * Recherche par ingrédients (input tag)

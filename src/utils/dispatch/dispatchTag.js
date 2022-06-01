@@ -72,9 +72,13 @@ export function dispatchTag(color, arr) {
   const inputSearchTag = document.querySelector(`input.${color}`).value;
   let newArr;
 
-  if (arr.includes(inputSearchTag)) {
-    newArr = deleteItem(inputSearchTag, arr);
-    dropdownTagItemDOM(color, newArr);
+  if (inputSearchTag.lenght !== 0) {
+    arr.forEach((elt) => {
+      if (elt === inputSearchTag) {
+        newArr = deleteItem(inputSearchBar, arr);
+        dropdownTagItemDOM(color, newArr);
+      }
+    });
   }
 
   if (isMiniTag() !== 0) {

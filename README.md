@@ -42,3 +42,7 @@ Lancement du projet `./index.html`
 ````bash
 npm run jsdoc
 ````
+
+[tuto d'installation de la JSDoc](https://github.com/Yan-Coquoz/tuto-perso)
+
+TODO - la prise en compte de la recherche des tags s'il y a des élément présent dans les inputs search bar ou input tag.
