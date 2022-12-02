@@ -65,7 +65,7 @@ const arrayName = ["bob", "jane", "izack", "raphael", "isa"];
 const nbx = arrayName.indexOf("jane");
 console.log(nbx);
 if (nbx !== -1) {
-  // indexOf retroune -1 si l'element n'est pas trouvé dans le tableau
+  // indexOf retourne -1 si l'element n'est pas trouvé dans le tableau
   arrayName.splice(nbx, 1); // splice avec -1 supprime le dernier élément du tableau
 }
 console.log(arrayName);
